@@ -1,5 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { AuthData } from "@/App";
+import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import { Login, LoginResponse } from "@/types/Login";
 import { addToast } from '@heroui/toast';

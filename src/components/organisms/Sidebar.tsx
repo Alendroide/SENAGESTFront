@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import SidebarItem from "../molecules/SidebarItem";
 import { Book, Home, User } from "lucide-react";
-import { AuthData } from "@/App";
+import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import AppLogo from "../molecules/AppLogo";
 

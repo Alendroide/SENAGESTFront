@@ -1,4 +1,4 @@
-import { AuthData } from "@/App"
+import { AuthData } from "@/providers/AuthProvider"
 import { Auth } from "@/types/Auth"
 import { User } from "lucide-react";
 

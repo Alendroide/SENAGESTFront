@@ -1,4 +1,4 @@
-import { AuthData } from "@/App";
+import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import { Menu } from "lucide-react";
 import UserProfile from "../molecules/UserProfile";
