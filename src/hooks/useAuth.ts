@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { User } from "@/types/User";
 
-export default function useLogin(){
+export default function useAuth(){
 
     const navigate = useNavigate();
     const { setUser } = AuthData() as Auth;
@@ -24,7 +24,7 @@ export default function useLogin(){
             if(!token) throw new Error("Error iniciando sesión");
 
             //Token en localStorage
-            localStorage.setItem('token',`Bearer ${token}`);
+            localStorage.setItem('token',`${token}`);
 
             //Definición del usuario en el contexto
             const payload : User = jwtDecode(token);

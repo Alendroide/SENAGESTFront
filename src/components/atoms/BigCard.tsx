@@ -5,7 +5,6 @@ export default function BigCard({children} : {children : React.ReactNode}){
             box-border
             p-5
             
-            md:w-1/2
             md:mx-auto
             md:shadow-lg
             md:rounded-xl

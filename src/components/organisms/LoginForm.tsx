@@ -9,14 +9,15 @@ import BigCard from '../atoms/BigCard';
 import { useForm } from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import { Login, LoginSchema } from '@/types/Login';
-import useLogin from '@/hooks/useLogin';
+import useAuth from '@/hooks/useAuth';
 
 export default function LoginForm(){
 
-    const { login } = useLogin();
+    const { login } = useAuth();
     const { handleSubmit, formState : { errors }, register } = useForm<Login>({resolver : zodResolver(LoginSchema)});
 
     return(
+        <div className='md:w-1/2 mx-auto'>
         <BigCard>
             <Title>Log In</Title>
             <form onSubmit={handleSubmit(login)} className='space-y-4'>
@@ -34,5 +35,6 @@ export default function LoginForm(){
                 <Button type='submit' color='success' variant='bordered'>Log In</Button>
             </form>
         </BigCard>
+        </div>
     )
 }

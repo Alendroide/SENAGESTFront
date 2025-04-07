@@ -6,6 +6,7 @@ import { User } from "./types/User";
 import { Auth } from "./types/Auth";
 import LoginPage from "./pages/login";
 import { jwtDecode } from "jwt-decode";
+import ProfilePage from "./pages/profile";
 
 const AuthContext = createContext<Auth | null>(null);
 
@@ -42,6 +43,10 @@ function App() {
       <Routes>
         <Route element={<IndexPage />} path="/" />
         <Route element={<LoginPage />} path="/login" />
+        { user.isAuthenticated &&
+          <Route element={<ProfilePage/>} path="/profile" />
+        }
+        <Route element={<h1>404 - Not Found</h1>} path="*" />
       </Routes>
     </AuthContext.Provider>
   );
