@@ -17,7 +17,9 @@ export default function Navbar({ setIsOpen, isOpen } : props){
 
   return(
         <div className="p-2 shadow-lg z-0 h-12 w-full flex align-middle">
-          <Menu className="md:hidden" color="#000000" size={32} strokeWidth={3} onClick={() => setIsOpen(!isOpen)} />
+
+          <Menu className="cursor-pointer" color="#000000" size={32} strokeWidth={3} onClick={() => setIsOpen(!isOpen)} />
+          
           <span className="ms-auto flex items-center">
             { isAuthenticated ? 
               <UserProfile/>

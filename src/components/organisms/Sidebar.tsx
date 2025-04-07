@@ -32,9 +32,7 @@ export default function Sidebar({isOpen, setIsOpen} : {isOpen: boolean, setIsOpe
                 }
                 
                 md:shadow-lg
-                md:w-1/5
-                md:relative
-                md:translate-x-0
+                md:w-1/5  
             `}
         >
             <div className="flex justify-center">
