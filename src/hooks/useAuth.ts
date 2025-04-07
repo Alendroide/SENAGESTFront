@@ -18,6 +18,7 @@ export default function useAuth(){
                 correo : loginData.correo,
                 contrasena : loginData.contrasena
             });
+
             const token = data.access_token;
             
             //De no haber retornado un token, lanzar error
@@ -29,11 +30,13 @@ export default function useAuth(){
             //Definición del usuario en el contexto
             const payload : User = jwtDecode(token);
             setUser({
+                isAuthenticated : true,
                 sub : payload.sub,
                 identificacion : payload.identificacion,
                 nombre : payload.nombre,
-                isAuthenticated : true,
-                img : payload.img ?? null
+                correo : payload.correo,
+                img : payload.img ?? null,
+                rol : payload.rol ?? null
             })
 
             //Retorno al inicio
@@ -41,10 +44,11 @@ export default function useAuth(){
         }
         catch(error : any){
             const message = error.response.data.message ?? null;
-            if(message){
+            const status = error.status ?? null;
+            if(message && status){
                 addToast({
-                    title : `${message}`,
-                    description : "",
+                    title : `${status}`,
+                    description : `${message}`,
                     color : "danger"
                 });
             }

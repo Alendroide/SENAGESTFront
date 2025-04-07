@@ -7,6 +7,7 @@ import { Auth } from "./types/Auth";
 import LoginPage from "./pages/login";
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "./pages/profile";
+import NotFoundPage from "./pages/notfound";
 
 const AuthContext = createContext<Auth | null>(null);
 
@@ -15,11 +16,13 @@ export const AuthData = () => useContext(AuthContext);
 function App() {
 
   const [user, setUser] = useState<User>({
+    isAuthenticated : false,
     sub: null,
     identificacion: null,
     nombre: null,
-    isAuthenticated : false,
+    correo: null,
     img: null,
+    rol: null,
   });
 
   //En caso de que se haya iniciado sesión previamente
@@ -29,11 +32,13 @@ function App() {
     if(token) {
       const payload : User = jwtDecode(token);
       setUser({
+        isAuthenticated : true,
         sub : payload.sub,
         identificacion : payload.identificacion,
         nombre : payload.nombre,
-        isAuthenticated : true,
-        img : payload.img ?? null
+        correo : payload.correo,
+        img : payload.img ?? null,
+        rol : payload.rol ?? null,
       })
     }
   },[])
@@ -46,7 +51,7 @@ function App() {
         { user.isAuthenticated &&
           <Route element={<ProfilePage/>} path="/profile" />
         }
-        <Route element={<h1>404 - Not Found</h1>} path="*" />
+        <Route element={<NotFoundPage/>} path="*" />
       </Routes>
     </AuthContext.Provider>
   );

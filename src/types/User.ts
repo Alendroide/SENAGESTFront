@@ -1,7 +1,9 @@
 export type User = {
+    isAuthenticated: boolean;
     sub: number | null;
     identificacion: string | null;
     nombre: string | null;
-    isAuthenticated: boolean;
+    correo : string | null;
     img : string | null;
+    rol : string | null;
 }

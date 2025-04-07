@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import SidebarItem from "../molecules/SidebarItem";
-import { Home, User } from "lucide-react";
+import { Book, Home, User } from "lucide-react";
+import { AuthData } from "@/App";
+import { Auth } from "@/types/Auth";
+import AppLogo from "../molecules/AppLogo";
 
 export default function Sidebar({
   isOpen,
@@ -9,6 +12,8 @@ export default function Sidebar({
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+
+  const { user : { isAuthenticated, rol } } = AuthData() as Auth;
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -27,6 +32,7 @@ export default function Sidebar({
 
   return (
     <>
+      {/* Fondo oscuro */}
         <div
             className={`
                 fixed
@@ -38,6 +44,7 @@ export default function Sidebar({
                 ${isOpen ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"}
         `}/>
 
+        {/* Sidebar */}
         <div
         ref={sidebarRef}
         className={`
@@ -53,15 +60,21 @@ export default function Sidebar({
                     ${isOpen ? "translate-x-0 shadow-lg" : "-translate-x-full"}
 
                     md:shadow-lg
-                    md:w-1/5  
+                    md:w-1/5
                 `}
         >
-        <div className="flex justify-center">
-            <p className="text-2xl font-bold mt-6">SENAGEST</p>
-        </div>
+        {/* Logo */}
+        <AppLogo/>
+
+        {/* Contenido */}
         <div className="space-y-4 mt-10">
-            <SidebarItem icon={<Home />} name="Inicio" />
-            <SidebarItem icon={<User />} name="Perfil" />
+            <SidebarItem path="/" icon={<Home />} name="Inicio" />
+            {isAuthenticated &&
+              <SidebarItem path="/profile" icon={<User />} name="Perfil" />
+            }
+            {rol === 'Administrador' &&
+              <SidebarItem path="/modules" icon={<Book/>} name="Modulos"/>
+            }
         </div>
         </div>
     </>

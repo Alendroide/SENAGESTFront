@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import UserProfile from "../molecules/UserProfile";
 import { Button } from "@heroui/button";
 import { Link, useNavigate } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropdown";
 
 type props = {
     isOpen : boolean;
@@ -22,9 +23,12 @@ export default function Navbar({ setIsOpen, isOpen } : props){
           
           <span className="ms-auto flex items-center">
             { isAuthenticated ?
-              <Link to={'/profile'}>
-                <UserProfile/>
-              </Link>
+              <div className="relative group">
+                <Link to={'/profile'}>
+                  <UserProfile/>
+                </Link>
+                <ProfileDropdown/>
+              </div>
               :
               <Button color="success" variant="bordered" onPress={()=>navigate('/login')}>Log In</Button>
             }

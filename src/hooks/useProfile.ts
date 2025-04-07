@@ -1,14 +1,14 @@
 import { axiosAPI } from "@/api/axiosAPI"
-import { Profile } from "@/types/Profile"
+import { User } from "@/types/User";
 import { useEffect, useState } from "react"
 
 export default function useProfile(){
 
-    const [ profile, setProfile] = useState<Partial<Profile>>()
+    const [ profile, setProfile] = useState<Partial<User>>()
 
     useEffect(()=>{
         async function getUser(){
-            const { data : userData } : {  data : Partial<Profile> } = await axiosAPI.get('usuarios/perfil');
+            const { data : userData } : {  data : Partial<User> } = await axiosAPI.get('usuarios/perfil');
             setProfile(userData);
         }
         getUser();

@@ -1,6 +1,8 @@
-export default function SidebarItem({icon, name} : {icon : JSX.Element, name : string}){
+import { Link } from "react-router-dom";
+
+export default function SidebarItem({icon, name, path} : {icon : JSX.Element, name : string, path : string}){
     return(
-        <div className="
+        <Link to={path} className="
             flex
             items-center
             w-56
@@ -15,6 +17,6 @@ export default function SidebarItem({icon, name} : {icon : JSX.Element, name : s
         ">
             {icon}
             <p className="ms-2">{name}</p>
-        </div>
+        </Link>
     )
 }
