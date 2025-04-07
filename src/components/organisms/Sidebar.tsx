@@ -4,14 +4,12 @@ import { Book, Home, User } from "lucide-react";
 import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import AppLogo from "../molecules/AppLogo";
+import { LayoutData } from "@/providers/LayoutProvider";
+import { Layout } from "@/types/Layout";
 
-export default function Sidebar({
-  isOpen,
-  setIsOpen,
-}: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Sidebar() {
+
+  const { sidebarOpen, setSidebarOpen} = LayoutData() as Layout;
 
   const { user : { isAuthenticated, rol } } = AuthData() as Auth;
   const sidebarRef = useRef<HTMLDivElement | null>(null);
@@ -22,7 +20,7 @@ export default function Sidebar({
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target as Node)
       )
-        setIsOpen(false);
+        setSidebarOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -41,7 +39,7 @@ export default function Sidebar({
                 z-10
                 transition-opacity
                 duration-200
-                ${isOpen ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"}
+                ${sidebarOpen ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"}
         `}/>
 
         {/* Sidebar */}
@@ -57,7 +55,7 @@ export default function Sidebar({
                     ease-in-out
                     absolute
                     z-10
-                    ${isOpen ? "translate-x-0 shadow-lg" : "-translate-x-full"}
+                    ${sidebarOpen ? "translate-x-0 shadow-lg" : "-translate-x-full"}
 
                     md:shadow-lg
                     md:w-1/5

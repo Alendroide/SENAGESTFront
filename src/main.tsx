@@ -6,13 +6,16 @@ import App from "./App.tsx";
 import { Provider } from "./provider.tsx";
 import "@/styles/globals.css";
 import AuthProvider from "./providers/AuthProvider.tsx";
+import LayoutProvider from "./providers/LayoutProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider>
         <AuthProvider>
-          <App />
+          <LayoutProvider>
+            <App />
+          </LayoutProvider>
         </AuthProvider>
       </Provider>
     </BrowserRouter>
