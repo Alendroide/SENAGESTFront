@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 
 const LayoutContext = createContext<Layout | null>(null);
 
-export const LayoutData = () => useContext(LayoutContext);
+export const LayoutData = () => useContext(LayoutContext) as Layout;
 
 export default function LayoutProvider({ children }: { children: React.ReactNode }) {
 

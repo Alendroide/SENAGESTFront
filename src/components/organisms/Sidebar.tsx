@@ -5,11 +5,10 @@ import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import AppLogo from "../molecules/AppLogo";
 import { LayoutData } from "@/providers/LayoutProvider";
-import { Layout } from "@/types/Layout";
 
 export default function Sidebar() {
 
-  const { sidebarOpen, setSidebarOpen} = LayoutData() as Layout;
+  const { sidebarOpen, setSidebarOpen} = LayoutData();
 
   const { user : { isAuthenticated, rol } } = AuthData() as Auth;
   const sidebarRef = useRef<HTMLDivElement | null>(null);

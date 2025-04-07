@@ -6,12 +6,11 @@ import { Button } from "@heroui/button";
 import { useNavigate } from "react-router-dom";
 import ProfileDropdown from "./ProfileDropdown";
 import { LayoutData } from "@/providers/LayoutProvider";
-import { Layout } from "@/types/Layout";
 
 export default function Navbar(){
   
   const { user : { isAuthenticated } } = AuthData() as Auth;
-  const { sidebarOpen, setSidebarOpen } = LayoutData() as Layout;
+  const { sidebarOpen, setSidebarOpen } = LayoutData();
 
   const navigate = useNavigate();
 
