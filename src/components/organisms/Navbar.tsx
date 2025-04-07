@@ -1,9 +1,9 @@
 import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
-import { Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import UserProfile from "../molecules/UserProfile";
 import { Button } from "@heroui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileDropdown from "./ProfileDropdown";
 
 type props = {
@@ -24,9 +24,10 @@ export default function Navbar({ setIsOpen, isOpen } : props){
           <span className="ms-auto flex items-center">
             { isAuthenticated ?
               <div className="relative group">
-                <Link to={'/profile'}>
+                <div className="flex">
                   <UserProfile/>
-                </Link>
+                  <ChevronDown className="transition-all ease-in-out group-hover:rotate-180"/>
+                </div>
                 <ProfileDropdown/>
               </div>
               :
