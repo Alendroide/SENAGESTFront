@@ -1,6 +1,7 @@
 import { Auth } from "@/types/Auth";
 import { User } from "@/types/User";
 import { jwtDecode } from "jwt-decode";
+import { Module } from "@/types/Module";
 import { useContext, useEffect, useState, createContext } from "react";
 
 const AuthContext = createContext<Auth | null>(null);
@@ -18,6 +19,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         img: null,
         rol: null,
     });
+
+    const [modules, setModules] = useState<Module[]>([])
 
       //En caso de que se haya iniciado sesión previamente
       useEffect(()=>{
@@ -38,7 +41,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       },[])
 
     return (
-        <AuthContext.Provider value={{user,setUser}}>
+        <AuthContext.Provider value={{user,setUser,modules,setModules}}>
             {children}
         </AuthContext.Provider>
     )

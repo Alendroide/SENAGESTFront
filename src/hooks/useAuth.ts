@@ -5,12 +5,12 @@ import { Login, LoginResponse } from "@/types/Login";
 import { addToast } from '@heroui/toast';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
-import { User } from "@/types/User";
+import { JwtPayload } from "@/types/User";
 
 export default function useAuth(){
 
     const navigate = useNavigate();
-    const { setUser } = AuthData() as Auth;
+    const { setUser, setModules } = AuthData() as Auth;
 
     async function login( loginData : Login){
         try{
@@ -28,7 +28,7 @@ export default function useAuth(){
             localStorage.setItem('token',`${token}`);
 
             //Definición del usuario en el contexto
-            const payload : User = jwtDecode(token);
+            const payload : JwtPayload = jwtDecode(token);
             setUser({
                 isAuthenticated : true,
                 sub : payload.sub,
@@ -38,6 +38,8 @@ export default function useAuth(){
                 img : payload.img ?? null,
                 rol : payload.rol ?? null
             })
+
+            setModules(payload.modulos);
 
             //Retorno al inicio
             navigate('/');

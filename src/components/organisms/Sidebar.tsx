@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import SidebarItem from "../molecules/SidebarItem";
-import { Book, Home, User } from "lucide-react";
+import { Book, Home, Server, User } from "lucide-react";
 import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import AppLogo from "../molecules/AppLogo";
@@ -10,7 +10,7 @@ export default function Sidebar() {
 
   const { sidebarOpen, setSidebarOpen} = LayoutData();
 
-  const { user : { isAuthenticated, rol } } = AuthData() as Auth;
+  const { user : { isAuthenticated, rol }, modules } = AuthData() as Auth;
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -69,9 +69,14 @@ export default function Sidebar() {
             {isAuthenticated &&
               <SidebarItem path="/profile" icon={<User />} name="Perfil" />
             }
-            {rol === 'Administrador' &&
-              <SidebarItem path="/modules" icon={<Book/>} name="Modulos"/>
+
+            {rol == 'Administrador' &&
+              <SidebarItem path="/modules" icon={<Server/>} name="Modulos"/>
             }
+
+            {modules.map( (module, index) =>
+              <SidebarItem key={index} path={`/${module.nombre}`} icon={<Book/>} name={`${module.nombre.charAt(0).toUpperCase()}${module.nombre.slice(1)}`}/>
+            )}
         </div>
         </div>
     </>
