@@ -9,7 +9,7 @@ export default function ProfileDropdown() {
     const { logout } = useAuth();
 
     return (
-        <div className="pt-4 w-56 -inset-x-28 opacity-0 translate-y-2 absolute transition-all pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0">
+        <div className="z-50 pt-4 w-56 -inset-x-28 opacity-0 translate-y-2 absolute transition-all pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0">
             
             <div className="bg-gray-800 text-white box-border px-4 py-2 rounded-xl shadow-lg">
 

@@ -1,17 +1,12 @@
-import { LayoutData } from "@/providers/LayoutProvider";
 import { iconsConfig } from "@/config/icons";
-import { Link } from "react-router-dom";
 
-export default function SidebarItem({icon, name, path} : {icon : string, name : string, path : string}){
-
-    const { setSidebarOpen } = LayoutData();
+export default function SidebarItemDropdown({icon, name } : {icon : string, name : string}){
 
     return(
-        <Link
-            onClick={() => setSidebarOpen(false)}
-            to={path}
+        <div
             className="
               bg-gray-800
+                cursor-pointer
                 flex
                 items-center
                 w-56
@@ -20,13 +15,12 @@ export default function SidebarItem({icon, name, path} : {icon : string, name : 
                 shadow-lg
                 mx-auto
                 ps-4
-                cursor-pointer
                 md:w-48
                 transition-colors
                 hover:bg-gray-700
         ">
             {iconsConfig[icon]}
             <p className="ms-2">{name}</p>
-        </Link>
+        </div>
     )
 }

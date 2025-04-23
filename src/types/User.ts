@@ -7,15 +7,15 @@ export type User = {
     nombre: string | null;
     correo : string | null;
     img : string | null;
-    rol : string | null;
+    rol : number | null;
 }
 
 export type JwtPayload = {
-    sub: number;
-    identificacion: string;
-    nombre: string;
+    sub : number;
+    identificacion : string;
+    nombre : string;
     correo : string;
     img : string | null;
-    rol : string | null;
+    rol : number | undefined;
     modulos : Module[]
 }

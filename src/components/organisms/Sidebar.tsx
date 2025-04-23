@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import SidebarItem from "../molecules/SidebarItem";
-import { Home, Server, User } from "lucide-react";
 import { AuthData } from "@/providers/AuthProvider";
 import { Auth } from "@/types/Auth";
 import AppLogo from "../molecules/AppLogo";
 import { LayoutData } from "@/providers/LayoutProvider";
+import SidebarItemDropdown from "../molecules/SidebarDropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
 
@@ -12,6 +14,7 @@ export default function Sidebar() {
 
   const { user : { isAuthenticated }, modules } = AuthData() as Auth;
   const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -67,13 +70,26 @@ export default function Sidebar() {
 
         {/* Contenido */}
         <div className="space-y-4 mt-10">
-            <SidebarItem path="/" icon={<Home />} name="Inicio" />
+            <SidebarItem path="/" icon={'Home'} name="Inicio" />
             {isAuthenticated &&
-              <SidebarItem path="/profile" icon={<User />} name="Perfil" />
+              <SidebarItem path="/profile" icon={'User'} name="Perfil" />
             }
 
             {modules && modules.map( (module, index) =>
-              <SidebarItem key={index} path={`/${module.nombre}`} icon={<Server/>} name={`${module.nombre.charAt(0).toUpperCase()}${module.nombre.slice(1)}`}/>
+              <Dropdown key={index} className="dark text-white" >
+                <DropdownTrigger>
+                  <div>
+                    <SidebarItemDropdown key={index} icon={module.icono} name={`${module.nombre.charAt(0).toUpperCase()}${module.nombre.slice(1)}`}/>
+                  </div>
+                </DropdownTrigger>
+                <DropdownMenu onAction={(key) => navigate(`/${module.nombre}/${key}`)}>
+                  {module.permisos.map( (permiso) =>
+                    <DropdownItem key={permiso.rutafront.ruta}>
+                      {permiso.rutafront.ruta}
+                    </DropdownItem>
+                  )}
+                </DropdownMenu>
+              </Dropdown>
             )}
         </div>
         </div>

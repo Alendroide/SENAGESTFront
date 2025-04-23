@@ -17,7 +17,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         nombre: null,
         correo: null,
         img: null,
-        rol: null,
+        rol: null
     });
 
     const [modules, setModules] = useState<Module[]>([])
@@ -35,7 +35,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             nombre : payload.nombre,
             correo : payload.correo,
             img : payload.img ?? null,
-            rol : payload.rol ?? null,
+            rol : payload.rol ?? null
           });
           setModules(payload.modulos);
         }

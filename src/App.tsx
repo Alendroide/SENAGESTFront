@@ -18,8 +18,10 @@ function App() {
       {isAuthenticated &&
         <Route element={<ProfilePage/>} path="/profile" />
       }
-      {modules && modules.map( ( module, index ) =>
-        <Route key={index} element={routesConfig[module.nombre]} path={`/${module.nombre}`} />
+      {modules && modules.map( ( module ) =>
+        module.permisos.map( ( permiso, index) =>
+          <Route key={index} element={routesConfig[`${module.nombre}/${permiso.rutafront.ruta}`]} path={`/${module.nombre}/${permiso.rutafront.ruta}`} />
+        )
       )}
       <Route element={<NotFoundPage/>} path="*" />
     </Routes>
