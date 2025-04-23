@@ -1,7 +1,7 @@
-import { Auth } from "@/types/Auth";
-import { JwtPayload, User } from "@/types/User";
+import { Auth } from "@/types/default/Auth";
+import { JwtPayload, User } from "@/types/default/User";
 import { jwtDecode } from "jwt-decode";
-import { Module } from "@/types/Module";
+import { Module } from "@/types/default/Module";
 import { useContext, useEffect, useState, createContext } from "react";
 
 const AuthContext = createContext<Auth | null>(null);

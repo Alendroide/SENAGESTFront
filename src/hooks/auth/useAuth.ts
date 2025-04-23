@@ -1,10 +1,10 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { AuthData } from "@/providers/AuthProvider";
-import { Login, LoginResponse } from "@/types/Login";
+import { Login, LoginResponse } from "@/types/default/Login";
 import { addToast } from '@heroui/toast';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
-import { JwtPayload } from "@/types/User";
+import { JwtPayload } from "@/types/default/User";
 
 export default function useAuth(){
 

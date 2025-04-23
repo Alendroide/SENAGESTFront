@@ -1,4 +1,4 @@
-import { Module } from '@/types/Module'
+import { Module } from '@/types/default/Module'
 
 export type User = {
     isAuthenticated: boolean;

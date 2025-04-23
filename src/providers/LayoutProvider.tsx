@@ -1,4 +1,4 @@
-import { Layout } from "@/types/Layout";
+import { Layout } from "@/types/default/Layout";
 import { createContext, useContext, useState } from "react";
 
 const LayoutContext = createContext<Layout | null>(null);

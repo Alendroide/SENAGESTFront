@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import SidebarItem from "../molecules/SidebarItem";
 import { AuthData } from "@/providers/AuthProvider";
-import { Auth } from "@/types/Auth";
+import { Auth } from "@/types/default/Auth";
 import AppLogo from "../molecules/AppLogo";
 import { LayoutData } from "@/providers/LayoutProvider";
 import SidebarItemDropdown from "../molecules/SidebarDropdown";

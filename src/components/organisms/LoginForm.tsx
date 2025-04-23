@@ -8,7 +8,7 @@ import BigCard from '../atoms/BigCard';
 //FormLogic
 import { useForm } from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import { Login, LoginSchema } from '@/types/Login';
+import { Login, LoginSchema } from '@/types/default/Login';
 import useAuth from '@/hooks/auth/useAuth';
 
 export default function LoginForm(){

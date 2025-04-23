@@ -1,5 +1,5 @@
 import { AuthData } from "@/providers/AuthProvider";
-import { Auth } from "@/types/Auth";
+import { Auth } from "@/types/default/Auth";
 import { ChevronDown, Menu } from "lucide-react";
 import UserProfile from "../molecules/UserProfile";
 import { Button } from "@heroui/button";

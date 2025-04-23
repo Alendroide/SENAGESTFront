@@ -1,5 +1,5 @@
 import { AuthData } from "@/providers/AuthProvider"
-import { Auth } from "@/types/Auth"
+import { Auth } from "@/types/default/Auth"
 import { User } from "lucide-react";
 
 export default function UserProfile(){

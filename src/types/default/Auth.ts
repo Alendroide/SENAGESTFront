@@ -1,4 +1,4 @@
-import { Module } from "@/types/Module";
+import { Module } from "@/types/default/Module";
 import { User } from "./User"
 
 export type Auth = {
