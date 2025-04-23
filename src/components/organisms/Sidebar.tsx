@@ -85,7 +85,7 @@ export default function Sidebar() {
                 <DropdownMenu onAction={(key) => navigate(`/${module.nombre}/${key}`)}>
                   {module.permisos.map( (permiso) =>
                     <DropdownItem key={permiso.rutafront.ruta}>
-                      {permiso.rutafront.ruta}
+                      {permiso.rutafront.nombre}
                     </DropdownItem>
                   )}
                 </DropdownMenu>
