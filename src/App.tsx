@@ -20,7 +20,7 @@ function App() {
       }
       {modules && modules.map( ( module ) =>
         module.permisos.map( ( permiso, index) =>
-          <Route key={index} element={routesConfig[`${module.nombre}/${permiso.rutafront.ruta}`]} path={`/${module.nombre}/${permiso.rutafront.ruta}`} />
+          <Route key={index} element={routesConfig[`${module.nombre.toLowerCase()}/${permiso.rutafront.ruta.toLowerCase()}`]} path={`/${module.nombre.toLowerCase()}/${permiso.rutafront.ruta.toLocaleLowerCase()}`} />
         )
       )}
       <Route element={<NotFoundPage/>} path="*" />

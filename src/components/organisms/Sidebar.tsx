@@ -79,12 +79,12 @@ export default function Sidebar() {
               <Dropdown key={index} className="dark text-white" >
                 <DropdownTrigger>
                   <div>
-                    <SidebarItemDropdown key={index} icon={module.icono} name={`${module.nombre.charAt(0).toUpperCase()}${module.nombre.slice(1)}`}/>
+                    <SidebarItemDropdown key={index} icon={module.icono} name={module.nombre}/>
                   </div>
                 </DropdownTrigger>
-                <DropdownMenu onAction={(key) => navigate(`/${module.nombre}/${key}`)}>
+                <DropdownMenu onAction={(key) => navigate(`/${module.nombre.toLowerCase()}/${key}`)}>
                   {module.permisos.map( (permiso) =>
-                    <DropdownItem key={permiso.rutafront.ruta}>
+                    <DropdownItem key={permiso.rutafront.ruta.toLowerCase()}>
                       {permiso.rutafront.nombre}
                     </DropdownItem>
                   )}
