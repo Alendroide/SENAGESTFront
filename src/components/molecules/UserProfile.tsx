@@ -11,7 +11,7 @@ export default function UserProfile(){
             { img ?
                 <img width={'24px'} height={'24px'} src={img} className="mx-2" />
             : 
-                <User color="#000000" className="mx-2" />
+                <User className="mx-2" />
             }
         </div>
     )

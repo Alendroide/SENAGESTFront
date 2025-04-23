@@ -9,7 +9,7 @@ import BigCard from '../atoms/BigCard';
 import { useForm } from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import { Login, LoginSchema } from '@/types/Login';
-import useAuth from '@/hooks/useAuth';
+import useAuth from '@/hooks/auth/useAuth';
 
 export default function LoginForm(){
 

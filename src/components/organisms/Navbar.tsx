@@ -15,9 +15,9 @@ export default function Navbar(){
   const navigate = useNavigate();
 
   return(
-        <div className="p-2 shadow-lg z-0 h-12 w-full flex align-middle">
+        <div className="bg-gray-800 text-white p-2 shadow-lg z-0 h-12 w-full flex align-middle">
 
-          <Menu className="cursor-pointer" color="#000000" size={32} strokeWidth={3} onClick={() => setSidebarOpen(!sidebarOpen)} />
+          <Menu className="cursor-pointer md:hidden" size={32} strokeWidth={3} onClick={() => setSidebarOpen(!sidebarOpen)} />
           
           <span className="ms-auto flex items-center">
             { isAuthenticated ?

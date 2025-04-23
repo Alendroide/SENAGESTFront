@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
 
-export default function DropdownItem({icon, name, path} : {icon : JSX.Element, name : string, path : string}) {
+type props = {icon : JSX.Element, name : string };
+
+export default function DropdownItem( {icon, name} : props ) {
     return (
-        <Link to={path} className="p-3 my-2 transition-all rounded-xl flex items-center space-x-4 hover:bg-slate-100">
+        <div className="p-3 my-2 cursor-pointer transition-all rounded-xl flex items-center space-x-4 hover:bg-gray-700">
             {icon}
             <p>{name}</p>
-        </Link>
+        </div>
     )
 }

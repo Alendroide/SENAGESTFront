@@ -7,16 +7,21 @@ import { Provider } from "./provider.tsx";
 import "@/styles/globals.css";
 import AuthProvider from "./providers/AuthProvider.tsx";
 import LayoutProvider from "./providers/LayoutProvider.tsx";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const client = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider>
-        <AuthProvider>
-          <LayoutProvider>
-            <App />
-          </LayoutProvider>
-        </AuthProvider>
+        <QueryClientProvider client={client}>
+          <AuthProvider>
+            <LayoutProvider>
+              <App />
+            </LayoutProvider>
+          </AuthProvider>
+        </QueryClientProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

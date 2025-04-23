@@ -1,12 +1,12 @@
 import { Auth } from "@/types/Auth";
-import { User } from "@/types/User";
+import { JwtPayload, User } from "@/types/User";
 import { jwtDecode } from "jwt-decode";
 import { Module } from "@/types/Module";
 import { useContext, useEffect, useState, createContext } from "react";
 
 const AuthContext = createContext<Auth | null>(null);
 
-export const AuthData = () => useContext(AuthContext);
+export const AuthData = () => useContext(AuthContext) as Auth;
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
 
@@ -27,7 +27,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         const token = localStorage.getItem('token') ?? null;
       
         if(token) {
-          const payload : User = jwtDecode(token);
+          const payload : JwtPayload = jwtDecode(token);
           setUser({
             isAuthenticated : true,
             sub : payload.sub,
@@ -36,7 +36,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             correo : payload.correo,
             img : payload.img ?? null,
             rol : payload.rol ?? null,
-          })
+          });
+          setModules(payload.modulos);
         }
       },[])
 

@@ -1,16 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 
-import IndexPage from "@/pages/index";
-import LoginPage from "./pages/login";
-import ProfilePage from "./pages/profile";
-import NotFoundPage from "./pages/notfound";
+import IndexPage from "@/pages/defaultPages/index";
+import LoginPage from "./pages/defaultPages/login";
+import ProfilePage from "./pages/defaultPages/profile";
+import NotFoundPage from "./pages/defaultPages/notfound";
 import { AuthData } from "./providers/AuthProvider";
-import { Auth } from "./types/Auth";
-import ModulesPage from "./pages/modules";
+import { routesConfig } from "./config/routes";
 
 function App() {
 
-  const { user : { isAuthenticated, rol } } = AuthData() as Auth;
+  const { user : { isAuthenticated }, modules } = AuthData();
 
   return (
     <Routes>
@@ -19,9 +18,9 @@ function App() {
       {isAuthenticated &&
         <Route element={<ProfilePage/>} path="/profile" />
       }
-      {rol == 'Administrador' &&
-        <Route element={<ModulesPage />} path="/modules" />
-      }
+      {modules && modules.map( ( module, index ) =>
+        <Route key={index} element={routesConfig[module.nombre]} path={`/${module.nombre}`} />
+      )}
       <Route element={<NotFoundPage/>} path="*" />
     </Routes>
   );

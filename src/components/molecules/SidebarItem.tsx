@@ -11,6 +11,7 @@ export default function SidebarItem({icon, name, path} : {icon : JSX.Element, na
             //onClick={() => setSidebarOpen(false)}
             to={path}
             className="
+              bg-gray-800
                 flex
                 items-center
                 w-56
@@ -20,8 +21,9 @@ export default function SidebarItem({icon, name, path} : {icon : JSX.Element, na
                 mx-auto
                 ps-4
                 cursor-pointer
-
                 md:w-48
+                transition-colors
+                hover:bg-gray-700
         ">
             {icon}
             <p className="ms-2">{name}</p>

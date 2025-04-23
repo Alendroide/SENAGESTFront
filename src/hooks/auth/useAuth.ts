@@ -1,6 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { AuthData } from "@/providers/AuthProvider";
-import { Auth } from "@/types/Auth";
 import { Login, LoginResponse } from "@/types/Login";
 import { addToast } from '@heroui/toast';
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ import { JwtPayload } from "@/types/User";
 export default function useAuth(){
 
     const navigate = useNavigate();
-    const { setUser, setModules } = AuthData() as Auth;
+    const { setUser, setModules } = AuthData();
 
     async function login( loginData : Login){
         try{
@@ -60,5 +59,12 @@ export default function useAuth(){
         }
     }
 
-    return { login }
+    async function logout(){
+        localStorage.removeItem('token');
+        setUser({isAuthenticated : false, sub : null, identificacion : null, nombre : null, correo : null, img : null, rol : null});
+        setModules([]);
+        navigate('/');
+    }
+
+    return { login, logout }
 }

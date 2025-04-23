@@ -45,8 +45,9 @@ export default function Sidebar() {
         <div
         ref={sidebarRef}
         className={`
+                  bg-gray-950
+                  text-white
                     w-64
-                    bg-white
                     flex-shrink-0
                     h-screen
                     transition
@@ -54,10 +55,11 @@ export default function Sidebar() {
                     ease-in-out
                     absolute
                     z-10
-                    ${sidebarOpen ? "translate-x-0 shadow-lg" : "-translate-x-full"}
+                    ${sidebarOpen ? "shadow-lg" : "-translate-x-full md:translate-x-0"}
 
                     md:shadow-lg
                     md:w-1/5
+                    md:relative
                 `}
         >
         {/* Logo */}
@@ -70,7 +72,7 @@ export default function Sidebar() {
               <SidebarItem path="/profile" icon={<User />} name="Perfil" />
             }
 
-            {modules.map( (module, index) =>
+            {modules && modules.map( (module, index) =>
               <SidebarItem key={index} path={`/${module.nombre}`} icon={<Server/>} name={`${module.nombre.charAt(0).toUpperCase()}${module.nombre.slice(1)}`}/>
             )}
         </div>
