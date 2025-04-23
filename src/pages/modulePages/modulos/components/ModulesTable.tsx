@@ -15,7 +15,7 @@ export default function ModulesTable(){
                 {modules && modules.map( ( module : any, index : number ) =>
                     <TableRow key={index}>
                         <TableCell>{iconsConfig[module.icono]}</TableCell>
-                        <TableCell>{(module.nombre).charAt(0).toUpperCase() + module.nombre.slice(1)}</TableCell>
+                        <TableCell>{module.nombre}</TableCell>
                         <TableCell>{module.descripcion}</TableCell>
                     </TableRow>
                 )}

@@ -10,8 +10,11 @@ export default function ModulesForm(){
 
     const {createModule} = useModule();
 
-    const {register,handleSubmit,formState:{errors}} = useForm({
-        resolver : zodResolver(ModuleSchema)
+    const {register,handleSubmit,formState:{errors},watch} = useForm({
+        resolver : zodResolver(ModuleSchema),
+        defaultValues : {
+            icono : 'Book'
+        }
     });
 
     return(
@@ -23,10 +26,10 @@ export default function ModulesForm(){
             <Input {...register("descripcion")} label='Descripcion' />
             {errors.descripcion && <ErrorMessage>{errors.descripcion.message}</ErrorMessage>}
 
-            <Select {...register("icono")} label="Icono">
+            <Select startContent={iconsConfig[watch("icono") as string]} {...register("icono")} label="Icono" labelPlacement="outside" >
                 {Object.entries(iconsConfig).map(([key,Icon]) => (
-                    <SelectItem key={key}>
-                        {Icon}{key}
+                    <SelectItem startContent={Icon} key={key} >
+                        {key}
                     </SelectItem>
                 ))}
             </Select>
