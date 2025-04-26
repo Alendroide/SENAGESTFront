@@ -1,7 +1,7 @@
 export default function AppLogo(){
     return(
-        <div className="flex justify-center">
-            <p className="text-2xl font-bold mt-6">SENAGEST</p>
+        <div className="flex justify-center items-center mt-6">
+            <img src="/logo.png" alt="Logo App" className="w-40" />
         </div>
     )
 }

@@ -2,14 +2,13 @@ import BigCard from "@/components/atoms/BigCard";
 import Subtitle from "@/components/atoms/text/Subtitle";
 import Title from "@/components/atoms/text/Title";
 import useProfile from "@/hooks/auth/useProfile";
-import DefaultLayout from "@/layouts/default";
 
 export default function ProfilePage(){
 
     const { profile } = useProfile();
 
     return(
-        <DefaultLayout>
+        <>
             <div className="md:w-3/4 mx-auto">
                 <BigCard>
                     <div className="flex flex-col md:flex-row w-full">
@@ -37,6 +36,6 @@ export default function ProfilePage(){
                 </BigCard>
             </div>
 
-        </DefaultLayout>
+        </>
     )
 }

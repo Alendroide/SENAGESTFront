@@ -15,7 +15,7 @@ export default function DefaultLayout({ children } : { children: React.ReactNode
 
         <Navbar/>
 
-        <div className="box-border p-6 md:p-10">
+        <div className="box-border p-6 md:p-10 overflow-y-auto">
         {children}
         </div>
 
