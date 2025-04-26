@@ -11,7 +11,7 @@ export default function DefaultLayout({ children } : { children: React.ReactNode
     <div className="flex h-screen">
       <Sidebar />
 
-      <div className="w-full">
+      <div className="w-full md:ms-auto md:w-4/5">
 
         <Navbar/>
 

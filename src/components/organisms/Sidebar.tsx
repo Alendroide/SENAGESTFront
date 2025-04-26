@@ -56,13 +56,12 @@ export default function Sidebar() {
                     transition
                     duration-200
                     ease-in-out
-                    absolute
+                    fixed
                     z-10
                     ${sidebarOpen ? "shadow-lg" : "-translate-x-full md:translate-x-0"}
 
                     md:shadow-lg
                     md:w-1/5
-                    md:relative
                 `}
         >
         {/* Logo */}
