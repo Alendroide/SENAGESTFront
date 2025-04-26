@@ -3,7 +3,7 @@ import useModule from "@/hooks/default/useModule";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
 
 export default function ModulesTable(){
-    const {modules} = useModule();
+    const {modules, isLoading, isError, error} = useModule();
     return(
         <Table aria-label="ModulesTable">
             <TableHeader>
@@ -12,7 +12,9 @@ export default function ModulesTable(){
                 <TableColumn>Descripción</TableColumn>
             </TableHeader>
             <TableBody>
-                {modules && modules.map( ( module : any, index : number ) =>
+                {isLoading && <TableRow><TableCell colSpan={3}>Cargando...</TableCell></TableRow>}
+                {isError && <TableRow><TableCell colSpan={3}>Error: {error?.message}</TableCell></TableRow>}
+                {modules?.map( ( module : any, index : number ) =>
                     <TableRow key={index}>
                         <TableCell>{iconsConfig[module.icono]}</TableCell>
                         <TableCell>{module.nombre}</TableCell>
