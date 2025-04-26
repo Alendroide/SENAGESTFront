@@ -6,6 +6,7 @@ export default function useProfile(){
     async function getProfile(){
         try{
             const { data } = await axiosAPI.get('usuarios/perfil');
+            console.log(data);
             return data;
         }
         catch(error){

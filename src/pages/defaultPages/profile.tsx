@@ -15,7 +15,7 @@ export default function ProfilePage(){
                         <div className="w-full my-8 md:w-1/4 md:my-0">
                             <img
                                 className="w-1/2 mx-auto"
-                                src={profile?.img ?? '/vite.svg'}
+                                src={`${import.meta.env.VITE_API_URL}uploads/${profile?.img}`}
                                 alt="User profile picture"
                             />
                         </div>
