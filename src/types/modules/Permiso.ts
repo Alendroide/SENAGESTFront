@@ -10,3 +10,11 @@ export const PermisoSchema = z.object({
 })
 
 export type Permiso = z.infer<typeof PermisoSchema>
+
+export const AsignPermisoSchema = z.object({
+    permisoId : z.number({required_error : "Ingrese un permiso",invalid_type_error : "Ingrese un permiso válido"}),
+    rolId : z.number({required_error : "Ingrese un rol",invalid_type_error : "Ingrese un rol válido"}),
+    valor : z.boolean({required_error : "Ingrese un valor",invalid_type_error : "Ingrese un valor válido"})
+})
+
+export type AsignPermiso = z.infer<typeof AsignPermisoSchema>

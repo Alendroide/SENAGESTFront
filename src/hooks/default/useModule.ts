@@ -30,8 +30,7 @@ export default function useModule(){
                 description : "Espere un momento...",
                 color : "success",
                 promise : axiosAPI.post('modulos',data)
-                .then(response => {
-                    console.log(response.data)
+                .then(() => {
                     navigate("/modulos/list");
                 })
                 .catch(error => {

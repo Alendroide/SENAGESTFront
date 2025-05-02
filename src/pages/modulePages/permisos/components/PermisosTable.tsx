@@ -19,9 +19,9 @@ export default function PermisosTable() {
             {isLoading && <p>Cargando...</p>}
             {isError && <p>Error: {error?.message}</p>}
             {modulesWithPermisos?.map((modulo: Module & { id: number, permisos: Permiso[] }) => (
-                <>
+                <div key={modulo.id}>
                     <h1 className="my-5 font-semibold flex gap-3">{iconsConfig[modulo.icono]}{modulo.nombre}</h1>
-                    <Table>
+                    <Table aria-label={`Tabla${modulo.nombre}`}>
                         <TableHeader>
                             <TableColumn>Nombre</TableColumn>
                             <TableColumn>Descripción</TableColumn>
@@ -42,7 +42,7 @@ export default function PermisosTable() {
                             }
                         </TableBody>
                     </Table>
-                </>
+                </div>
             ))}
         </>
     )
