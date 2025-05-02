@@ -1,20 +1,13 @@
-import { iconsConfig } from "@/config/icons";
+import { iconsConfig, typeIcons } from "@/config/icons";
 import usePermiso from "@/hooks/default/usePermiso";
 import { Module } from "@/types/modules/Module";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
-import { NotebookPen, NotebookText, RefreshCw } from "lucide-react";
 
 type Permiso = {
     id: number,
     nombre: string,
     descripcion: string,
     tipo: string
-}
-
-const typeIcons : Record<string, JSX.Element> = {
-    "write" : <NotebookPen/>,
-    "read" : <NotebookText/>,
-    "update" : <RefreshCw/>
 }
 
 export default function PermisosTable() {
