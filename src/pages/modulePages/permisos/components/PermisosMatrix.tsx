@@ -54,6 +54,14 @@ export default function PermisosMatrix() {
           p.id === id ? { ...p, checked } : p
         )
     );
+    setModules(prev =>
+      prev.map(modulo => ({
+        ...modulo,
+        permisos: modulo.permisos.map(p =>
+          p.id === id ? { ...p, checked } : p
+        )
+      }))
+    );
     if(!selectedRole) return console.log("No role selected");
     try{
       await asignPermiso(id,selectedRole,checked);
@@ -63,7 +71,15 @@ export default function PermisosMatrix() {
         prev.map(p =>
           p.id === id ? { ...p, checked : !checked } : p
         )
-    );
+      );
+      setModules(prev =>
+        prev.map(modulo => ({
+          ...modulo,
+          permisos: modulo.permisos.map(p =>
+            p.id === id ? { ...p, checked : !checked } : p
+          )
+        }))
+      );
       console.log(error);
     }
   }

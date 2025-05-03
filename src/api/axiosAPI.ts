@@ -33,6 +33,9 @@ axiosAPI.interceptors.response.use(
         window.location.href = '/login';
       }
     }
+    if (error.response && error.response.status === 403) {
+        window.location.href = '/login';
+    }
     return Promise.reject(error);
   }
 );
