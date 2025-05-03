@@ -1,5 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { AsignPermiso, Permiso } from "@/types/modules/Permiso";
+import { Permiso } from "@/types/modules/Permiso";
 import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -48,30 +48,5 @@ export default function usePermiso(){
         }
     }
 
-    async function asignPermiso({permisoId,rolId,valor} : AsignPermiso){
-        try{
-            addToast({
-                title : "Asignando permiso",
-                description : "Espere un momento...",
-                color : "success",
-                promise : axiosAPI.post(`permisos/asign/${permisoId}/${rolId}/${valor}`)
-                .then(() => {
-                    navigate("/permisos/list");
-                })
-                .catch(error => {
-                    console.log(error);
-                    addToast({
-                        title : "Error asignando el permiso",
-                        description : `${error.name}`,
-                        color : "danger"
-                    })
-                })
-            })
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
-
-    return { modulesWithPermisos, isLoading, isError, error, createPermiso, asignPermiso };
+    return { modulesWithPermisos, isLoading, isError, error, createPermiso };
 }

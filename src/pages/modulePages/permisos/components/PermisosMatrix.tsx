@@ -8,7 +8,7 @@ import useRolPermiso from "@/hooks/default/permisos/useRolPermiso";
 
 export default function PermisosMatrix() {
 
-  const { roles, getPermisoByRol } = useRolPermiso();
+  const { roles, getPermisoByRol, asignPermiso } = useRolPermiso();
 
   const [selectedRole, setSelectedRole] = useState<number | undefined>(undefined);
   const [selectedModule, setSelectedModule] = useState<number | undefined>(undefined);
@@ -54,6 +54,18 @@ export default function PermisosMatrix() {
           p.id === id ? { ...p, checked } : p
         )
     );
+    if(!selectedRole) return console.log("No role selected");
+    try{
+      await asignPermiso(id,selectedRole,checked);
+    }
+    catch(error){
+      setPermisos(prev =>
+        prev.map(p =>
+          p.id === id ? { ...p, checked : !checked } : p
+        )
+    );
+      console.log(error);
+    }
   }
 
   return (
@@ -64,7 +76,7 @@ export default function PermisosMatrix() {
                 startContent={ selectedRole ? iconsConfig[ roles?.find((rol: Rol) => rol.id === selectedRole)?.icono ] : "" }
                 label="Roles"
                 onChange={handleRoleChange}
-                className="w-full md:w-1/3"
+                className="w-full sm:w-1/2 lg:w-1/3"
             >
                 {roles?.map((rol: Rol) =>
                     <SelectItem startContent={iconsConfig[rol.icono]}key={rol.id}>{rol.nombre}</SelectItem>
@@ -77,7 +89,7 @@ export default function PermisosMatrix() {
                     label="Módulos"
                     value={selectedModule}
                     onChange={handleModuleChange}
-                    className="w-full md:w-1/3"
+                    className="w-full sm:w-1/2 lg:w-1/3"
                 >
                 {modules.map((modulo) => (
                     <SelectItem key={modulo.id} startContent={iconsConfig[modulo.icono]}>{modulo.nombre}</SelectItem>
@@ -93,6 +105,7 @@ export default function PermisosMatrix() {
             <span className="mr-2">{typeIcons[permiso.tipo]}</span>
             {permiso.nombre}
             <Switch
+                color="success"
                 onChange={(e) => handleChecked(permiso.id,e.target.checked)}
                 isSelected={permiso.checked}
                 className="ml-auto"
