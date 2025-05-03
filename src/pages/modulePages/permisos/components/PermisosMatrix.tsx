@@ -16,6 +16,8 @@ export default function PermisosMatrix() {
   const [modules,setModules] = useState<(Module & { id : number, permisos: (Permiso & { id : number, checked : boolean})[] })[]>([]);
   const [permisos,setPermisos] = useState<(Permiso & { id : number, checked : boolean})[]>([]);
 
+  // GETS ROLE INFORMATION INCLUDING ITS PERMISOS
+
   async function handleRoleChange(e : React.ChangeEvent<HTMLSelectElement>) {
     const rolId = parseInt(e.target.value);
     if(isNaN(rolId)){
@@ -31,6 +33,8 @@ export default function PermisosMatrix() {
     setPermisos(response.find((modulo : Module & {id : number}) => modulo.id === selectedModule)?.permisos || []);
   }
 
+  // SETS PERMISOS VALUES
+
   async function handleModuleChange(e : React.ChangeEvent<HTMLSelectElement>) {
     const moduleId = parseInt(e.target.value);
     if(isNaN(moduleId)){
@@ -41,6 +45,8 @@ export default function PermisosMatrix() {
     setSelectedModule(moduleId);
     setPermisos(modules.find((modulo) => modulo.id === moduleId)?.permisos || []);
   }
+
+  // UPDATES PERMISOS
 
   async function handleChecked(id : number, checked : boolean) {
     setPermisos(prev =>
