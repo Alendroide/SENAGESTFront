@@ -61,7 +61,6 @@ export default function Sidebar() {
                     ${sidebarOpen ? "shadow-lg" : "-translate-x-full md:translate-x-0"}
 
                     md:shadow-lg
-                    md:w-1/5
                 `}
         >
         {/* Logo */}
