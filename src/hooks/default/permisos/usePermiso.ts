@@ -73,5 +73,5 @@ export default function usePermiso(){
         }
     }
 
-    return {modulesWithPermisos, isLoading, isError, error, createPermiso, asignPermiso};
+    return { modulesWithPermisos, isLoading, isError, error, createPermiso, asignPermiso };
 }

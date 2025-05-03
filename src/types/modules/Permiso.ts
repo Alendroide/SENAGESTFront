@@ -18,3 +18,10 @@ export const AsignPermisoSchema = z.object({
 })
 
 export type AsignPermiso = z.infer<typeof AsignPermisoSchema>
+
+export type Rol = {
+    id : number,
+    nombre : string,
+    descripcion : string,
+    icono : string
+}
