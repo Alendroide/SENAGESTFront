@@ -8,38 +8,46 @@ import useRolPermiso from "@/hooks/default/permisos/useRolPermiso";
 
 export default function PermisosMatrix() {
 
-    // Busca los roles, y trae la función para buscar los permisos por rol
-
   const { roles, getPermisoByRol } = useRolPermiso();
 
-  // Rol y Modulo seleccionados
-
-  const [selectedRole, setSelectedRole] = useState<number | null>(null);
+  const [selectedRole, setSelectedRole] = useState<number | undefined>(undefined);
   const [selectedModule, setSelectedModule] = useState<number | undefined>(undefined);
 
-  // Contiene los permisos del rol
-
   const [modules,setModules] = useState<(Module & { id : number, permisos: (Permiso & { id : number, checked : boolean})[] })[]>([]);
-  const permisos = modules.find((modulo) => modulo.id === selectedModule)?.permisos;
+  const [permisos,setPermisos] = useState<(Permiso & { id : number, checked : boolean})[]>([]);
 
-  // Iconos
-
-  const roleIcon = selectedRole ? iconsConfig[ roles?.find((rol: Rol) => rol.id === selectedRole)?.icono ] : "";
-  const moduleIcon = selectedModule ? iconsConfig[ modules?.find((modulo: Module & { id : number }) => modulo.id === selectedModule)?.icono as string ] : "";
-
-    // Busca los permisos del rol seleccionado
-
-  async function handleChange(e : React.ChangeEvent<HTMLSelectElement>) {
+  async function handleRoleChange(e : React.ChangeEvent<HTMLSelectElement>) {
     const rolId = parseInt(e.target.value);
-    setSelectedModule(undefined);
     if(isNaN(rolId)){
-        setSelectedRole(null);
+        setSelectedRole(undefined);
+        setSelectedModule(undefined);
         setModules([]);
+        setPermisos([]);
         return;
     }
-    const permisos = await getPermisoByRol(rolId);
+    const response = await getPermisoByRol(rolId);
     setSelectedRole(rolId);
-    setModules(permisos);
+    setModules(response);
+    setPermisos(response.find((modulo : Module & {id : number}) => modulo.id === selectedModule)?.permisos || []);
+  }
+
+  async function handleModuleChange(e : React.ChangeEvent<HTMLSelectElement>) {
+    const moduleId = parseInt(e.target.value);
+    if(isNaN(moduleId)){
+        setSelectedModule(undefined);
+        setPermisos([]);
+        return;
+    }
+    setSelectedModule(moduleId);
+    setPermisos(modules.find((modulo) => modulo.id === moduleId)?.permisos || []);
+  }
+
+  async function handleChecked(id : number, checked : boolean) {
+    setPermisos(prev =>
+        prev.map(p =>
+          p.id === id ? { ...p, checked } : p
+        )
+    );
   }
 
   return (
@@ -47,47 +55,42 @@ export default function PermisosMatrix() {
         <div className="flex items-center gap-4 my-6">
 
             <Select
-                startContent={ roleIcon }
+                startContent={ selectedRole ? iconsConfig[ roles?.find((rol: Rol) => rol.id === selectedRole)?.icono ] : "" }
                 label="Roles"
-                onChange={handleChange}
+                onChange={handleRoleChange}
                 className="w-full md:w-1/3"
             >
-                {roles?.map(
-                (rol: Rol) => (
-                    <SelectItem
-                    startContent={iconsConfig[rol.icono]}
-                    key={rol.id}
-                    >
-                    {rol.nombre}
-                    </SelectItem>
-                )
+                {roles?.map((rol: Rol) =>
+                    <SelectItem startContent={iconsConfig[rol.icono]}key={rol.id}>{rol.nombre}</SelectItem>
                 )}
             </Select>
 
             {modules.length > 0 && (
                 <Select
-                    startContent={ moduleIcon }
+                    startContent={ selectedModule ? iconsConfig[ modules?.find((modulo: Module & { id : number }) => modulo.id === selectedModule)?.icono as string ] : "" }
                     label="Módulos"
                     value={selectedModule}
-                    onChange={(e) => setSelectedModule(parseInt(e.target.value))}
+                    onChange={handleModuleChange}
                     className="w-full md:w-1/3"
                 >
                 {modules.map((modulo) => (
-                    <SelectItem key={modulo.id} startContent={iconsConfig[modulo.icono]}>
-                        {modulo.nombre}
-                    </SelectItem>
+                    <SelectItem key={modulo.id} startContent={iconsConfig[modulo.icono]}>{modulo.nombre}</SelectItem>
                 ))}
                 </Select>
             )}
 
         </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {permisos?.map((permiso) => (
           <div className="flex" key={permiso.id}>
             <span className="mr-2">{typeIcons[permiso.tipo]}</span>
             {permiso.nombre}
-            <Switch defaultSelected={permiso.checked} className="ml-auto" />
+            <Switch
+                onChange={(e) => handleChecked(permiso.id,e.target.checked)}
+                isSelected={permiso.checked}
+                className="ml-auto"
+            />
           </div>
         ))}
       </div>
