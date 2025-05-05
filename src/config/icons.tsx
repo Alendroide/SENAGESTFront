@@ -1,4 +1,4 @@
-import { Activity, AlignEndHorizontal, AppWindow, Atom, BadgeDollarSign, Ban, BatteryFull, Book, Server, Home, User, NotebookPen, NotebookText, RefreshCw, ShieldUser } from "lucide-react";
+import { Activity, AlignEndHorizontal, AppWindow, Atom, BadgeDollarSign, Ban, BatteryFull, Book, Server, Home, User, NotebookPen, NotebookText, RefreshCw, ShieldUser, GraduationCap, UsersRound } from "lucide-react";
 
 export type IconsConfig = typeof iconsConfig;
 
@@ -14,7 +14,9 @@ export const iconsConfig : Record<string, JSX.Element> = {
     "BadgeDollarSign" : <BadgeDollarSign/>,
     "Ban" : <Ban/>,
     "BatteryFull" : <BatteryFull/>,
-    "ShieldUser" : <ShieldUser/>
+    "ShieldUser" : <ShieldUser/>,
+    "GraduationCap" : <GraduationCap/>,
+    "UsersRound" : <UsersRound/>
 }
 
 export const typeIcons : Record<string, JSX.Element> = {
