@@ -8,7 +8,7 @@ export default function RolesTable(){
     const {roles,isLoading,isError,error} = useRol();
 
     return(
-        <Table>
+        <Table aria-label="TablaRoles">
             <TableHeader>
                 <TableColumn>Nombre</TableColumn>
                 <TableColumn>Descripción</TableColumn>
