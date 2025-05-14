@@ -38,7 +38,7 @@ export default function Sidebar() {
                 fixed
                 inset-0
                 bg-black
-                z-10
+                z-50
                 transition-opacity
                 duration-200
                 ${sidebarOpen ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"}
@@ -57,7 +57,7 @@ export default function Sidebar() {
                     duration-200
                     ease-in-out
                     fixed
-                    z-10
+                    z-50
                     ${sidebarOpen ? "shadow-lg" : "-translate-x-full md:translate-x-0"}
 
                     md:shadow-lg
