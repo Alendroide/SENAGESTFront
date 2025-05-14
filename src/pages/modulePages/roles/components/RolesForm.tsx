@@ -35,8 +35,6 @@ export default function RolesForm(){
             </Select>
             {errors?.icono && <ErrorMessage>{errors.icono.message}</ErrorMessage>}
 
-            {watch("icono")}
-
             <Button color="success" variant="bordered" type="submit">Crear</Button>
         </Form>
     )
