@@ -5,11 +5,13 @@ import { useState } from "react";
 export default function useUsuario(){
 
     const [page,setPage] = useState(1);
+    const [pages,setPages] = useState(1);
 
     async function getUsers() {
        try{
             const response = await axiosAPI.get(`usuarios/getAll?page=${page}`);
-            return response.data;
+            setPages(response.data.pages);
+            return response.data.users;
         }
         catch(error){
             console.log(error);
@@ -22,6 +24,6 @@ export default function useUsuario(){
         queryFn: getUsers
     })
 
-    return { users, isLoading, isError, error, setPage };
+    return { users, isLoading, isError, error, setPage, pages };
 
 }
