@@ -5,6 +5,7 @@ import CrearPermisoPage from "@/pages/modulePages/permisos/CrearPermisoPage";
 import ListarPermisosPage from "@/pages/modulePages/permisos/ListarPermisosPage";
 import CrearRolesPage from "@/pages/modulePages/roles/CrearRolesPage";
 import ListarRolesPage from "@/pages/modulePages/roles/ListarRolesPage";
+import CrearUsuarioPage from "@/pages/modulePages/usuarios/CrearUsuarioPage";
 import ListarUsuariosPage from "@/pages/modulePages/usuarios/ListarUsuariosPage";
 
 export type RoutesConfig = typeof routesConfig;
@@ -18,5 +19,5 @@ export const routesConfig : Record<string, JSX.Element> = {
     "roles/list" : <ListarRolesPage/>,
     "roles/create" : <CrearRolesPage/>,
     "usuarios/list" : <ListarUsuariosPage/>,
-    "usuarios/create" : <></>
+    "usuarios/create" : <CrearUsuarioPage/>
 }

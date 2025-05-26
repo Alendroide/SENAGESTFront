@@ -82,7 +82,7 @@ export default function Sidebar() {
                 </DropdownTrigger>
                 <DropdownMenu onAction={(key) => navigate(`/${module.nombre.toLowerCase()}/${key}`)}>
                   {module.permisos.map( (permiso) =>
-                    <DropdownItem key={permiso.rutafront.ruta.toLowerCase()}>
+                    <DropdownItem onPress={() => setSidebarOpen(false)} key={permiso.rutafront.ruta.toLowerCase()}>
                       {permiso.rutafront.nombre}
                     </DropdownItem>
                   )}

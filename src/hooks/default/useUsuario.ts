@@ -22,7 +22,11 @@ export default function useUsuario(){
     const {data: users,isLoading,isError,error} = useQuery({
         queryKey: ["users",page],
         queryFn: getUsers
-    })
+    });
+
+    async function createUser(){
+        
+    }
 
     return { users, isLoading, isError, error, setPage, pages };
 
