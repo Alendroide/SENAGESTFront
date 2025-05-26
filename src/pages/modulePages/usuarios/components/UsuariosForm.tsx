@@ -1,6 +1,6 @@
 import { UsuarioSchema, Usuario } from "@/types/modules/Usuario";
 import ErrorMessage from "@/components/atoms/text/ErrorMessage";
-import { addToast, Button, Form, Input, Select, SelectItem } from "@heroui/react";
+import { addToast, Button, Form, Input } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import useUsuarios from "@/hooks/default/useUsuario";

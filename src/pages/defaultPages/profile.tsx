@@ -14,7 +14,7 @@ export default function ProfilePage(){
                     <div className="flex flex-col md:flex-row w-full">
                         <div className="w-full my-8 md:w-1/4 md:my-0">
                             <img
-                                className="w-1/2 mx-auto rounded-full"
+                                className="w-1/2 mx-auto rounded-full aspect-square object-cover"
                                 src={`${import.meta.env.VITE_API_URL}uploads/${profile?.img}`}
                                 alt="User profile picture"
                             />

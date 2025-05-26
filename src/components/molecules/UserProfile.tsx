@@ -9,7 +9,7 @@ export default function UserProfile(){
             { nombre ? <p>{nombre}</p> : <p>Usuario</p>}
             
             { img ?
-                <img width={'24px'} height={'24px'} src={`${import.meta.env.VITE_API_URL}uploads/${img}`} className="mx-2 rounded-full" />
+                <img width={'24px'} height={'24px'} src={`${import.meta.env.VITE_API_URL}uploads/${img}`} className="mx-2 rounded-full aspect-square object-cover" />
             : 
                 <User className="mx-2" />
             }
