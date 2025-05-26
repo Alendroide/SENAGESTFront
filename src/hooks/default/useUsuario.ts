@@ -1,4 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
+import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -24,10 +25,26 @@ export default function useUsuario(){
         queryFn: getUsers
     });
 
-    async function createUser(){
-        
+    async function createUser(data: FormData){
+        try{
+            const response = await axiosAPI.post('auth/register',data,{
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            const json = response.data;
+            return json;
+        }
+        catch(error){
+            addToast({
+                title: "Error creando usuario",
+                description: "Hubo un error inesperado",
+                color: "danger"
+            })
+            throw error;
+        }
     }
 
-    return { users, isLoading, isError, error, setPage, pages };
+    return { users, isLoading, isError, error, setPage, pages, createUser };
 
 }
