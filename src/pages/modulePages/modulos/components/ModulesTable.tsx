@@ -1,9 +1,9 @@
 import { iconsConfig } from "@/config/icons";
-import useModule from "@/hooks/default/useModule";
+import useModulo from "@/hooks/default/useModulo";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
 
 export default function ModulesTable(){
-    const {modules, isLoading, isError, error} = useModule();
+    const {modules, isLoading, isError, error} = useModulo();
     return(
         <Table aria-label="ModulesTable">
             <TableHeader>

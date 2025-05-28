@@ -1,5 +1,5 @@
 import { iconsConfig, typeIcons } from "@/config/icons";
-import usePermiso from "@/hooks/default/permisos/usePermiso";
+import usePermiso from "@/hooks/default/usePermiso";
 import { Module } from "@/types/modules/Module";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
 

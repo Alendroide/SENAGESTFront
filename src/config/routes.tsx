@@ -1,23 +1,15 @@
-import CrearModulePage from "@/pages/modulePages/modulos/CrearModulePage";
 import ListarModulesPage from "@/pages/modulePages/modulos/ListarModulesPage";
 import AsignPermisoPage from "@/pages/modulePages/permisos/AsignPermisoPage";
-import CrearPermisoPage from "@/pages/modulePages/permisos/CrearPermisoPage";
 import ListarPermisosPage from "@/pages/modulePages/permisos/ListarPermisosPage";
-import CrearRolesPage from "@/pages/modulePages/roles/CrearRolesPage";
 import ListarRolesPage from "@/pages/modulePages/roles/ListarRolesPage";
-import CrearUsuarioPage from "@/pages/modulePages/usuarios/CrearUsuarioPage";
 import ListarUsuariosPage from "@/pages/modulePages/usuarios/ListarUsuariosPage";
 
 export type RoutesConfig = typeof routesConfig;
 
 export const routesConfig : Record<string, JSX.Element> = {
-    "modulos/list" : <ListarModulesPage/>,
-    "modulos/create" : <CrearModulePage/>,
-    "permisos/list" : <ListarPermisosPage/>,
-    "permisos/create" : <CrearPermisoPage/>,
+    "modulos/home" : <ListarModulesPage/>,
+    "permisos/home" : <ListarPermisosPage/>,
     "permisos/asign" : <AsignPermisoPage/>,
-    "roles/list" : <ListarRolesPage/>,
-    "roles/create" : <CrearRolesPage/>,
-    "usuarios/list" : <ListarUsuariosPage/>,
-    "usuarios/create" : <CrearUsuarioPage/>
+    "roles/home" : <ListarRolesPage/>,
+    "usuarios/home" : <ListarUsuariosPage/>,
 }

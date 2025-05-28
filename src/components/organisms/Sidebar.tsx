@@ -12,7 +12,7 @@ export default function Sidebar() {
 
   const { sidebarOpen, setSidebarOpen} = LayoutData();
 
-  const { user : { isAuthenticated }, modules } = AuthData() as Auth;
+  const { isAuthenticated, modules } = AuthData() as Auth;
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
@@ -81,9 +81,9 @@ export default function Sidebar() {
                   </div>
                 </DropdownTrigger>
                 <DropdownMenu onAction={(key) => navigate(`/${module.nombre.toLowerCase()}/${key}`)}>
-                  {module.permisos.map( (permiso) =>
-                    <DropdownItem onPress={() => setSidebarOpen(false)} key={permiso.rutafront.ruta.toLowerCase()}>
-                      {permiso.rutafront.nombre}
+                  {module.rutas.map( (ruta) =>
+                    <DropdownItem onPress={() => setSidebarOpen(false)} key={ruta.ruta.toLowerCase()}>
+                      {ruta.nombre}
                     </DropdownItem>
                   )}
                 </DropdownMenu>

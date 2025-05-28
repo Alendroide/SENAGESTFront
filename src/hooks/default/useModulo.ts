@@ -4,14 +4,14 @@ import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-export default function useModule(){
+export default function useModulo(){
 
     const navigate = useNavigate();
     
     async function getModules(){
         try{
             const {data} = await axiosAPI.get('modulos');
-            return data;
+            return data.data;
         }
         catch(error){
             console.log(error);

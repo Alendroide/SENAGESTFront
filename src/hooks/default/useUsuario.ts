@@ -10,9 +10,9 @@ export default function useUsuario(){
 
     async function getUsers() {
        try{
-            const response = await axiosAPI.get(`usuarios/getAll?page=${page}`);
-            setPages(response.data.pages);
-            return response.data.users;
+            const {data} = await axiosAPI.get(`usuarios/getAll?page=${page}`);
+            setPages(data.totalPages);
+            return data.data;
         }
         catch(error){
             console.log(error);
@@ -32,8 +32,7 @@ export default function useUsuario(){
                     "Content-Type": "multipart/form-data"
                 }
             });
-            const json = response.data;
-            return json;
+            return response.data.data;
         }
         catch(error){
             addToast({

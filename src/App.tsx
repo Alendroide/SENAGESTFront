@@ -10,7 +10,7 @@ import DefaultLayout from "./layouts/default";
 
 function App() {
 
-  const { user : { isAuthenticated }, modules } = AuthData();
+  const { isAuthenticated, modules } = AuthData();
 
   return (
     <DefaultLayout>
@@ -21,8 +21,14 @@ function App() {
           <Route element={<ProfilePage/>} path="/profile" />
         }
         {modules && modules.map( ( module ) =>
-          module.permisos.map( ( permiso, index) =>
-            <Route key={index} element={routesConfig[`${module.nombre.toLowerCase()}/${permiso.rutafront.ruta.toLowerCase()}`]} path={`/${module.nombre.toLowerCase()}/${permiso.rutafront.ruta.toLocaleLowerCase()}`} />
+          module.rutas.map( ( ruta, index) =>{
+            
+            const URI = `${module.nombre.toLowerCase()}/${ruta.ruta.toLowerCase()}`;
+            
+            return(
+              <Route key={index} element={routesConfig[URI]} path={URI} />
+            )
+          }
           )
         )}
         <Route element={<NotFoundPage/>} path="*" />

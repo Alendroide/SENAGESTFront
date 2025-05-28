@@ -4,7 +4,7 @@ import { Permiso, Rol } from "@/types/modules/Permiso";
 import { Select, SelectItem } from "@heroui/react";
 import { useState } from "react";
 import { Switch } from "@heroui/react";
-import useRolPermiso from "@/hooks/default/permisos/useRolPermiso";
+import useRolPermiso from "@/hooks/default/useRolPermiso";
 
 export default function PermisosMatrix() {
 

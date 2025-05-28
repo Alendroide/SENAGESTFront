@@ -1,6 +1,6 @@
 import ErrorMessage from "@/components/atoms/text/ErrorMessage";
 import { iconsConfig } from "@/config/icons";
-import useModule from "@/hooks/default/useModule";
+import useModulo from "@/hooks/default/useModulo";
 import { ModuleSchema } from "@/types/modules/Module";
 import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 export default function ModulesForm(){
 
-    const {createModule} = useModule();
+    const {createModule} = useModulo();
 
     const {register,handleSubmit,formState:{errors},watch} = useForm({
         resolver : zodResolver(ModuleSchema),

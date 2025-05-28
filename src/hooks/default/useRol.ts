@@ -10,8 +10,8 @@ export default function useRol(){
 
     async function getRoles(){
         try{
-            const roles = await axiosAPI.get("roles");
-            return roles.data;
+            const {data} = await axiosAPI.get("roles");
+            return data.data;
         }
         catch(error){
             console.log(error);
@@ -28,7 +28,7 @@ export default function useRol(){
         try{
             const newRol = await axiosAPI.post("roles",data);
             navigate("/roles/list");
-            return newRol.data
+            return newRol.data.data
         }
         catch(error: any){
             console.log(error);

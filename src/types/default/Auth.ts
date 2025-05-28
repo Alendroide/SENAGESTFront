@@ -1,9 +1,11 @@
-import { Module } from "@/types/default/Module";
+import { Modulo } from "@/types/default/Modulo";
 import { User } from "./User"
 
 export type Auth = {
-    user : User;
-    setUser : React.Dispatch<React.SetStateAction<User>>;
-    modules : Module[]
-    setModules : React.Dispatch<React.SetStateAction<Module[]>>;
+    isAuthenticated: boolean;
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    modules: Modulo[];
+    setModules: React.Dispatch<React.SetStateAction<Modulo[]>>;
 }

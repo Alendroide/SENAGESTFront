@@ -1,21 +1,20 @@
-import { Module } from '@/types/default/Module'
+import { Modulo } from '@/types/default/Modulo'
 
 export type User = {
-    isAuthenticated: boolean;
-    sub: number | null;
-    identificacion: string | null;
-    nombre: string | null;
-    correo : string | null;
-    img : string | null;
-    rol : number | null;
+    sub: number;
+    identificacion: string;
+    nombre: string;
+    correo : string;
+    img : string;
+    rol : number | undefined;
 }
 
 export type JwtPayload = {
     sub : number;
     identificacion : string;
-    nombre : string;
     correo : string;
-    img : string | null;
+    img : string;
     rol : number | undefined;
-    modulos : Module[]
+    nombre : string;
+    modulos : Modulo[]
 }

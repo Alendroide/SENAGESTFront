@@ -1,7 +1,7 @@
 import ErrorMessage from "@/components/atoms/text/ErrorMessage";
 import { iconsConfig, typeIcons } from "@/config/icons";
-import useModule from "@/hooks/default/useModule";
-import usePermiso from "@/hooks/default/permisos/usePermiso";
+import useModule from "@/hooks/default/useModulo";
+import usePermiso from "@/hooks/default/usePermiso";
 import { Module } from "@/types/modules/Module";
 import { PermisoSchema } from "@/types/modules/Permiso";
 import { Button, Divider, Form, Input, Select, SelectItem, Textarea } from "@heroui/react";

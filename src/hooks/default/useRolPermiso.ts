@@ -6,8 +6,8 @@ export default function useRolPermiso(){
     
     async function getRoles(){
         try{
-            const roles = await axiosAPI.get("permisos/roles");
-            return roles.data;
+            const {data} = await axiosAPI.get("permisos/roles");
+            return data.data;
         }
         catch(error){
             console.log(error);
@@ -23,7 +23,7 @@ export default function useRolPermiso(){
     async function getPermisoByRol(id : number){
         try{
             const { data } = await axiosAPI.get(`permisos/role/${id}`);
-            return data;
+            return data.data;
         }
         catch(error){
             console.log(error);

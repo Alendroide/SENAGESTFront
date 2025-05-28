@@ -9,7 +9,7 @@ import { LayoutData } from "@/providers/LayoutProvider";
 
 export default function Navbar(){
   
-  const { user : { isAuthenticated } } = AuthData() as Auth;
+  const { isAuthenticated } = AuthData() as Auth;
   const { sidebarOpen, setSidebarOpen } = LayoutData();
 
   const navigate = useNavigate();
