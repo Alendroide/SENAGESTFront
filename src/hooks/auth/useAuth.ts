@@ -9,7 +9,7 @@ import { JwtPayload } from "@/types/default/User";
 export default function useAuth(){
 
     const navigate = useNavigate();
-    const { setUser, setModules } = AuthData();
+    const { setIsAuthenticated, setUser, setModules } = AuthData();
 
     async function login( loginData : Login){
         try{
@@ -19,25 +19,21 @@ export default function useAuth(){
             });
 
             const token = data.access_token;
-            
-            //De no haber retornado un token, lanzar error
             if(!token) throw new Error("Error iniciando sesión");
 
             //Token en localStorage
             localStorage.setItem('token',`${token}`);
-
-            //Definición del usuario en el contexto
             const payload : JwtPayload = jwtDecode(token);
+
+            setIsAuthenticated(true);
             setUser({
-                isAuthenticated : true,
                 sub : payload.sub,
                 identificacion : payload.identificacion,
                 nombre : payload.nombre,
                 correo : payload.correo,
-                img : payload.img ?? null,
-                rol : payload.rol ?? null
+                img : payload.img,
+                rol : payload.rol ?? undefined
             })
-
             setModules(payload.modulos);
 
             //Retorno al inicio
@@ -61,7 +57,8 @@ export default function useAuth(){
 
     async function logout(){
         localStorage.removeItem('token');
-        setUser({isAuthenticated : false, sub : null, identificacion : null, nombre : null, correo : null, img : null, rol : null});
+        setIsAuthenticated(false);
+        setUser(null);
         setModules([]);
         navigate('/');
     }
