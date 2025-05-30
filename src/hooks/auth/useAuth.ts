@@ -21,9 +21,14 @@ export default function useAuth(){
             const token = data.access_token;
             if(!token) throw new Error("Error iniciando sesión");
 
-            //Token en localStorage
+            const modules = data.modulos ?? [];
+
+            // Token en localStorage
             localStorage.setItem('token',`${token}`);
             const payload : JwtPayload = jwtDecode(token);
+
+            // Modules en localStorage
+            localStorage.setItem('modules',JSON.stringify(modules));
 
             setIsAuthenticated(true);
             setUser({
@@ -34,7 +39,7 @@ export default function useAuth(){
                 img : payload.img,
                 rol : payload.rol ?? undefined
             })
-            setModules(payload.modulos);
+            setModules(modules);
 
             //Retorno al inicio
             navigate('/');

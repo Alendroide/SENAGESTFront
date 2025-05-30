@@ -12,11 +12,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     // Inicialización de variables de autorización
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>(null);
-    const [modules, setModules] = useState<Modulo[]>([])
+    const [modules, setModules] = useState<Modulo[]>([]);
 
     // En caso de que se haya iniciado sesión previamente
     useEffect(()=>{
       const token = localStorage.getItem('token') ?? null;
+      const modules = JSON.parse(localStorage.getItem('modules') ?? '[]');
     
       if(token) {
         const payload = jwtDecode<JwtPayload>(token);
@@ -32,7 +33,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
           rol : payload.rol ?? undefined
         });
         
-        setModules(payload.modulos);
+        setModules(modules);
       }
 
     },[])
