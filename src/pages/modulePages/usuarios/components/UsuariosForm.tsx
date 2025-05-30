@@ -49,16 +49,18 @@ export default function UsuariosForm() {
     <Form onSubmit={handleSubmit(onSubmit)}>
 
       {/* Imagen */}
-      <div className="flex flex-col items-center gap-2 mb-4">
-        <label htmlFor="image-upload" className="w-24 h-24 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-gray-500 transition-all relative overflow-hidden bg-gray-50" >
-          {preview ? (
-            <img src={preview} alt="preview" className="object-cover w-full h-full rounded-full" />
-          ) : (
-            <Plus className="w-8 h-8 text-gray-400" />
-          )}
-        </label>
-        <input id="image-upload" type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
-        {errors.img && <ErrorMessage>{String(errors.img.message)}</ErrorMessage>}
+      <div className="flex w-full items-center justify-center">
+        <div className="flex flex-col items-center gap-2 my-3">
+          <label htmlFor="image-upload" className="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-gray-500 transition-all relative overflow-hidden bg-gray-50" >
+            {preview ? (
+              <img src={preview} alt="preview" className="object-cover w-full h-full rounded-full" />
+            ) : (
+              <Plus className="w-8 h-8 text-gray-400" />
+            )}
+          </label>
+          <input id="image-upload" type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+          {errors.img && <ErrorMessage>{String(errors.img.message)}</ErrorMessage>}
+        </div>
       </div>
 
       <Input {...register("identificacion", { valueAsNumber: true })} label="Identificación" />
