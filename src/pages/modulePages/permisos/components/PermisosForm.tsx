@@ -3,8 +3,8 @@ import { iconsConfig, typeIcons } from "@/config/icons";
 import useModule from "@/hooks/default/useModulo";
 import usePermiso from "@/hooks/default/usePermiso";
 import { Module } from "@/types/modules/Module";
-import { PermisoSchema } from "@/types/modules/Permiso";
-import { Button, Divider, Form, Input, Select, SelectItem, Textarea } from "@heroui/react";
+import { Permiso, PermisoSchema } from "@/types/modules/Permiso";
+import { Button, Divider, Form, Input, Select, SelectItem, Textarea, useModalContext } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -18,8 +18,15 @@ export default function PermisosForm() {
         resolver: zodResolver(PermisoSchema)
     })
 
+    const {onClose} = useModalContext();
+
+    async function onSubmit(data: Permiso){
+        await createPermiso(data);
+        onClose();
+    }
+
     return (
-        <Form onSubmit={handleSubmit(createPermiso)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
 
             <Select
                 // Encuentra el ícono del módulo
@@ -57,7 +64,15 @@ export default function PermisosForm() {
             <Input {...register("rutaNombre")} label="Nombre" />
             {errors.rutaNombre && <ErrorMessage>{errors.rutaNombre.message}</ErrorMessage>}
 
-            <Button className="my-4" type="submit" color="success" variant="bordered">Crear</Button>
+            <div className="flex ms-auto gap-4">
+                <Button type="button" color="danger" variant="light" onPress={onClose}>
+                    Cancelar
+                </Button>
+
+                <Button type="submit" color="success" className="text-white">
+                    Crear
+                </Button>
+            </div>
 
         </Form>
     )

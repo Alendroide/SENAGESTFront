@@ -1,9 +1,10 @@
 import { AuthData } from "@/providers/AuthProvider";
 import ModulesTable from "./components/ModulesTable";
 import { Button } from "@heroui/button";
-import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/react";
 import ModulesForm from "./components/ModulesForm";
 import PageTitle from "@/components/atoms/PageTitle";
+import CustomModal from "@/components/organisms/CustomModal";
+import { useDisclosure } from "@heroui/modal";
 
 export default function ModulesPage() {
   const { modules } = AuthData();
@@ -21,16 +22,9 @@ export default function ModulesPage() {
       <PageTitle>Modulos</PageTitle>
       {crearPermiso && <Button onPress={onOpen} className="my-4" color="success" variant="bordered">+ Crear Módulo</Button>}
       
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
-        <ModalContent>
-            <ModalHeader>
-                Crear Módulo
-            </ModalHeader>
-            <ModalBody>
-                <ModulesForm/>
-            </ModalBody>
-        </ModalContent>
-      </Modal>
+      <CustomModal isOpen={isOpen} onOpenChange={onOpenChange} title="Crear módulo">
+        <ModulesForm/>
+      </CustomModal>
       
       <ModulesTable />
     </>
