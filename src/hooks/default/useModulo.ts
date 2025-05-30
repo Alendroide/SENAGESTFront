@@ -3,13 +3,10 @@ import { Module } from "@/types/modules/Module";
 import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function useModulo() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  const navigate = useNavigate();
 
   async function getModules() {
     try {
@@ -39,9 +36,6 @@ export default function useModulo() {
         color: "success",
         promise: axiosAPI
           .post("modulos", data)
-          .then(() => {
-            navigate("/modulos/list");
-          })
           .catch((error) => {
             console.log(error);
             addToast({
