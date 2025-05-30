@@ -10,7 +10,7 @@ export default function usePermiso(){
 
     async function getPermisos(){
         try{
-            const {data} = await axiosAPI.get('permisos/bymodulo');
+            const {data} = await axiosAPI.get('permisos');
             return data.data;
         }
         catch(error){
