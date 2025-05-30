@@ -3,14 +3,11 @@ import { Rol } from "@/types/modules/Rol";
 import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function useRol(){
 
     const [page,setPage] = useState(1);
     const [totalPages,setTotalPages] = useState(1);
-
-    const navigate = useNavigate();
 
     async function getRoles(){
         try{
@@ -32,7 +29,6 @@ export default function useRol(){
     async function createRol(data: Rol){
         try{
             const newRol = await axiosAPI.post("roles",data);
-            navigate("/roles/list");
             return newRol.data.data
         }
         catch(error: any){

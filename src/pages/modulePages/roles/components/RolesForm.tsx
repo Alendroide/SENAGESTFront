@@ -1,8 +1,8 @@
 import ErrorMessage from "@/components/atoms/text/ErrorMessage";
 import { iconsConfig } from "@/config/icons";
 import useRol from "@/hooks/default/useRol";
-import { RolSchema } from "@/types/modules/Rol";
-import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
+import { Rol, RolSchema } from "@/types/modules/Rol";
+import { Button, Form, Input, Select, SelectItem, useModalContext } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,8 +17,15 @@ export default function RolesForm(){
         }
     });
 
+    const { onClose } = useModalContext();
+
+    async function onSubmit( data: Rol){
+        await createRol(data);
+        onClose();
+    }
+
     return(
-        <Form onSubmit={handleSubmit(createRol)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
 
             <Input {...register("nombre")} label="Nombre" />
             {errors?.nombre && <ErrorMessage>{errors.nombre.message}</ErrorMessage>}
@@ -35,7 +42,16 @@ export default function RolesForm(){
             </Select>
             {errors?.icono && <ErrorMessage>{errors.icono.message}</ErrorMessage>}
 
-            <Button color="success" variant="bordered" type="submit">Crear</Button>
+            <div className="flex ms-auto gap-4">
+                <Button type="button" color="danger" variant="light" onPress={onClose}>
+                    Cancelar
+                </Button>
+
+                <Button type="submit" color="success" className="text-white">
+                    Crear
+                </Button>
+            </div>
+
         </Form>
     )
 }
