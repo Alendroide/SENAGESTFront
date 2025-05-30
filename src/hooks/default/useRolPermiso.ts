@@ -6,7 +6,7 @@ export default function useRolPermiso(){
     
     async function getRoles(){
         try{
-            const {data} = await axiosAPI.get("permisos/roles");
+            const {data} = await axiosAPI.get("rolpermiso/roles");
             return data.data;
         }
         catch(error){
@@ -22,7 +22,7 @@ export default function useRolPermiso(){
 
     async function getPermisoByRol(id : number){
         try{
-            const { data } = await axiosAPI.get(`permisos/role/${id}`);
+            const { data } = await axiosAPI.get(`rolpermiso/role/${id}`);
             return data.data;
         }
         catch(error){
@@ -32,7 +32,7 @@ export default function useRolPermiso(){
 
     async function asignPermiso(permisoId : number,rolId : number,valor : boolean){
         try{
-            await axiosAPI.post(`permisos/asign/${permisoId}/${rolId}/${valor}`)
+            await axiosAPI.post(`rolpermiso/asign/${permisoId}/${rolId}/${valor}`)
         }
         catch(error : any){
             addToast({

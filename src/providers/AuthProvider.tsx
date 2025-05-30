@@ -19,7 +19,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       const token = localStorage.getItem('token') ?? null;
     
       if(token) {
-        const payload : JwtPayload = jwtDecode(token);
+        const payload = jwtDecode<JwtPayload>(token);
         
         setIsAuthenticated(true);
 
