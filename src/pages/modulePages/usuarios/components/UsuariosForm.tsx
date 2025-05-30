@@ -66,17 +66,19 @@ export default function UsuariosForm() {
       <Input {...register("identificacion", { valueAsNumber: true })} label="Identificación" />
       {errors.identificacion && <ErrorMessage>{errors.identificacion.message}</ErrorMessage>}
 
-      <Input {...register("primerNombre")} label="Primer Nombre" />
-      {errors.primerNombre && <ErrorMessage>{errors.primerNombre.message}</ErrorMessage>}
+      <div className="flex w-full">
+        <Input {...register("primerNombre")} label="Primer Nombre" />
+        <Input {...register("segundoNombre")} label="Segundo Nombre (opcional)" />
+      </div>
+        {errors.primerNombre && <ErrorMessage>{errors.primerNombre.message}</ErrorMessage>}
+        {errors.segundoNombre && <ErrorMessage>{errors.segundoNombre.message}</ErrorMessage>}
 
-      <Input {...register("segundoNombre")} label="Segundo Nombre (opcional)" />
-      {errors.segundoNombre && <ErrorMessage>{errors.segundoNombre.message}</ErrorMessage>}
-
-      <Input {...register("primerApellido")} label="Primer Apellido" />
-      {errors.primerApellido && <ErrorMessage>{errors.primerApellido.message}</ErrorMessage>}
-
-      <Input {...register("segundoApellido")} label="Segundo Apellido (opcional)" />
-      {errors.segundoApellido && <ErrorMessage>{errors.segundoApellido.message}</ErrorMessage>}
+      <div className="flex w-full">
+        <Input {...register("primerApellido")} label="Primer Apellido" />
+        <Input {...register("segundoApellido")} label="Segundo Apellido (opcional)" />
+      </div>
+        {errors.primerApellido && <ErrorMessage>{errors.primerApellido.message}</ErrorMessage>}
+        {errors.segundoApellido && <ErrorMessage>{errors.segundoApellido.message}</ErrorMessage>}
 
       <Input {...register("correo")} label="Correo Electrónico" />
       {errors.correo && <ErrorMessage>{errors.correo.message}</ErrorMessage>}
