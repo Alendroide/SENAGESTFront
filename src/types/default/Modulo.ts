@@ -5,12 +5,14 @@ export type Permiso = {
 }
 
 export type RutaFront = {
+    id: number;
     nombre: string;
     ruta: string;
     permisos: Permiso[];
 }
 
 export type Modulo = {
+    id: number;
     nombre : string;
     icono : string;
     rutas: RutaFront[]
