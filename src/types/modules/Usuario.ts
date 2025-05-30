@@ -10,7 +10,7 @@ export const UsuarioSchema = z.object({
     contrasena: z.string({required_error:"Ingrese una contraseña"}),
     fechaNacimiento: z.string({required_error:"Ingrese una fecha"}),
     fichaId: z.number({required_error:"Ingrese un ID ficha"}),
-    img: z.any().refine(file => file instanceof File && file.size > 0,"La imagen es obligatoria")
+    img: z.any().optional()
 })
 
 export type Usuario = z.infer<typeof UsuarioSchema>
