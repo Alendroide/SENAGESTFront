@@ -27,7 +27,7 @@ export default function useUsuario(){
 
     async function createUser(data: FormData){
         try{
-            const response = await axiosAPI.post('auth/register',data,{
+            const response = await axiosAPI.post('usuarios',data,{
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
