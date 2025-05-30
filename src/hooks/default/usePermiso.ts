@@ -2,15 +2,18 @@ import { axiosAPI } from "@/api/axiosAPI";
 import { Permiso } from "@/types/modules/Permiso";
 import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function usePermiso(){
 
-    const navigate = useNavigate();
+    const [module,setModule] = useState(1);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     async function getPermisos(){
         try{
-            const {data} = await axiosAPI.get('permisos');
+            const {data} = await axiosAPI.get(`permisos/${module}?page=${page}`);
+            setTotalPages(data.totalPages);
             return data.data;
         }
         catch(error){
@@ -18,8 +21,8 @@ export default function usePermiso(){
         }
     }
 
-    const {data : modulesWithPermisos, isLoading, isError, error} = useQuery({
-        queryKey: ['permisos'],
+    const {data : moduleWithPermisos, isLoading, isError, error} = useQuery({
+        queryKey: ['permisos',module,page],
         queryFn: getPermisos,
     });
 
@@ -30,9 +33,6 @@ export default function usePermiso(){
                 description : "Espere un momento...",
                 color : "success",
                 promise : axiosAPI.post('permisos',data)
-                .then(() => {
-                    navigate("/permisos/list");
-                })
                 .catch(error => {
                     console.log(error);
                     addToast({
@@ -48,5 +48,5 @@ export default function usePermiso(){
         }
     }
 
-    return { modulesWithPermisos, isLoading, isError, error, createPermiso };
+    return { moduleWithPermisos, isLoading, isError, error, createPermiso, setModule, setPage, totalPages };
 }
