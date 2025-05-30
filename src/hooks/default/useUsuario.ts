@@ -6,12 +6,12 @@ import { useState } from "react";
 export default function useUsuario(){
 
     const [page,setPage] = useState(1);
-    const [pages,setPages] = useState(1);
+    const [totalPages,setTotalPages] = useState(1);
 
     async function getUsers() {
        try{
-            const {data} = await axiosAPI.get(`usuarios/getAll?page=${page}`);
-            setPages(data.totalPages);
+            const {data} = await axiosAPI.get(`usuarios?page=${page}`);
+            setTotalPages(data.totalPages);
             return data.data;
         }
         catch(error){
@@ -44,6 +44,6 @@ export default function useUsuario(){
         }
     }
 
-    return { users, isLoading, isError, error, setPage, pages, createUser };
+    return { users, isLoading, isError, error, setPage, totalPages, createUser };
 
 }
