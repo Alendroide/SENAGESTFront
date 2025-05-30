@@ -2,9 +2,9 @@ import RolesTable from "./components/RolesTable";
 
 export default function RolesPage(){
     return(
-        <div>
-            <h1 className="text-2xl font-bold my-4">Roles</h1>
+        <>
+            <h1 className="text-2xl font-bold mt-6">Roles</h1>
             <RolesTable/>
-        </div>
+        </>
     )
 }
