@@ -2,7 +2,8 @@ import ErrorMessage from "@/components/atoms/text/ErrorMessage";
 import { iconsConfig } from "@/config/icons";
 import useRol from "@/hooks/default/useRol";
 import { Rol, RolSchema } from "@/types/modules/Rol";
-import { Button, Form, Input, Select, SelectItem, useModalContext } from "@heroui/react";
+import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
+import { useModalContext } from "@heroui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 

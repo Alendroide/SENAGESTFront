@@ -2,13 +2,13 @@ import ErrorMessage from "@/components/atoms/text/ErrorMessage";
 import { iconsConfig } from "@/config/icons";
 import useModulo from "@/hooks/default/useModulo";
 import { Module, ModuleSchema } from "@/types/modules/Module";
+import { useModalContext } from "@heroui/modal";
 import {
   Button,
   Form,
   Input,
   Select,
   SelectItem,
-  useModalContext,
 } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

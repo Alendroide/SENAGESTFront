@@ -4,7 +4,8 @@ import useModule from "@/hooks/default/useModulo";
 import usePermiso from "@/hooks/default/usePermiso";
 import { Module } from "@/types/modules/Module";
 import { Permiso, PermisoSchema } from "@/types/modules/Permiso";
-import { Button, Divider, Form, Input, Select, SelectItem, Textarea, useModalContext } from "@heroui/react";
+import { Button, Divider, Form, Input, Select, SelectItem, Textarea } from "@heroui/react";
+import { useModalContext } from "@heroui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
