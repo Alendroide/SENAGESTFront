@@ -11,19 +11,9 @@ import {
 } from "@heroui/react";
 
 export default function ModulesTable() {
-  const { modules, isLoading, isError, error, totalPages, setPage } =
-    useModulo();
+  const { modules, isLoading, isError, error, totalPages, setPage } = useModulo();
   return (
     <>
-      <Pagination
-        onChange={(val) => setPage(val)}
-        variant="bordered"
-        color="success"
-        showControls
-        initialPage={1}
-        total={totalPages}
-        className="my-6"
-      />
       <Table aria-label="ModulesTable">
         <TableHeader>
           <TableColumn>Ícono</TableColumn>
@@ -50,6 +40,15 @@ export default function ModulesTable() {
           ))}
         </TableBody>
       </Table>
+      <Pagination
+        onChange={(val) => setPage(val)}
+        variant="bordered"
+        color="success"
+        showControls
+        initialPage={1}
+        total={totalPages}
+        className="my-6"
+      />
     </>
   );
 }

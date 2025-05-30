@@ -17,8 +17,8 @@ export default function ModulesPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold my-4">Modulos</h1>
-      {crearPermiso && <Button onPress={onOpen}>Crear Módulo</Button>}
+      <h1 className="text-2xl font-bold mt-6">Modulos</h1>
+      {crearPermiso && <Button onPress={onOpen} className="my-4" color="success" variant="bordered">+ Crear Módulo</Button>}
       
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
