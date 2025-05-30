@@ -1,6 +1,6 @@
 import RolesTable from "./components/RolesTable";
 
-export default function ListarRolesPage(){
+export default function RolesPage(){
     return(
         <div>
             <h1 className="text-2xl font-bold my-4">Roles</h1>

@@ -1,6 +1,6 @@
 import PermisosTable from "./components/PermisosTable";
 
-export default function ListarPermisosPage() {
+export default function PermisosPage() {
 
     return (
         <div className="">
