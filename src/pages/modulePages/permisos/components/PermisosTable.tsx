@@ -1,7 +1,10 @@
 import { iconsConfig, typeIcons } from "@/config/icons";
 import usePermiso from "@/hooks/default/usePermiso";
+import { Modulo } from "@/types/default/Modulo";
 import {
   Pagination,
+  Select,
+  SelectItem,
   Table,
   TableBody,
   TableCell,
@@ -25,10 +28,24 @@ export default function PermisosTable() {
     error,
     setPage,
     totalPages,
+    modules,
+    selectedModule,
+    setSelectedModule
   } = usePermiso();
 
   return (
     <>
+        {modules && 
+            <Select
+                aria-label="moduleSelector"
+                defaultSelectedKeys={[`${selectedModule}`]}
+                onChange={(e) => setSelectedModule(parseInt(e.target.value))}
+            >
+                {modules.map((module : Modulo) => (
+                    <SelectItem key={module.id}>{module.nombre}</SelectItem>
+                ))}
+            </Select>
+        }
       {isLoading && <p>Cargando...</p>}
       {isError && <p>Error: {error?.message}</p>}
       {modulo && (

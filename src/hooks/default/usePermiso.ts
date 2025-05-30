@@ -1,18 +1,34 @@
 import { axiosAPI } from "@/api/axiosAPI";
+import { Modulo } from "@/types/default/Modulo";
 import { Permiso } from "@/types/modules/Permiso";
 import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function usePermiso(){
 
-    const [module,setModule] = useState(1);
+    const [selectedModule,setSelectedModule] = useState(1);
+    const [modules,setModules] = useState<Modulo[] | null>(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
+    useEffect(()=>{
+        async function getModules(){
+            try{
+                const {data} = await axiosAPI.get('permisos/modules');
+                setModules(data.data);
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+        getModules();
+    },[])
+
+
     async function getPermisos(){
         try{
-            const {data} = await axiosAPI.get(`permisos/${module}?page=${page}`);
+            const {data} = await axiosAPI.get(`permisos/module/${selectedModule}?page=${page}`);
             setTotalPages(data.totalPages);
             return data.data;
         }
@@ -22,7 +38,7 @@ export default function usePermiso(){
     }
 
     const {data : moduleWithPermisos, isLoading, isError, error} = useQuery({
-        queryKey: ['permisos',module,page],
+        queryKey: ['permisos',selectedModule,page],
         queryFn: getPermisos,
     });
 
@@ -48,5 +64,5 @@ export default function usePermiso(){
         }
     }
 
-    return { moduleWithPermisos, isLoading, isError, error, createPermiso, setModule, setPage, totalPages };
+    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules };
 }
