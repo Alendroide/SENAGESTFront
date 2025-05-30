@@ -1,4 +1,5 @@
 export type Permiso = {
+    id: number;
     nombre: string;
     tipo: string;
 }
