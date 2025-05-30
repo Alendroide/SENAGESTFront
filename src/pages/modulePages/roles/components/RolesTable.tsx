@@ -2,7 +2,7 @@ import { iconsConfig } from "@/config/icons";
 import useRol from "@/hooks/default/useRol";
 import { Rol } from "@/types/modules/Permiso";
 import {
-    Pagination,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -16,15 +16,6 @@ export default function RolesTable() {
 
   return (
     <>
-      <Pagination
-        onChange={(val) => setPage(val)}
-        variant="bordered"
-        color="success"
-        showControls
-        initialPage={1}
-        total={totalPages}
-        className="my-6"
-      />
       <Table aria-label="TablaRoles">
         <TableHeader>
           <TableColumn>Nombre</TableColumn>
@@ -52,6 +43,15 @@ export default function RolesTable() {
           ))}
         </TableBody>
       </Table>
+      <Pagination
+        onChange={(val) => setPage(val)}
+        variant="bordered"
+        color="success"
+        showControls
+        initialPage={1}
+        total={totalPages}
+        className="my-6"
+      />
     </>
   );
 }

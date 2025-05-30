@@ -16,15 +16,6 @@ export default function UsuariosTable() {
 
   return (
     <>
-      <Pagination
-        onChange={(val) => setPage(val)}
-        variant="bordered"
-        color="success"
-        showControls
-        initialPage={1}
-        total={totalPages}
-        className="my-6"
-      />
       <Table aria-label="UsuariosTable">
         <TableHeader>
           <TableColumn>Identificación</TableColumn>
@@ -54,6 +45,15 @@ export default function UsuariosTable() {
           ))}
         </TableBody>
       </Table>
+      <Pagination
+        onChange={(val) => setPage(val)}
+        variant="bordered"
+        color="success"
+        showControls
+        initialPage={1}
+        total={totalPages}
+        className="my-6"
+      />
     </>
   );
 }
