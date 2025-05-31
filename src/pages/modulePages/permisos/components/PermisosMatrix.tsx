@@ -1,7 +1,7 @@
 import { iconsConfig, typeIcons } from "@/config/icons";
 import { Module } from "@/types/modules/Module";
 import { Permiso, Rol } from "@/types/modules/Permiso";
-import { Select, SelectItem } from "@heroui/react";
+import { Divider, Select, SelectItem } from "@heroui/react";
 import { useState } from "react";
 import { Switch } from "@heroui/react";
 import useRolPermiso from "@/hooks/default/useRolPermiso";
@@ -86,7 +86,7 @@ export default function PermisosMatrix() {
 
   return (
     <div>
-        <div className="flex items-center gap-4 my-6">
+        <div className="flex flex-col items-center gap-4 my-6 sm:flex-row">
 
             <Select
                 startContent={ selectedRole ? iconsConfig[ roles?.find((rol: Rol) => rol.id === selectedRole)?.icono ] : "" }
@@ -115,11 +115,12 @@ export default function PermisosMatrix() {
 
         </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-2">
         {permisos?.map((permiso) => (
-          <div className="flex" key={permiso.id}>
+          <>
+          <div className="flex min-h-12 justify-start items-center sm:border-2 sm:border-gray-300 sm:border-solid box-border px-2 rounded-xl" key={permiso.id}>
             <span className="mr-2">{typeIcons[permiso.tipo]}</span>
-            {permiso.nombre}
+            <p>{permiso.nombre}</p>
             <Switch
                 color="success"
                 onChange={(e) => handleChecked(permiso.id,e.target.checked)}
@@ -127,6 +128,8 @@ export default function PermisosMatrix() {
                 className="ml-auto"
             />
           </div>
+            <Divider className="my-2 sm:hidden" />
+          </>
         ))}
       </div>
     </div>
