@@ -30,31 +30,41 @@ export default function PermisosTable() {
     totalPages,
     modules,
     selectedModule,
-    setSelectedModule
+    setSelectedModule,
   } = usePermiso();
 
   return (
     <>
-        {modules && 
+      <div className="flex gap-4 my-6 w-1/4">
+          {modules && (
             <Select
-                aria-label="moduleSelector"
-                defaultSelectedKeys={[`${selectedModule}`]}
-                onChange={(e) => setSelectedModule(parseInt(e.target.value))}
+              aria-label="moduleSelector"
+              defaultSelectedKeys={[`${selectedModule}`]}
+              onChange={(e) => setSelectedModule(parseInt(e.target.value))}
+              startContent={iconsConfig[modules.find((module: Modulo) => module.id === selectedModule)?.icono as string] || ""}
             >
-                {modules.map((module : Modulo) => (
-                    <SelectItem key={module.id}>{module.nombre}</SelectItem>
-                ))}
+              {modules.map((module: Modulo) => (
+                <SelectItem key={module.id} startContent={iconsConfig[module.icono]}>{module.nombre}</SelectItem>
+              ))}
             </Select>
-        }
+          )}
+
+          <Pagination
+            onChange={(val) => setPage(val)}
+            variant="bordered"
+            color="success"
+            showControls
+            initialPage={1}
+            total={totalPages}
+          />
+      </div>
+
       {isLoading && <p>Cargando...</p>}
       {isError && <p>Error: {error?.message}</p>}
+
       {modulo && (
         <>
           <div key={modulo.id}>
-            <h1 className="my-5 font-semibold flex gap-3">
-              {iconsConfig[modulo.icono]}
-              {modulo.nombre}
-            </h1>
             <Table aria-label={`Tabla${modulo.nombre}`}>
               <TableHeader>
                 <TableColumn>Nombre</TableColumn>
@@ -81,15 +91,6 @@ export default function PermisosTable() {
               </TableBody>
             </Table>
           </div>
-          <Pagination
-            onChange={(val) => setPage(val)}
-            variant="bordered"
-            color="success"
-            showControls
-            initialPage={1}
-            total={totalPages}
-            className="my-6"
-          />
         </>
       )}
     </>
