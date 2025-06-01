@@ -3,7 +3,6 @@
 import { Input } from '@heroui/input';
 import { Button } from '@heroui/button';
 import Title from '../atoms/text/Title';
-import BigCard from '../atoms/BigCard';
 
 //FormLogic
 import { useForm } from 'react-hook-form';
@@ -18,7 +17,6 @@ export default function LoginForm(){
 
     return(
         <div className='md:w-1/2 mx-auto'>
-        <BigCard>
             <Title>Log In</Title>
             <form onSubmit={handleSubmit(login)} className='space-y-4'>
                 <Input
@@ -34,7 +32,6 @@ export default function LoginForm(){
                 {errors?.contrasena && <p className='text-red-600'>{errors.contrasena.message}</p>}
                 <Button type='submit' color='success' variant='bordered'>Log In</Button>
             </form>
-        </BigCard>
         </div>
     )
 }
