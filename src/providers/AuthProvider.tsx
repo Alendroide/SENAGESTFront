@@ -1,7 +1,7 @@
 import { Auth } from "@/types/default/Auth";
 import { JwtPayload, User } from "@/types/default/User";
 import { jwtDecode } from "jwt-decode";
-import { Modulo } from "@/types/default/Modulo";
+import { Modulo, Permiso } from "@/types/default/Modulo";
 import { useContext, useEffect, useState, createContext } from "react";
 import Cookies from 'universal-cookie';
 
@@ -16,11 +16,13 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>(null);
     const [modules, setModules] = useState<Modulo[]>([]);
+    const [permissions, setPermissions] = useState<Permiso[]>([]);
 
     // En caso de que se haya iniciado sesión previamente
     useEffect(()=>{
       const token = cookies.get('token') ?? null;
       const modules = cookies.get('modules') || [];
+      const permissions = cookies.get('permissions') || [];
     
       if(token) {
         const payload = jwtDecode<JwtPayload>(token);
@@ -37,12 +39,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         });
         
         setModules(modules);
+
+        setPermissions(permissions);
       }
 
     },[])
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, user, setUser, modules, setModules}}>
+        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, user, setUser, modules, setModules, permissions, setPermissions}}>
             {children}
         </AuthContext.Provider>
     )

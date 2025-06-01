@@ -7,12 +7,13 @@ import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from "@/types/default/User";
 import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+
 export default function useAuth(){
 
-    const cookies = new Cookies();
 
     const navigate = useNavigate();
-    const { setIsAuthenticated, setUser, setModules } = AuthData();
+    const { setIsAuthenticated, setUser, setModules, setPermissions } = AuthData();
 
     async function login( loginData : Login){
         try{
@@ -24,25 +25,23 @@ export default function useAuth(){
             const token = data.access_token;
             if(!token) throw new Error("Error iniciando sesión");
 
+            const payload : JwtPayload = jwtDecode(token);
             const modules = data.modulos ?? [];
+            const permissions = modules.flatMap((module) => module.rutas).flatMap((ruta) => ruta.permisos) || [];
 
             // Token en Cookies
             cookies.set('token',token);
-            const payload : JwtPayload = jwtDecode(token);
 
             // Modules en Cookies
             cookies.set('modules',modules);
 
+            // Permissions en Cookies
+            cookies.set('permissions',permissions);
+
             setIsAuthenticated(true);
-            setUser({
-                sub : payload.sub,
-                identificacion : payload.identificacion,
-                nombre : payload.nombre,
-                correo : payload.correo,
-                img : payload.img,
-                rol : payload.rol ?? undefined
-            })
+            setUser(payload);
             setModules(modules);
+            setPermissions(permissions);
 
             //Retorno al inicio
             navigate('/');
@@ -65,9 +64,12 @@ export default function useAuth(){
 
     async function logout(){
         cookies.remove('token');
+        cookies.remove('modules');
+        cookies.remove('permissions');
         setIsAuthenticated(false);
         setUser(null);
         setModules([]);
+        setPermissions([]);
         navigate('/');
     }
 
