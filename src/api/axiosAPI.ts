@@ -1,4 +1,7 @@
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export const axiosAPI = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`,
@@ -10,7 +13,7 @@ export const axiosAPI = axios.create({
 // Attach token to every request dynamically
 axiosAPI.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = cookies.get('token');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     } else {

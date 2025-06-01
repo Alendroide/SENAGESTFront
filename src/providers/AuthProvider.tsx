@@ -3,11 +3,14 @@ import { JwtPayload, User } from "@/types/default/User";
 import { jwtDecode } from "jwt-decode";
 import { Modulo } from "@/types/default/Modulo";
 import { useContext, useEffect, useState, createContext } from "react";
+import Cookies from 'universal-cookie';
 
 const AuthContext = createContext<Auth | null>(null);
 export const AuthData = () => useContext(AuthContext) as Auth;
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
+
+    const cookies = new Cookies();
 
     // Inicialización de variables de autorización
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -16,8 +19,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     // En caso de que se haya iniciado sesión previamente
     useEffect(()=>{
-      const token = localStorage.getItem('token') ?? null;
-      const modules = JSON.parse(localStorage.getItem('modules') ?? '[]');
+      const token = cookies.get('token') ?? null;
+      const modules = cookies.get('modules') || [];
     
       if(token) {
         const payload = jwtDecode<JwtPayload>(token);

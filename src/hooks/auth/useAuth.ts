@@ -5,8 +5,11 @@ import { addToast } from '@heroui/toast';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from "@/types/default/User";
+import Cookies from 'universal-cookie';
 
 export default function useAuth(){
+
+    const cookies = new Cookies();
 
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser, setModules } = AuthData();
@@ -23,12 +26,12 @@ export default function useAuth(){
 
             const modules = data.modulos ?? [];
 
-            // Token en localStorage
-            localStorage.setItem('token',`${token}`);
+            // Token en Cookies
+            cookies.set('token',token);
             const payload : JwtPayload = jwtDecode(token);
 
-            // Modules en localStorage
-            localStorage.setItem('modules',JSON.stringify(modules));
+            // Modules en Cookies
+            cookies.set('modules',modules);
 
             setIsAuthenticated(true);
             setUser({
@@ -61,7 +64,7 @@ export default function useAuth(){
     }
 
     async function logout(){
-        localStorage.removeItem('token');
+        cookies.remove('token');
         setIsAuthenticated(false);
         setUser(null);
         setModules([]);
