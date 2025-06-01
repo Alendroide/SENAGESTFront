@@ -9,7 +9,7 @@ interface props {
 
 export default function CustomModal({ isOpen, onOpenChange, title, children }: props) {
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} scrollBehavior="inside" backdrop="blur">
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} scrollBehavior="inside" backdrop="blur" hideCloseButton={true} isKeyboardDismissDisabled={false}>
             <ModalContent>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalBody>

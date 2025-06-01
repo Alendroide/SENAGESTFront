@@ -5,11 +5,17 @@ import PageTitle from "@/components/atoms/PageTitle";
 import CustomModal from "@/components/organisms/CustomModal";
 import { useDisclosure } from "@heroui/modal";
 import usePermissions from "@/hooks/auth/usePermissions";
+import { useState } from "react";
+import { Module } from "@/types/modules/Module";
+import ModulesUpdateForm from "./components/ModulesUpdateForm";
 
 export default function ModulesPage() {
   const { hasPermission } = usePermissions();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedData, setSelectedData] = useState<Module | null>(null);
 
   return (
     <>
@@ -29,12 +35,17 @@ export default function ModulesPage() {
       <CustomModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        title="Crear módulo"
+        title={selectedId ? "Editar módulo" : "Crear módulo"}
       >
-        <ModulesForm />
+        {selectedId && selectedData ? 
+          <ModulesUpdateForm selectedId={selectedId} selectedData={selectedData} setSelectedId={setSelectedId} setSelectedData={setSelectedData}/>
+          :
+          <ModulesForm/>
+        }
+
       </CustomModal>
 
-      <ModulesTable />
+      <ModulesTable onOpen={onOpen} setSelectedId={setSelectedId} setSelectedData={setSelectedData} />
     </>
   );
 }
