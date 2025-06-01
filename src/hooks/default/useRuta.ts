@@ -1,9 +1,13 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { Modulo } from "@/types/default/Modulo";
-import { useQuery } from "@tanstack/react-query";
+import { Ruta } from "@/types/modules/Ruta";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-export default function useRutas() {
+export default function useRuta() {
+
+  const queryClient = useQueryClient();
+
   const [selectedModule, setSelectedModule] = useState(1);
   const [modules, setModules] = useState<Modulo[] | null>(null);
   const [page, setPage] = useState(1);
@@ -37,5 +41,20 @@ export default function useRutas() {
         queryFn: getRutas,
     });
 
-  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules };
+    async function createRuta(data: Ruta){
+      try{
+        const newRuta = await axiosAPI.post("rutas",data);
+        const record = newRuta.data.data;
+        queryClient.invalidateQueries({
+          queryKey: ['rutas',selectedModule],
+          exact: false
+        })
+        return record
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+
+  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta };
 }
