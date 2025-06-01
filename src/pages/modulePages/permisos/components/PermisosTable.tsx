@@ -42,6 +42,7 @@ export default function PermisosTable() {
               defaultSelectedKeys={[`${selectedModule}`]}
               onChange={(e) => setSelectedModule(parseInt(e.target.value))}
               startContent={iconsConfig[modules.find((module: Modulo) => module.id === selectedModule)?.icono as string] || ""}
+              placeholder="Seleccione..."
             >
               {modules.map((module: Modulo) => (
                 <SelectItem key={module.id} startContent={iconsConfig[module.icono]}>{module.nombre}</SelectItem>
@@ -60,9 +61,9 @@ export default function PermisosTable() {
       </div>
 
       {isLoading && <p>Cargando...</p>}
-      {isError && <p>Error: {error?.message}</p>}
+      {isError && !isNaN(selectedModule) && <p>Error: {error?.message}</p>}
 
-      {modulo && (
+      {modulo && !isNaN(selectedModule) && (
         <>
           <div key={modulo.id}>
             <Table aria-label={`Tabla${modulo.nombre}`}>
