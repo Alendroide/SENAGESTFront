@@ -42,9 +42,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         setModules(modules);
 
         setPermissions(permissions);
-        setAppLoading(false);
       }
-      
+      setAppLoading(false);
     },[])
 
     return (

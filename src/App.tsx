@@ -1,37 +1,48 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import IndexPage from "@/pages/defaultPages/index";
-import LoginPage from "./pages/defaultPages/login";
-import ProfilePage from "./pages/defaultPages/profile";
-import NotFoundPage from "./pages/defaultPages/notfound";
+import IndexPage from "@/pages/defaultPages/IndexPage";
+import LoginPage from "./pages/defaultPages/LoginPage";
+import ProfilePage from "./pages/defaultPages/ProfilePage";
+import NotFoundPage from "./pages/defaultPages/NotFoundPage";
 import { AuthData } from "./providers/AuthProvider";
 import { routesConfig } from "./config/routes";
 import DefaultLayout from "./layouts/DefaultLayout";
 import LoadingLayout from "./layouts/LoadingLayout";
+import LayoutProvider from "./providers/LayoutProvider";
 
 function App() {
   const { appLoading, isAuthenticated, modules } = AuthData();
 
-  if(appLoading) return <LoadingLayout/>;
+  if (appLoading) return <LoadingLayout />;
 
-  return (
-    <DefaultLayout>
+  if (!isAuthenticated)
+    return (
       <Routes>
-        <Route element={<IndexPage />} path="/" />
+        <Route element={<Navigate to="/login" />} path="/" />
         <Route element={<LoginPage />} path="/login" />
-        {isAuthenticated && <Route element={<ProfilePage />} path="/profile" />}
-        {modules &&
-          modules.map((module) =>
-            module.rutas.map((ruta, index) => {
-              const URI = `${module.nombre.toLowerCase()}/${ruta.ruta.toLowerCase()}`;
-              return (
-                <Route key={index} element={routesConfig[URI]} path={URI} />
-              );
-            })
-          )}
         <Route element={<NotFoundPage />} path="*" />
       </Routes>
-    </DefaultLayout>
+    );
+
+  return (
+    <LayoutProvider>
+      <DefaultLayout>
+        <Routes>
+          <Route element={<IndexPage />} path="/" />
+          <Route element={<ProfilePage />} path="/profile" />
+          {modules &&
+            modules.map((module) =>
+              module.rutas.map((ruta, index) => {
+                const URI = `${module.nombre.toLowerCase()}/${ruta.ruta.toLowerCase()}`;
+                return (
+                  <Route key={index} element={routesConfig[URI]} path={URI} />
+                );
+              })
+            )}
+          <Route element={<NotFoundPage />} path="*" />
+        </Routes>
+      </DefaultLayout>
+    </LayoutProvider>
   );
 }
 
