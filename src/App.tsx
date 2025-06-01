@@ -6,32 +6,30 @@ import ProfilePage from "./pages/defaultPages/profile";
 import NotFoundPage from "./pages/defaultPages/notfound";
 import { AuthData } from "./providers/AuthProvider";
 import { routesConfig } from "./config/routes";
-import DefaultLayout from "./layouts/default";
+import DefaultLayout from "./layouts/DefaultLayout";
+import LoadingLayout from "./layouts/LoadingLayout";
 
 function App() {
+  const { appLoading, isAuthenticated, modules } = AuthData();
 
-  const { isAuthenticated, modules } = AuthData();
+  if(appLoading) return <LoadingLayout/>;
 
   return (
     <DefaultLayout>
       <Routes>
         <Route element={<IndexPage />} path="/" />
         <Route element={<LoginPage />} path="/login" />
-        {isAuthenticated &&
-          <Route element={<ProfilePage/>} path="/profile" />
-        }
-        {modules && modules.map( ( module ) =>
-          module.rutas.map( ( ruta, index) =>{
-            
-            const URI = `${module.nombre.toLowerCase()}/${ruta.ruta.toLowerCase()}`;
-            
-            return(
-              <Route key={index} element={routesConfig[URI]} path={URI} />
-            )
-          }
-          )
-        )}
-        <Route element={<NotFoundPage/>} path="*" />
+        {isAuthenticated && <Route element={<ProfilePage />} path="/profile" />}
+        {modules &&
+          modules.map((module) =>
+            module.rutas.map((ruta, index) => {
+              const URI = `${module.nombre.toLowerCase()}/${ruta.ruta.toLowerCase()}`;
+              return (
+                <Route key={index} element={routesConfig[URI]} path={URI} />
+              );
+            })
+          )}
+        <Route element={<NotFoundPage />} path="*" />
       </Routes>
     </DefaultLayout>
   );

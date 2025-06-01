@@ -13,6 +13,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const cookies = new Cookies();
 
     // Inicialización de variables de autorización
+    const [appLoading, setAppLoading] = useState<boolean>(true);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>(null);
     const [modules, setModules] = useState<Modulo[]>([]);
@@ -41,12 +42,13 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         setModules(modules);
 
         setPermissions(permissions);
+        setAppLoading(false);
       }
-
+      
     },[])
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, user, setUser, modules, setModules, permissions, setPermissions}}>
+        <AuthContext.Provider value={{appLoading, isAuthenticated, setIsAuthenticated, user, setUser, modules, setModules, permissions, setPermissions}}>
             {children}
         </AuthContext.Provider>
     )
