@@ -1,33 +1,39 @@
 import PageTitle from "@/components/atoms/PageTitle";
 import RolesTable from "./components/RolesTable";
 import { useDisclosure } from "@heroui/modal";
-import { AuthData } from "@/providers/AuthProvider";
 import { Button } from "@heroui/button";
 import CustomModal from "@/components/organisms/CustomModal";
 import RolesForm from "./components/RolesForm";
+import usePermissions from "@/hooks/auth/usePermissions";
 
-export default function RolesPage(){
+export default function RolesPage() {
+  const { hasPermission } = usePermissions();
 
-    const { modules } = AuthData();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const pagePermisos = modules
-    ?.flatMap((module) => module.rutas)
-    ?.find((ruta) => ruta.id === 4)?.permisos;
+  return (
+    <>
+      <PageTitle>Roles</PageTitle>
+      {hasPermission(10) && (
+        <Button
+          onPress={onOpen}
+          className="my-4"
+          color="success"
+          variant="bordered"
+        >
+          + Crear Rol
+        </Button>
+      )}
 
-  const crearPermiso = pagePermisos?.find((permiso) => permiso.id === 10);
+      <CustomModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        title="Crear rol"
+      >
+        <RolesForm />
+      </CustomModal>
 
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
-    return(
-        <>
-            <PageTitle>Roles</PageTitle>
-            {crearPermiso && <Button onPress={onOpen} className="my-4" color="success" variant="bordered">+ Crear Rol</Button>}
-
-            <CustomModal isOpen={isOpen} onOpenChange={onOpenChange} title="Crear rol">
-                <RolesForm/>
-            </CustomModal>
-
-            <RolesTable/>
-        </>
-    )
+      <RolesTable />
+    </>
+  );
 }

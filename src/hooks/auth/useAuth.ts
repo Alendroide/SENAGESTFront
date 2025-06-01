@@ -29,13 +29,9 @@ export default function useAuth(){
             const modules = data.modulos ?? [];
             const permissions = modules.flatMap((module) => module.rutas).flatMap((ruta) => ruta.permisos) || [];
 
-            // Token en Cookies
+            // Info en Cookies
             cookies.set('token',token);
-
-            // Modules en Cookies
             cookies.set('modules',modules);
-
-            // Permissions en Cookies
             cookies.set('permissions',permissions);
 
             setIsAuthenticated(true);
