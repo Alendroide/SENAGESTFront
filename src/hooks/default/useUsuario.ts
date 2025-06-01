@@ -1,5 +1,4 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -35,12 +34,7 @@ export default function useUsuario(){
             return response.data.data;
         }
         catch(error){
-            addToast({
-                title: "Error creando usuario",
-                description: "Hubo un error inesperado",
-                color: "danger"
-            })
-            throw error;
+            console.log(error);
         }
     }
 

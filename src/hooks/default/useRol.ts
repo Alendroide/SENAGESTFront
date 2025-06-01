@@ -1,6 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI"
 import { Rol } from "@/types/modules/Rol";
-import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -33,11 +32,6 @@ export default function useRol(){
         }
         catch(error: any){
             console.log(error);
-            addToast({
-                title: "Error creating rol",
-                description: error.response?.message as string || "An inexpected error occurred",
-                color: "danger"
-            })
         }
     }
 

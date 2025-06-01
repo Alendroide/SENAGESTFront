@@ -1,7 +1,6 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { Modulo } from "@/types/default/Modulo";
 import { Permiso } from "@/types/modules/Permiso";
-import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
@@ -44,20 +43,8 @@ export default function usePermiso(){
 
     async function createPermiso(data : Permiso){
         try{
-            addToast({
-                title : "Creando permiso",
-                description : "Espere un momento...",
-                color : "success",
-                promise : axiosAPI.post('permisos',data)
-                .catch(error => {
-                    console.log(error);
-                    addToast({
-                        title : "Error creando el permiso",
-                        description : `${error.name}`,
-                        color : "danger"
-                    })
-                })
-            })
+            const response = await axiosAPI.post('permisos',data);
+            return response.data.data;
         }
         catch(error){
             console.log(error);

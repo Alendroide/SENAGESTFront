@@ -1,6 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { Module } from "@/types/modules/Module";
-import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -30,21 +29,17 @@ export default function useModulo() {
 
   async function createModule(data: Module) {
     try {
-      addToast({
-        title: "Creando modulo",
-        description: "Espere un momento...",
-        color: "success",
-        promise: axiosAPI
-          .post("modulos", data)
-          .catch((error) => {
-            console.log(error);
-            addToast({
-              title: "Error creando el módulo",
-              description: `${error.name}`,
-              color: "danger",
-            });
-          }),
-      });
+      const response = await axiosAPI.post("modulos", data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function updateModule(id:number, data: Module) {
+    try {
+      const response = await axiosAPI.patch(`modulos/update/${id}`, data);
+      return response.data.data;
     } catch (error) {
       console.log(error);
     }
@@ -56,6 +51,7 @@ export default function useModulo() {
     isError,
     error,
     createModule,
+    updateModule,
     setPage,
     totalPages,
   };

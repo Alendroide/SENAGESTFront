@@ -1,5 +1,4 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { addToast } from "@heroui/toast";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useRolPermiso(){
@@ -32,14 +31,9 @@ export default function useRolPermiso(){
 
     async function asignPermiso(permisoId : number,rolId : number,valor : boolean){
         try{
-            await axiosAPI.post(`rolpermiso/asign/${permisoId}/${rolId}/${valor}`)
+            await axiosAPI.post(`rolpermiso/asign/${permisoId}/${rolId}/${valor}`);
         }
         catch(error : any){
-            addToast({
-                title : "Error asignando el permiso",
-                description : `${error?.name ?? "Error desconocido"}`,
-                color : "danger"
-            })
             console.log(error);
         }
     }
