@@ -1,34 +1,83 @@
-import Subtitle from "@/components/atoms/text/Subtitle";
-import Title from "@/components/atoms/text/Title";
+import { iconsConfig, typeIcons } from "@/config/icons";
 import useProfile from "@/hooks/auth/useProfile";
+import { Divider } from "@heroui/react";
+import { format } from "date-fns";
+import { es } from 'date-fns/locale';
 
 export default function ProfilePage() {
+  const baseURL = import.meta.env.VITE_API_URL;
   const { profile } = useProfile();
 
   return (
-    <>
-      <div className="md:w-3/4 mx-auto">
-        <div className="flex flex-col md:flex-row w-full">
-          <div className="w-full my-8 md:w-1/4 md:my-0">
-            <img
-              className="w-1/2 mx-auto rounded-full aspect-square object-cover"
-              src={`${import.meta.env.VITE_API_URL}uploads/${profile?.img}`}
-              alt="User profile picture"
-            />
-          </div>
-          <div className="w-full space-y-4 md:w-3/4 md:space-y-2">
-            <span className="text-center md:text-start">
-              <Title>{profile?.nombre ?? "Unknown user"}</Title>
-            </span>
+    <div className="flex box-border pt-20">
+      {profile &&
+        <div className="w-full mx-auto lg:w-11/12 my-6">
+          <div className="flex flex-col lg:flex-row">
 
-            <Subtitle>CC: {profile?.identificacion} </Subtitle>
+            {/* Profile */}
+            <div className="bg-gray-900 relative rounded-lg lg:w-1/3 lg:rounded-none lg:rounded-tl-lg lg:rounded-bl-lg">
+              <img
+                src={`${baseURL}uploads/${profile?.img}`}
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 h-36 rounded-full mx-auto border-2 border-dashed border-gray-500 shadow-lg"
+                alt="pfp"
+              />
 
-            {profile?.rol && <Subtitle>Rol: {profile.rol} </Subtitle>}
+              <div className="text-white font-light text-center pt-20 pb-6">
+                <p>
+                  {profile.primerNombre} {profile.segundoNombre || ""}{" "}
+                  {profile.primerApellido} {profile.segundoApellido || ""}
+                </p>
+                <p>{profile.identificacion}</p>
+              </div>
 
-            <Subtitle>E-Mail: {profile?.correo} </Subtitle>
+              <div className="text-white mx-auto w-11/12">
+                
+                <h3 className="font-semibold">Correo:</h3>
+                <p>{profile?.correo}</p>
+
+                <h3 className="font-semibold mt-4">Fecha de nacimiento:</h3>
+                <p>{format(profile.fechaNacimiento, "d 'de' MMMM, yyyy", { locale: es })}</p>
+
+                {profile.fichaId &&
+                  <>
+                    <h3 className="font-semibold mt-4">Ficha:</h3>
+                    <p>{profile.fichaId}</p>
+                  </>
+                }
+
+                {profile.rol &&
+                  <div className="mb-4">
+                    <h3 className="font-semibold mt-4">Rol:</h3>
+                    <p className="flex items-center gap-4">{iconsConfig[profile.rol.icono]}{profile.rol.nombre}</p>
+                  </div>
+                }
+
+              </div>
+            </div>
+
+            <Divider className="my-6 lg:hidden"/>
+
+            {/* Permisos */}
+            <div className="bg-gray-100 rounded-lg lg:w-2/3 lg:rounded-none lg:rounded-tr-lg lg:rounded-br-lg">
+                {profile.rol ? profile.rol.permisos.length > 0 ? 
+                  <div className="p-6">
+                    <h3 className="font-semibold my-4">Permisos asignados:</h3>
+                    <div>
+                      {profile.rol?.permisos.map((permiso, index) => (
+                        <p key={index} className="flex items-center gap-4 my-4">{typeIcons[permiso.tipo]}{permiso.nombre}</p>
+                      ))}
+                    </div>
+                  </div>
+                  :
+                  <p className="font-semibold text-gray-600 text-center text-2xl">Sin permisos en el sistema!</p>
+                  :
+                  <p className="font-semibold text-gray-600 text-center text-2xl">Sin rol asignado!</p>
+                }
+            </div>
+
           </div>
         </div>
-      </div>
-    </>
+      }
+    </div>
   );
 }
