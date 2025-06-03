@@ -1,6 +1,8 @@
 import { iconsConfig, typeIcons } from "@/config/icons";
+import usePermissions from "@/hooks/auth/usePermissions";
 import usePermiso from "@/hooks/default/usePermiso";
 import { Module } from "@/types/modules/Module";
+import { PermisoUpdate } from "@/types/modules/Permiso";
 import {
   Pagination,
   Select,
@@ -12,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/react";
+import { Pencil } from "lucide-react";
 
 type Permiso = {
   id: number;
@@ -20,7 +23,25 @@ type Permiso = {
   tipo: string;
 };
 
-export default function PermisosTable() {
+interface props {
+  onOpen: () => void;
+  setSelectedId: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedData: React.Dispatch<React.SetStateAction<PermisoUpdate | null>>;
+}
+
+export default function PermisosTable({
+  onOpen,
+  setSelectedId,
+  setSelectedData,
+}: props) {
+  const { hasPermission } = usePermissions();
+
+  function handleEdit(permiso: PermisoUpdate & { id: number }) {
+    setSelectedId(permiso.id);
+    setSelectedData(permiso);
+    onOpen();
+  }
+
   const {
     moduleWithPermisos: modulo,
     isLoading,
@@ -36,28 +57,38 @@ export default function PermisosTable() {
   return (
     <>
       <div className="flex gap-4 my-6 xl:w-1/2">
-          {modules && (
-            <Select
-              aria-label="moduleSelector"
-              defaultSelectedKeys={[`${selectedModule}`]}
-              onChange={(e) => setSelectedModule(parseInt(e.target.value))}
-              startContent={iconsConfig[modules.find((module: Module) => module.id === selectedModule)?.icono as string] || ""}
-              placeholder="Seleccione..."
-            >
-              {modules.map((module: Module) => (
-                <SelectItem key={module.id} startContent={iconsConfig[module.icono]}>{module.nombre}</SelectItem>
-              ))}
-            </Select>
-          )}
+        {modules && (
+          <Select
+            aria-label="moduleSelector"
+            defaultSelectedKeys={[`${selectedModule}`]}
+            onChange={(e) => setSelectedModule(parseInt(e.target.value))}
+            startContent={
+              iconsConfig[
+                modules.find((module: Module) => module.id === selectedModule)
+                  ?.icono as string
+              ] || ""
+            }
+            placeholder="Seleccione..."
+          >
+            {modules.map((module: Module) => (
+              <SelectItem
+                key={module.id}
+                startContent={iconsConfig[module.icono]}
+              >
+                {module.nombre}
+              </SelectItem>
+            ))}
+          </Select>
+        )}
 
-          <Pagination
-            onChange={(val) => setPage(val)}
-            variant="bordered"
-            color="success"
-            showControls
-            initialPage={1}
-            total={totalPages}
-          />
+        <Pagination
+          onChange={(val) => setPage(val)}
+          variant="bordered"
+          color="success"
+          showControls
+          initialPage={1}
+          total={totalPages}
+        />
       </div>
 
       {isLoading && <p>Cargando...</p>}
@@ -70,6 +101,9 @@ export default function PermisosTable() {
               <TableHeader>
                 <TableColumn>Nombre</TableColumn>
                 <TableColumn>Descripción</TableColumn>
+                <TableColumn>
+                  {(hasPermission(7) || hasPermission(8)) && <>Acciones</>}
+                </TableColumn>
               </TableHeader>
               <TableBody>
                 {modulo.permisos?.length ? (
@@ -80,11 +114,19 @@ export default function PermisosTable() {
                         {permiso.nombre}
                       </TableCell>
                       <TableCell>{permiso.descripcion}</TableCell>
+                      <TableCell>
+                        {hasPermission(3) && (
+                          <Pencil
+                            onClick={() => handleEdit(permiso)}
+                            className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"
+                          />
+                        )}
+                      </TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow key="no-permisos">
-                    <TableCell colSpan={2}>
+                    <TableCell colSpan={3}>
                       No hay permisos disponibles
                     </TableCell>
                   </TableRow>

@@ -61,14 +61,11 @@ export default function usePermiso(){
     try {
       const response = await axiosAPI.patch(`permisos/update/${id}`, data);
       const updatedRecord = response.data.data;
-      queryClient.setQueryData(["permisos", page],(oldData: (PermisoUpdate & { id: number })[]) =>
-        oldData.map((permiso) => {
-          if (permiso.id === id) {
-            return updatedRecord;
-          }
-          return permiso;
-        })
-      )
+      queryClient.invalidateQueries({
+        queryKey: ["permisos"],
+        exact: false
+      })
+
       return updatedRecord;
     } catch (error) {
       console.log(error);

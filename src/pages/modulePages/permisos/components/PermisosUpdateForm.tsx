@@ -1,7 +1,7 @@
 import ErrorMessage from "@/components/atoms/text/ErrorMessage";
 import { typeIcons } from "@/config/icons";
 import usePermiso from "@/hooks/default/usePermiso";
-import { Permiso, PermisoUpdate, PermisoUpdateSchema } from "@/types/modules/Permiso";
+import { PermisoUpdate, PermisoUpdateSchema } from "@/types/modules/Permiso";
 import { useModalContext } from "@heroui/modal";
 import { Button, Form, Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,9 +9,9 @@ import { useForm } from "react-hook-form";
 
 interface props {
     selectedId: number;
-    selectedData: Permiso;
+    selectedData: PermisoUpdate;
     setSelectedId: React.Dispatch<React.SetStateAction<number | null>>;
-    setSelectedData: React.Dispatch<React.SetStateAction<Permiso | null>>;
+    setSelectedData: React.Dispatch<React.SetStateAction<PermisoUpdate | null>>;
 }
 
 export default function PermisosUpdateForm({selectedId, selectedData, setSelectedData, setSelectedId}: props) {
@@ -34,6 +34,8 @@ export default function PermisosUpdateForm({selectedId, selectedData, setSelecte
   async function onSubmit(data: PermisoUpdate) {
     await updatePermiso(selectedId, data);
     onClose();
+    setSelectedId(null);
+    setSelectedData(null);
   }
 
 function handleCancel(){
@@ -77,7 +79,7 @@ function handleCancel(){
         </Button>
 
         <Button type="submit" color="success" className="text-white">
-          Crear
+          Actualizar
         </Button>
       </div>
     </Form>

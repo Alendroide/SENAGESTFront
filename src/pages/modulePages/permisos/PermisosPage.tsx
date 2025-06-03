@@ -5,11 +5,17 @@ import { Button } from "@heroui/button";
 import CustomModal from "@/components/organisms/CustomModal";
 import PermisosForm from "./components/PermisosForm";
 import usePermissions from "@/hooks/auth/usePermissions";
+import { PermisoUpdate } from "@/types/modules/Permiso";
+import { useState } from "react";
+import PermisosUpdateForm from "./components/PermisosUpdateForm";
 
 export default function PermisosPage() {
   const { hasPermission } = usePermissions();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [selectedData, setSelectedData] = useState<PermisoUpdate | null>(null);
 
   return (
     <>
@@ -29,12 +35,16 @@ export default function PermisosPage() {
       <CustomModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        title="Crear permiso"
+        title={selectedId ? "Editar permiso" : "Crear permiso"}
       >
-        <PermisosForm />
+        {selectedId && selectedData ? 
+          <PermisosUpdateForm selectedId={selectedId} selectedData={selectedData} setSelectedId={setSelectedId} setSelectedData={setSelectedData}/>
+            :
+          <PermisosForm />
+        }
       </CustomModal>
 
-      <PermisosTable />
+      <PermisosTable setSelectedData={setSelectedData} setSelectedId={setSelectedId} onOpen={onOpen} />
     </>
   );
 }

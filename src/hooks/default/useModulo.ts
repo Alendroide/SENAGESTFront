@@ -47,14 +47,10 @@ export default function useModulo() {
     try {
       const response = await axiosAPI.patch(`modulos/update/${id}`, data);
       const updatedRecord = response.data.data;
-      queryClient.setQueryData(["modules", page],(oldData: (Module & { id: number })[]) =>
-        oldData.map((module) => {
-          if (module.id === id) {
-            return updatedRecord;
-          }
-          return module;
-        })
-      )
+      queryClient.invalidateQueries({
+        queryKey: ["modules"],
+        exact: false
+      })
       return updatedRecord;
     } catch (error) {
       console.log(error);
