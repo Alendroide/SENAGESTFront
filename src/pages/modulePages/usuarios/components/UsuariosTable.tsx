@@ -41,7 +41,7 @@ export default function UsuariosTable() {
             const apiURL = import.meta.env.VITE_API_URL
             return(
               <TableRow key={user.id}>
-                <TableCell><img src={`${apiURL}uploads/${user.img}`} alt="Foto de perfil" className="w-10 h-10 rounded-full" /></TableCell>
+                <TableCell><img src={`${apiURL}uploads/${user.img}`} alt="Foto de perfil" className="w-10 rounded-full aspect-square" /></TableCell>
                 <TableCell>{user.identificacion}</TableCell>
                 <TableCell>
                   {user.primerNombre} {user.segundoNombre ?? ""}{" "}

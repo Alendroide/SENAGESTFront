@@ -35,7 +35,7 @@ export default function PermisosTable() {
 
   return (
     <>
-      <div className="flex gap-4 my-6 w-1/4">
+      <div className="flex gap-4 my-6 xl:w-1/2">
           {modules && (
             <Select
               aria-label="moduleSelector"
