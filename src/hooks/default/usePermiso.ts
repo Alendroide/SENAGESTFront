@@ -1,5 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { Modulo } from "@/types/default/Modulo";
+import { Module } from "@/types/modules/Module";
 import { Permiso } from "@/types/modules/Permiso";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 export default function usePermiso(){
 
     const [selectedModule,setSelectedModule] = useState(1);
-    const [modules,setModules] = useState<Modulo[] | null>(null);
+    const [modules,setModules] = useState<Module[] | null>(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 

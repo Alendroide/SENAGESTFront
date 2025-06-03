@@ -36,6 +36,16 @@ export default function useRuta() {
         }
     }
 
+    async function getAllRutasByModule(id: number){
+      try{
+        const {data} = await axiosAPI.get(`rutas/all/module/${id}`);
+        return data.data;
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+
     const {data : moduleWithRutas, isLoading, isError, error} = useQuery({
         queryKey: ['rutas',selectedModule,page],
         queryFn: getRutas,
@@ -56,5 +66,5 @@ export default function useRuta() {
       }
     }
 
-  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta };
+  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta, getAllRutasByModule };
 }
