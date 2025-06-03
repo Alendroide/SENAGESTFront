@@ -43,7 +43,7 @@ export default function useModulo() {
     }
   }
 
-  async function updateModule(id:number, data: Module & { id: number }) {
+  async function updateModule(id:number, data: Module) {
     try {
       const response = await axiosAPI.patch(`modulos/update/${id}`, data);
       const updatedRecord = response.data.data;
