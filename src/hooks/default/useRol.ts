@@ -42,5 +42,20 @@ export default function useRol(){
         }
     }
 
-    return {roles, isLoading, isError, error, createRol, setPage, totalPages}
+    async function updateRol(id: number,data: Rol){
+        try{
+            const response = await axiosAPI.patch(`roles/update/${id}`,data);
+            const newRecord = response.data.data;
+            queryClient.invalidateQueries({
+                queryKey: ["roles"],
+                exact: false
+            });
+            return newRecord;
+        }
+        catch(error: any){
+            console.log(error);
+        }
+    }
+
+    return {roles, isLoading, isError, error, createRol, setPage, totalPages, updateRol}
 }

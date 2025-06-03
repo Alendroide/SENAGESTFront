@@ -1,6 +1,7 @@
 import { iconsConfig } from "@/config/icons";
+import usePermissions from "@/hooks/auth/usePermissions";
 import useRol from "@/hooks/default/useRol";
-import { Rol } from "@/types/modules/Permiso";
+import { Rol } from "@/types/modules/Rol";
 import {
   Pagination,
   Table,
@@ -10,9 +11,28 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/react";
+import { Pencil } from "lucide-react";
 
-export default function RolesTable() {
+interface props {
+  onOpen: () => void;
+  setSelectedId: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedData: React.Dispatch<React.SetStateAction<Rol | null>>;
+}
+
+export default function RolesTable({
+  onOpen,
+  setSelectedId,
+  setSelectedData,
+}: props) {
+  const { hasPermission } = usePermissions();
+
   const { roles, isLoading, isError, error, totalPages, setPage } = useRol();
+
+  function handleEdit(rol: Rol) {
+    setSelectedId(rol.id as number);
+    setSelectedData(rol);
+    onOpen();
+  }
 
   return (
     <>
@@ -20,16 +40,21 @@ export default function RolesTable() {
         <TableHeader>
           <TableColumn>Nombre</TableColumn>
           <TableColumn>Descripción</TableColumn>
+          <TableColumn>
+            { (hasPermission(12) || hasPermission(13)) &&
+              <>Acciones</>
+            }
+          </TableColumn>
         </TableHeader>
         <TableBody>
           {isLoading && (
             <TableRow>
-              <TableCell colSpan={2}>Cargando todos los roles...</TableCell>
+              <TableCell colSpan={3}>Cargando todos los roles...</TableCell>
             </TableRow>
           )}
           {isError && (
             <TableRow>
-              <TableCell colSpan={2}>Error: {error?.message}</TableCell>
+              <TableCell colSpan={3}>Error: {error?.message}</TableCell>
             </TableRow>
           )}
           {roles?.map((rol: Rol) => (
@@ -39,6 +64,11 @@ export default function RolesTable() {
                 {rol.nombre}
               </TableCell>
               <TableCell>{rol.descripcion}</TableCell>
+              <TableCell>
+                {hasPermission(12) &&
+                  <Pencil onClick={() =>handleEdit(rol)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"/>
+                }
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

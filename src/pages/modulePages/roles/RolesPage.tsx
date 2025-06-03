@@ -5,11 +5,17 @@ import { Button } from "@heroui/button";
 import CustomModal from "@/components/organisms/CustomModal";
 import RolesForm from "./components/RolesForm";
 import usePermissions from "@/hooks/auth/usePermissions";
+import { useState } from "react";
+import RolesUpdateForm from "./components/RolesUpdateForm";
+import { Rol } from "@/types/modules/Rol";
 
 export default function RolesPage() {
   const { hasPermission } = usePermissions();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedData, setSelectedData] = useState<Rol | null>(null);
 
   return (
     <>
@@ -28,12 +34,21 @@ export default function RolesPage() {
       <CustomModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        title="Crear rol"
+        title={selectedId ? "Editar rol" : "Crear rol"}
       >
-        <RolesForm />
+        {selectedId && selectedData ? (
+          <RolesUpdateForm
+            selectedId={selectedId}
+            selectedData={selectedData}
+            setSelectedId={setSelectedId}
+            setSelectedData={setSelectedData}
+          />
+        ) : (
+          <RolesForm />
+        )}
       </CustomModal>
 
-      <RolesTable />
+      <RolesTable setSelectedId={setSelectedId} setSelectedData={setSelectedData} onOpen={onOpen} />
     </>
   );
 }
