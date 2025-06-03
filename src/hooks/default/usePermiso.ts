@@ -1,6 +1,6 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { Module } from "@/types/modules/Module";
-import { Permiso } from "@/types/modules/Permiso";
+import { Permiso, PermisoUpdate } from "@/types/modules/Permiso";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
@@ -57,5 +57,23 @@ export default function usePermiso(){
         }
     }
 
-    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules };
+    async function updatePermiso(id:number, data: PermisoUpdate) {
+    try {
+      const response = await axiosAPI.patch(`permisos/update/${id}`, data);
+      const updatedRecord = response.data.data;
+      queryClient.setQueryData(["permisos", page],(oldData: (PermisoUpdate & { id: number })[]) =>
+        oldData.map((permiso) => {
+          if (permiso.id === id) {
+            return updatedRecord;
+          }
+          return permiso;
+        })
+      )
+      return updatedRecord;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules, updatePermiso };
 }
