@@ -63,9 +63,10 @@ export default function ProfilePage() {
                   <div className="p-6">
                     <h3 className="font-semibold my-4">Permisos asignados:</h3>
                     <div>
-                      {profile.rol?.permisos.map((permiso, index) => (
+                      {profile.rol.permisos.slice(0,8).map((permiso, index) => (
                         <p key={index} className="flex items-center gap-4 my-4">{typeIcons[permiso.tipo]}{permiso.nombre}</p>
                       ))}
+                      {profile.rol.permisos.length > 8 && <p className="my-4">y {profile.rol.permisos.length - 8} más...</p>}
                     </div>
                   </div>
                   :
