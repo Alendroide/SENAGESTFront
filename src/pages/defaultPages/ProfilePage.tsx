@@ -11,7 +11,7 @@ export default function ProfilePage() {
   return (
     <div className="flex box-border pt-20">
       {profile &&
-        <div className="w-full mx-auto lg:w-11/12 my-6">
+        <div className="w-full mx-auto my-6 shadow-lg rounded-lg lg:w-11/12">
           <div className="flex flex-col lg:flex-row">
 
             {/* Profile */}
@@ -58,7 +58,7 @@ export default function ProfilePage() {
             <Divider className="my-6 lg:hidden"/>
 
             {/* Permisos */}
-            <div className="bg-gray-100 rounded-lg lg:w-2/3 lg:rounded-none lg:rounded-tr-lg lg:rounded-br-lg">
+            <div className="bg-gray-50 rounded-lg lg:w-2/3 lg:rounded-none lg:rounded-tr-lg lg:rounded-br-lg">
                 {profile.rol ? profile.rol.permisos.length > 0 ? 
                   <div className="p-6">
                     <h3 className="font-semibold my-4">Permisos asignados:</h3>
