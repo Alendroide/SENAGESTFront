@@ -16,7 +16,7 @@ export default function useRuta() {
   useEffect(() => {
     async function getModules() {
       try {
-        const { data } = await axiosAPI.get("rutas/modules");
+        const { data } = await axiosAPI.get("modulos/all");
         setModules(data.data);
       } catch (error) {
         console.log(error);

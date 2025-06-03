@@ -5,7 +5,7 @@ export default function useRolPermiso(){
     
     async function getRoles(){
         try{
-            const {data} = await axiosAPI.get("rolpermiso/roles");
+            const {data} = await axiosAPI.get("roles/all");
             return data.data;
         }
         catch(error){

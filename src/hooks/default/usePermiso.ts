@@ -14,7 +14,7 @@ export default function usePermiso(){
     useEffect(()=>{
         async function getModules(){
             try{
-                const {data} = await axiosAPI.get('permisos/modules');
+                const {data} = await axiosAPI.get('modulos/all');
                 setModules(data.data);
             }
             catch(error){
