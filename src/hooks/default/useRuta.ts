@@ -1,5 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { Modulo } from "@/types/default/Modulo";
+import { Module } from "@/types/modules/Module";
 import { Ruta } from "@/types/modules/Ruta";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ export default function useRuta() {
   const queryClient = useQueryClient();
 
   const [selectedModule, setSelectedModule] = useState(1);
-  const [modules, setModules] = useState<Modulo[] | null>(null);
+  const [modules, setModules] = useState<Module[] | null>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 

@@ -1,6 +1,6 @@
 import { iconsConfig, typeIcons } from "@/config/icons";
 import usePermiso from "@/hooks/default/usePermiso";
-import { Modulo } from "@/types/default/Modulo";
+import { Module } from "@/types/modules/Module";
 import {
   Pagination,
   Select,
@@ -41,10 +41,10 @@ export default function PermisosTable() {
               aria-label="moduleSelector"
               defaultSelectedKeys={[`${selectedModule}`]}
               onChange={(e) => setSelectedModule(parseInt(e.target.value))}
-              startContent={iconsConfig[modules.find((module: Modulo) => module.id === selectedModule)?.icono as string] || ""}
+              startContent={iconsConfig[modules.find((module: Module) => module.id === selectedModule)?.icono as string] || ""}
               placeholder="Seleccione..."
             >
-              {modules.map((module: Modulo) => (
+              {modules.map((module: Module) => (
                 <SelectItem key={module.id} startContent={iconsConfig[module.icono]}>{module.nombre}</SelectItem>
               ))}
             </Select>
