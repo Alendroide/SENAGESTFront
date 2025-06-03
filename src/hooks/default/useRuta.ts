@@ -56,7 +56,7 @@ export default function useRuta() {
         const newRuta = await axiosAPI.post("rutas",data);
         const record = newRuta.data.data;
         queryClient.invalidateQueries({
-          queryKey: ['rutas',selectedModule],
+          queryKey: ['rutas'],
           exact: false
         })
         return record

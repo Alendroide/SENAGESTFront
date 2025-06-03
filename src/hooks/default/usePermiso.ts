@@ -1,11 +1,12 @@
 import { axiosAPI } from "@/api/axiosAPI";
 import { Module } from "@/types/modules/Module";
 import { Permiso } from "@/types/modules/Permiso";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 export default function usePermiso(){
 
+    const queryClient = useQueryClient();
     const [selectedModule,setSelectedModule] = useState(1);
     const [modules,setModules] = useState<Module[] | null>(null);
     const [page, setPage] = useState(1);
@@ -44,7 +45,12 @@ export default function usePermiso(){
     async function createPermiso(data : Permiso){
         try{
             const response = await axiosAPI.post('permisos',data);
-            return response.data.data;
+            const newRecord = response.data.data;
+            queryClient.invalidateQueries({
+                queryKey: ["permisos"],
+                exact: false
+            });
+            return newRecord;
         }
         catch(error){
             console.log(error);

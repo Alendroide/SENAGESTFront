@@ -1,8 +1,10 @@
 import { axiosAPI } from "@/api/axiosAPI";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function useUsuario(){
+
+    const queryClient = useQueryClient();
 
     const [page,setPage] = useState(1);
     const [totalPages,setTotalPages] = useState(1);
@@ -31,7 +33,12 @@ export default function useUsuario(){
                     "Content-Type": "multipart/form-data"
                 }
             });
-            return response.data.data;
+            const newRecord = response.data.data;
+            queryClient.invalidateQueries({
+                queryKey: ["users"],
+                exact: false
+            });
+            return newRecord;
         }
         catch(error){
             console.log(error);

@@ -1,9 +1,11 @@
 import { axiosAPI } from "@/api/axiosAPI"
 import { Rol } from "@/types/modules/Rol";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function useRol(){
+
+    const queryClient = useQueryClient();
 
     const [page,setPage] = useState(1);
     const [totalPages,setTotalPages] = useState(1);
@@ -27,8 +29,13 @@ export default function useRol(){
 
     async function createRol(data: Rol){
         try{
-            const newRol = await axiosAPI.post("roles",data);
-            return newRol.data.data
+            const response = await axiosAPI.post("roles",data);
+            const newRecord = response.data.data;
+            queryClient.invalidateQueries({
+                queryKey: ["roles"],
+                exact: false
+            });
+            return newRecord;
         }
         catch(error: any){
             console.log(error);
