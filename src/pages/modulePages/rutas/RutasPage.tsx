@@ -1,10 +1,10 @@
 import PageTitle from "@/components/atoms/PageTitle";
 import RutasTable from "./components/RutasTable";
 import usePermissions from "@/hooks/auth/usePermissions";
-import { Button } from "@heroui/button";
 import { useDisclosure } from "@heroui/modal";
 import CustomModal from "@/components/organisms/CustomModal";
 import RutasForm from "./components/RutasForm";
+import CustomButton from "@/components/atoms/CustomButton";
 
 export default function RutasPage(){
 
@@ -17,14 +17,11 @@ export default function RutasPage(){
             <PageTitle>Rutas</PageTitle>
 
             {hasPermission(18) && (
-                <Button
-                    className="mt-4"
-                    color="success"
-                    variant="bordered"
+                <CustomButton
                     onPress={onOpen}
                 >
                     + Crear Ruta
-                </Button>
+                </CustomButton>
             )}
 
             <CustomModal

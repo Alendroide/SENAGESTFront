@@ -1,10 +1,10 @@
 import PageTitle from "@/components/atoms/PageTitle";
 import UsuariosTable from "./components/UsuariosTable";
 import { useDisclosure } from "@heroui/modal";
-import { Button } from "@heroui/button";
 import CustomModal from "@/components/organisms/CustomModal";
 import UsuariosForm from "./components/UsuariosForm";
 import usePermissions from "@/hooks/auth/usePermissions";
+import CustomButton from "@/components/atoms/CustomButton";
 
 export default function UsuariosPage() {
   const { hasPermission } = usePermissions();
@@ -15,14 +15,11 @@ export default function UsuariosPage() {
     <>
       <PageTitle>Usuarios</PageTitle>
       {hasPermission(14) && (
-        <Button
+        <CustomButton
           onPress={onOpen}
-          className="my-4"
-          color="success"
-          variant="bordered"
         >
           + Crear Usuario
-        </Button>
+        </CustomButton>
       )}
 
       <CustomModal

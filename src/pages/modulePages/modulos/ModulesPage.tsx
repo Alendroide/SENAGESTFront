@@ -1,5 +1,4 @@
 import ModulesTable from "./components/ModulesTable";
-import { Button } from "@heroui/button";
 import ModulesForm from "./components/ModulesForm";
 import PageTitle from "@/components/atoms/PageTitle";
 import CustomModal from "@/components/organisms/CustomModal";
@@ -8,6 +7,7 @@ import usePermissions from "@/hooks/auth/usePermissions";
 import { useState } from "react";
 import { Module } from "@/types/modules/Module";
 import ModulesUpdateForm from "./components/ModulesUpdateForm";
+import CustomButton from "@/components/atoms/CustomButton";
 
 export default function ModulesPage() {
   const { hasPermission } = usePermissions();
@@ -22,14 +22,11 @@ export default function ModulesPage() {
       <PageTitle>Modulos</PageTitle>
 
       {hasPermission(1) && (
-        <Button
+        <CustomButton
           onPress={onOpen}
-          className="my-4"
-          color="success"
-          variant="bordered"
         >
           + Crear Módulo
-        </Button>
+        </CustomButton>
       )}
 
       <CustomModal
