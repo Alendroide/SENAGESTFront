@@ -66,5 +66,19 @@ export default function useRuta() {
       }
     }
 
-  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta, getAllRutasByModule };
+    async function updateRuta(id: number, data: Ruta) {
+      try {
+        const response = await axiosAPI.patch(`rutas/update/${id}`, data);
+        const updatedRecord = response.data.data;
+        queryClient.invalidateQueries({
+          queryKey: ["rutas"],
+          exact: false
+        });
+        return updatedRecord;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta, getAllRutasByModule, updateRuta };
 }
