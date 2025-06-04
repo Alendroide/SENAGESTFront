@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/react";
+import { format } from "date-fns";
 
 type Usuario = IncompleteUsuario & {id: number, img: string};
 
@@ -25,16 +26,17 @@ export default function UsuariosTable() {
           <TableColumn>Nombre completo</TableColumn>
           <TableColumn>Correo</TableColumn>
           <TableColumn>Ficha</TableColumn>
+          <TableColumn>Fecha de nacimiento</TableColumn>
         </TableHeader>
         <TableBody>
           {isLoading && (
             <TableRow>
-              <TableCell colSpan={5}>Cargando...</TableCell>
+              <TableCell colSpan={6}>Cargando...</TableCell>
             </TableRow>
           )}
           {isError && (
             <TableRow>
-              <TableCell colSpan={5}>Error: {error?.message}</TableCell>
+              <TableCell colSpan={6}>Error: {error?.message}</TableCell>
             </TableRow>
           )}
           {users?.map((user: Usuario) => {
@@ -49,6 +51,7 @@ export default function UsuariosTable() {
                 </TableCell>
                 <TableCell>{user.correo}</TableCell>
                 <TableCell>{user.fichaId}</TableCell>
+                <TableCell>{format(user.fechaNacimiento, "dd/MM/yyyy")}</TableCell>
               </TableRow>
           )})}
           
