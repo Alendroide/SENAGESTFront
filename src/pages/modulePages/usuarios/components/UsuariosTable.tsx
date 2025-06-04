@@ -2,6 +2,7 @@ import useUsuario from "@/hooks/default/useUsuario";
 import { Usuario as IncompleteUsuario } from "@/types/modules/Usuario";
 import {
   Pagination,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -30,9 +31,11 @@ export default function UsuariosTable() {
         </TableHeader>
         <TableBody>
           {isLoading && (
-            <TableRow>
-              <TableCell colSpan={6}>Cargando...</TableCell>
-            </TableRow>
+            Array.from({ length: 10 }).map((_, i) => (
+              <TableRow key={i}>
+                <TableCell colSpan={6}><Spinner/> Cargando...</TableCell>
+              </TableRow>
+            ))
           )}
           {isError && (
             <TableRow>

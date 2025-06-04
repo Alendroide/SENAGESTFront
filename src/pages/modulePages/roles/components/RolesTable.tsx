@@ -4,6 +4,7 @@ import useRol from "@/hooks/default/useRol";
 import { Rol } from "@/types/modules/Rol";
 import {
   Pagination,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -41,16 +42,18 @@ export default function RolesTable({
           <TableColumn>Nombre</TableColumn>
           <TableColumn>Descripción</TableColumn>
           <TableColumn>
-            { (hasPermission(12) || hasPermission(13)) &&
+            {(hasPermission(12) || hasPermission(13)) &&
               <>Acciones</>
             }
           </TableColumn>
         </TableHeader>
         <TableBody>
           {isLoading && (
-            <TableRow>
-              <TableCell colSpan={3}>Cargando todos los roles...</TableCell>
-            </TableRow>
+            Array.from({ length: 10 }).map((_, i) => (
+              <TableRow key={i}>
+                <TableCell colSpan={3}><Spinner /> Cargando...</TableCell>
+              </TableRow>
+            ))
           )}
           {isError && (
             <TableRow>
@@ -66,7 +69,7 @@ export default function RolesTable({
               <TableCell>{rol.descripcion}</TableCell>
               <TableCell>
                 {hasPermission(12) &&
-                  <Pencil onClick={() =>handleEdit(rol)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"/>
+                  <Pencil onClick={() => handleEdit(rol)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer" />
                 }
               </TableCell>
             </TableRow>

@@ -7,6 +7,7 @@ import {
   Pagination,
   Select,
   SelectItem,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -83,7 +84,7 @@ export default function PermisosTable({
           total={totalPages}
         />
       </div>
-      {isLoading && <p>Cargando...</p>}
+      {isLoading && <p><Spinner/> Cargando...</p>}
       {isError && !isNaN(selectedModule) && <p>Error: {error?.message}</p>}
       {modulo && !isNaN(selectedModule) && (
         <>

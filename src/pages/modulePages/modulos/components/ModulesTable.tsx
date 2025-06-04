@@ -4,6 +4,7 @@ import useModulo from "@/hooks/default/useModulo";
 import { Module } from "@/types/modules/Module";
 import {
   Pagination,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -19,12 +20,12 @@ interface props {
   setSelectedData: React.Dispatch<React.SetStateAction<Module | null>>;
 }
 
-export default function ModulesTable({ onOpen, setSelectedId, setSelectedData } : props) {
+export default function ModulesTable({ onOpen, setSelectedId, setSelectedData }: props) {
 
   const { hasPermission } = usePermissions();
   const { modules, isLoading, isError, error, totalPages, setPage } = useModulo();
 
-  function handleEdit(module: Module & {id: number}){
+  function handleEdit(module: Module & { id: number }) {
     setSelectedId(module.id);
     setSelectedData(module);
     onOpen();
@@ -38,30 +39,32 @@ export default function ModulesTable({ onOpen, setSelectedId, setSelectedData } 
           <TableColumn>Nombre</TableColumn>
           <TableColumn>Descripción</TableColumn>
           <TableColumn>
-            { (hasPermission(3) || hasPermission(4)) &&
+            {(hasPermission(3) || hasPermission(4)) &&
               <>Acciones</>
             }
           </TableColumn>
         </TableHeader>
         <TableBody>
           {isLoading && (
-            <TableRow>
-              <TableCell colSpan={4}>Cargando...</TableCell>
-            </TableRow>
+            Array.from({ length: 10 }).map((_, i) => (
+              <TableRow key={i}>
+                <TableCell colSpan={4}><Spinner /> Cargando...</TableCell>
+              </TableRow>
+            ))
           )}
           {isError && (
             <TableRow>
               <TableCell colSpan={4}>Error: {error?.message}</TableCell>
             </TableRow>
           )}
-          {modules?.map((module: Module & {id: number}, index: number) => (
+          {modules?.map((module: Module & { id: number }, index: number) => (
             <TableRow key={index}>
               <TableCell>{iconsConfig[module.icono]}</TableCell>
               <TableCell>{module.nombre}</TableCell>
               <TableCell>{module.descripcion}</TableCell>
               <TableCell>
                 {hasPermission(3) &&
-                  <Pencil onClick={() =>handleEdit(module)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"/>
+                  <Pencil onClick={() => handleEdit(module)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer" />
                 }
               </TableCell>
             </TableRow>
