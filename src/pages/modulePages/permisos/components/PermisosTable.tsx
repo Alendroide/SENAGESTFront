@@ -115,7 +115,7 @@ export default function PermisosTable({
                       </TableCell>
                       <TableCell>{permiso.descripcion}</TableCell>
                       <TableCell>
-                        {hasPermission(3) && (
+                        {hasPermission(7) && (
                           <Pencil
                             onClick={() => handleEdit(permiso)}
                             className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"
