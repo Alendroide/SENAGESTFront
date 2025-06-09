@@ -1,10 +1,10 @@
+import LoadingSpinner from "@/components/atoms/LoadingSpinner";
 import { iconsConfig } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useModulo from "@/hooks/default/useModulo";
 import { Module } from "@/types/modules/Module";
 import {
   Pagination,
-  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -48,7 +48,7 @@ export default function ModulesTable({ onOpen, setSelectedId, setSelectedData }:
           {isLoading && (
             Array.from({ length: 10 }).map((_, i) => (
               <TableRow key={i}>
-                <TableCell colSpan={4}><Spinner /> Cargando...</TableCell>
+                <TableCell colSpan={4}><LoadingSpinner/></TableCell>
               </TableRow>
             ))
           )}

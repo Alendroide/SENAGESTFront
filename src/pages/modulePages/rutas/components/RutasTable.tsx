@@ -1,3 +1,4 @@
+import LoadingSpinner from "@/components/atoms/LoadingSpinner";
 import { iconsConfig } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useRuta from "@/hooks/default/useRuta";
@@ -7,7 +8,6 @@ import {
   Pagination,
   Select,
   SelectItem,
-  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -51,7 +51,7 @@ export default function PermisosTable({
   return (
     <>
       <div className="flex gap-4 my-6 xl:w-1/2">
-        {modules && (
+        {modules ? (
           <Select
             aria-label="moduleSelector"
             defaultSelectedKeys={[`${selectedModule}`]}
@@ -73,7 +73,10 @@ export default function PermisosTable({
               </SelectItem>
             ))}
           </Select>
-        )}
+        )
+        :
+        <LoadingSpinner/>
+        }
 
         <Pagination
           onChange={(val) => setPage(val)}
@@ -84,7 +87,7 @@ export default function PermisosTable({
           total={totalPages}
         />
       </div>
-      {isLoading && <p><Spinner/> Cargando...</p>}
+      {isLoading && <LoadingSpinner/>}
       {isError && !isNaN(selectedModule) && <p>Error: {error?.message}</p>}
       {modulo && !isNaN(selectedModule) && (
         <>

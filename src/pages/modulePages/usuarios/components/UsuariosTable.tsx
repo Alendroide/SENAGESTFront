@@ -1,8 +1,8 @@
+import LoadingSpinner from "@/components/atoms/LoadingSpinner";
 import useUsuario from "@/hooks/default/useUsuario";
 import { Usuario as IncompleteUsuario } from "@/types/modules/Usuario";
 import {
   Pagination,
-  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -33,7 +33,7 @@ export default function UsuariosTable() {
           {isLoading && (
             Array.from({ length: 10 }).map((_, i) => (
               <TableRow key={i}>
-                <TableCell colSpan={6}><Spinner/> Cargando...</TableCell>
+                <TableCell colSpan={6}><LoadingSpinner/></TableCell>
               </TableRow>
             ))
           )}

@@ -1,10 +1,10 @@
+import LoadingSpinner from "@/components/atoms/LoadingSpinner";
 import { iconsConfig } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useRol from "@/hooks/default/useRol";
 import { Rol } from "@/types/modules/Rol";
 import {
   Pagination,
-  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -51,7 +51,7 @@ export default function RolesTable({
           {isLoading && (
             Array.from({ length: 10 }).map((_, i) => (
               <TableRow key={i}>
-                <TableCell colSpan={3}><Spinner /> Cargando...</TableCell>
+                <TableCell colSpan={3}><LoadingSpinner/></TableCell>
               </TableRow>
             ))
           )}
