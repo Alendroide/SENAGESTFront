@@ -52,7 +52,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
           try{
             const newPermisos = await axiosAPI.get('auth/getpermisos');
             const modules = newPermisos.data.modulos;
-            const permissions = modules.flatMap((module: any) => module.rutas).flatMap((ruta: any) => ruta.permisos) || [];
+            const permissions = modules ? modules.flatMap((module: any) => module.rutas).flatMap((ruta: any) => ruta.permisos) : [];
             setModules(modules);
             setPermissions(permissions);
           }
