@@ -84,9 +84,6 @@ export default function UsuariosForm() {
       <Input {...register("correo")} label="Correo Electrónico" />
       {errors.correo && <ErrorMessage>{errors.correo.message}</ErrorMessage>}
 
-      <Input {...register("contrasena")} label="Contraseña" type="password" />
-      {errors.contrasena && <ErrorMessage>{errors.contrasena.message}</ErrorMessage>}
-
       <Input {...register("fechaNacimiento")} labelPlacement="outside" label="Fecha de Nacimiento" type="date" />
       {errors.fechaNacimiento && <ErrorMessage>{errors.fechaNacimiento.message}</ErrorMessage>}
 

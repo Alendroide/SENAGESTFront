@@ -3,7 +3,7 @@ import { Modulo } from './Modulo';
 
 export const LoginSchema = z.object({
     correo : z.string().email("Ingrese un correo válido"),
-    contrasena : z.string().min(8,"La contraseña debe tener mínimo 8 caracteres")
+    contrasena : z.string().min(6,"La contraseña debe tener mínimo 6 caracteres")
 })
 
 export type Login = z.infer<typeof LoginSchema>
