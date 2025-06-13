@@ -87,7 +87,7 @@ export default function UsuariosForm() {
       <Input {...register("fechaNacimiento")} labelPlacement="outside" label="Fecha de Nacimiento" type="date" />
       {errors.fechaNacimiento && <ErrorMessage>{errors.fechaNacimiento.message}</ErrorMessage>}
 
-      <Input {...register("fichaId", { valueAsNumber: true })} label="Ficha ID" />
+      <Input {...register("fichaId", { valueAsNumber: true })} label="ID Grupo" />
       {errors.fichaId && <ErrorMessage>{errors.fichaId.message}</ErrorMessage>}
 
       <div className="flex ms-auto gap-4">
