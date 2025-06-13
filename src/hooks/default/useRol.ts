@@ -27,6 +27,23 @@ export default function useRol(){
         queryFn : getRoles
     })
 
+    async function getAllRoles(){
+        try{
+            const {data} = await axiosAPI.get(`roles?page=${page}`);
+            setTotalPages(data.totalPages);
+            return data.data;
+        }
+        catch(error){
+            console.log(error);
+            return error;
+        }
+    }
+
+    const {data : allRoles} = useQuery({
+        queryKey : ["allRoles"],
+        queryFn : getAllRoles
+    })
+
     async function createRol(data: Rol){
         try{
             const response = await axiosAPI.post("roles",data);
@@ -57,5 +74,5 @@ export default function useRol(){
         }
     }
 
-    return {roles, isLoading, isError, error, createRol, setPage, totalPages, updateRol}
+    return {roles, isLoading, isError, error, createRol, setPage, totalPages, updateRol, allRoles}
 }
