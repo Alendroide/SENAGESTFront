@@ -1,22 +1,27 @@
 import { UsuarioSchema, Usuario } from "@/types/modules/Usuario";
 import ErrorMessage from "@/components/atoms/text/ErrorMessage";
-import { Button, Form, Input } from "@heroui/react";
+import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
 import { useModalContext } from "@heroui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import useUsuarios from "@/hooks/default/useUsuario";
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import useRol from "@/hooks/default/useRol";
+import { Rol } from "@/types/modules/Rol";
+import { iconsConfig } from "@/config/icons";
 
 export default function UsuariosForm() {
   const { createUser } = useUsuarios();
+  const { allRoles } = useRol();
   const [preview, setPreview] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
+    watch
   } = useForm<Usuario>({
     resolver: zodResolver(UsuarioSchema),
   });
@@ -89,6 +94,26 @@ export default function UsuariosForm() {
 
       <Input {...register("fichaId", { valueAsNumber: true })} label="ID Grupo" />
       {errors.fichaId && <ErrorMessage>{errors.fichaId.message}</ErrorMessage>}
+
+      {allRoles &&
+        <>
+          <Select
+            onChange={(e) => {
+              const rolId = parseInt(e.target.value);
+              if (!isNaN(rolId)) setValue("rolId",rolId)
+              else setValue("rolId",null)
+            }}
+            startContent={watch("rolId") ? iconsConfig[allRoles.find((rol: Rol) => rol.id == watch("rolId")).icono] : ""}
+            aria-label="Roles"
+            label="Rol"
+          >
+            {allRoles.map((rol: Rol) => (
+              <SelectItem startContent={iconsConfig[rol.icono]} key={rol.id}>{rol.nombre}</SelectItem>
+            ))}
+          </Select>
+          {errors.rolId && <ErrorMessage>{errors.rolId.message}</ErrorMessage>}
+        </>
+      }
 
       <div className="flex ms-auto gap-4">
         <Button type="button" color="danger" variant="light" onPress={onClose}>
