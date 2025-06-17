@@ -98,15 +98,17 @@ export default function UsuariosForm() {
       {allRoles &&
         <>
           <Select
+            defaultSelectedKeys={["NULO"]}
             onChange={(e) => {
               const rolId = parseInt(e.target.value);
               if (!isNaN(rolId)) setValue("rolId",rolId)
               else setValue("rolId",null)
             }}
-            startContent={watch("rolId") ? iconsConfig[allRoles.find((rol: Rol) => rol.id == watch("rolId")).icono] : ""}
+            startContent={watch("rolId") ? iconsConfig[allRoles.find((rol: Rol) => rol.id == watch("rolId")).icono] : iconsConfig["Ban"]}
             aria-label="Roles"
             label="Rol"
           >
+            <SelectItem startContent={iconsConfig["Ban"]} key={"NULO"}>Sin rol</SelectItem>
             {allRoles.map((rol: Rol) => (
               <SelectItem startContent={iconsConfig[rol.icono]} key={rol.id}>{rol.nombre}</SelectItem>
             ))}
