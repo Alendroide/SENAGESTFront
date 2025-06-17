@@ -5,11 +5,17 @@ import CustomModal from "@/components/organisms/CustomModal";
 import UsuariosForm from "./components/UsuariosForm";
 import usePermissions from "@/hooks/auth/usePermissions";
 import CustomButton from "@/components/atoms/CustomButton";
+import { useState } from "react";
+import { UsuarioUpdate } from "@/types/modules/Usuario";
+import UsuariosUpdateForm from "./components/UsuariosUpdateForm";
 
 export default function UsuariosPage() {
   const { hasPermission } = usePermissions();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [selectedData, setSelectedData] = useState<UsuarioUpdate | null>(null);
 
   return (
     <>
@@ -25,12 +31,16 @@ export default function UsuariosPage() {
       <CustomModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        title="Crear usuario"
+        title={selectedId ? "Editar usuario" : "Crear usuario"}
       >
-        <UsuariosForm />
+        {selectedId && selectedData ?
+          <UsuariosUpdateForm selectedId={selectedId} selectedData={selectedData} setSelectedId={setSelectedId} setSelectedData={setSelectedData}/>
+            :                
+          <UsuariosForm />
+        }
       </CustomModal>
 
-      <UsuariosTable />
+      <UsuariosTable setSelectedId={setSelectedId} setSelectedData={setSelectedData} onOpen={onOpen}/>
     </>
   );
 }
