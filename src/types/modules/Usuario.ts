@@ -14,3 +14,14 @@ export const UsuarioSchema = z.object({
 })
 
 export type Usuario = z.infer<typeof UsuarioSchema>
+
+export const UsuarioUpdateSchema = z.object({
+    primerNombre: z.string({required_error:"Ingrese un nombre"}).min(3,"Al menos 3 caractéres").max(20,"Máximo 20 caracteres"),
+    segundoNombre: z.string().optional().nullable(),
+    primerApellido: z.string({required_error:"Ingrese un nombre"}).min(3,"Al menos 3 caractéres").max(20,"Máximo 20 caracteres"),
+    segundoApellido: z.string().optional().nullable(),
+    fichaId: z.number({required_error:"Ingrese un ID ficha"}).optional().nullable(),
+    rolId: z.number({required_error:"Ingrese un rol"}).optional().nullable(),
+})
+
+export type UsuarioUpdate = z.infer<typeof UsuarioUpdateSchema>
