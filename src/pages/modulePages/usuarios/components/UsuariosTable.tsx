@@ -4,6 +4,7 @@ import useUsuario from "@/hooks/default/useUsuario";
 import { Usuario as IncompleteUsuario, UsuarioUpdate } from "@/types/modules/Usuario";
 import {
   Pagination,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -29,7 +30,7 @@ export default function UsuariosTable({
 }: props) {
 
   const { hasPermission } = usePermissions();
-  const { users, isLoading, isError, error, setPage, totalPages } = useUsuario();
+  const { users, isLoading, isError, error, setPage, totalPages, updateStatus } = useUsuario();
 
   function handleEdit(usuario: Usuario ) {
     setSelectedId(usuario.id as number);
@@ -77,13 +78,16 @@ export default function UsuariosTable({
                 <TableCell>{user.correo}</TableCell>
                 <TableCell>{user.fichaId}</TableCell>
                 <TableCell>{format(user.fechaNacimiento, "dd/MM/yyyy")}</TableCell>
-                <TableCell>
+                <TableCell className="flex gap-2">
                   {hasPermission(16) && (
                     <Pencil
                       onClick={() => handleEdit({...user})}
                       className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"
                     />
                   )}
+                  {hasPermission(17) &&
+                    <Switch onChange={() => updateStatus(user.id)} color="success" defaultSelected={user.estado} isDisabled={user.id === 1} />
+                  }
                 </TableCell>
               </TableRow>
           )})}

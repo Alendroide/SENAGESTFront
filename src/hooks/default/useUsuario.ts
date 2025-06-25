@@ -61,6 +61,21 @@ export default function useUsuario(){
         }
     }
 
-    return { users, isLoading, isError, error, setPage, totalPages, createUser, updateUser };
+    async function updateStatus(id: number) {
+        try{
+            const response = await axiosAPI.patch(`usuarios/status/${id}`);
+            const updatedRecord = response.data.data;
+            queryClient.invalidateQueries({
+                queryKey: ["users"],
+                exact: false
+            });
+            return updatedRecord;
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+    return { users, isLoading, isError, error, setPage, totalPages, createUser, updateUser, updateStatus };
 
 }

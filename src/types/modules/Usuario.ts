@@ -10,7 +10,8 @@ export const UsuarioSchema = z.object({
     fechaNacimiento: z.string({required_error:"Ingrese una fecha"}),
     fichaId: z.number({required_error:"Ingrese un ID ficha"}).optional().nullable(),
     rolId: z.number({required_error:"Ingrese un rol"}).optional().nullable(),
-    img: z.any().optional()
+    img: z.any().optional(),
+    estado: z.boolean().default(true)
 })
 
 export type Usuario = z.infer<typeof UsuarioSchema>
