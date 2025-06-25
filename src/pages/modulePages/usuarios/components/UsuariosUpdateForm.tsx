@@ -89,7 +89,7 @@ export default function UsuariosUpdateForm({
       {allRoles &&
         <>
           <Select
-            defaultSelectedKeys={selectedData.rolId ? [`${selectedData.rolId}`] : undefined}
+            defaultSelectedKeys={selectedData.rolId ? [`${selectedData.rolId}`] : ["NULO"]}
             onChange={(e) => {
               const rolId = parseInt(e.target.value);
               if (!isNaN(rolId)) setValue("rolId",rolId)
