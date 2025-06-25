@@ -5,6 +5,7 @@ import useModulo from "@/hooks/default/useModulo";
 import { Module } from "@/types/modules/Module";
 import {
   Pagination,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -23,7 +24,7 @@ interface props {
 export default function ModulesTable({ onOpen, setSelectedId, setSelectedData }: props) {
 
   const { hasPermission } = usePermissions();
-  const { modules, isLoading, isError, error, totalPages, setPage } = useModulo();
+  const { modules, isLoading, isError, error, totalPages, setPage, updateStatus } = useModulo();
 
   function handleEdit(module: Module & { id: number }) {
     setSelectedId(module.id);
@@ -62,9 +63,12 @@ export default function ModulesTable({ onOpen, setSelectedId, setSelectedData }:
               <TableCell>{iconsConfig[module.icono]}</TableCell>
               <TableCell>{module.nombre}</TableCell>
               <TableCell>{module.descripcion}</TableCell>
-              <TableCell>
+              <TableCell className="flex gap-2">
                 {hasPermission(3) &&
                   <Pencil onClick={() => handleEdit(module)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer" />
+                }
+                {hasPermission(4) &&
+                  <Switch onChange={() => updateStatus(module.id)} color="success" defaultSelected={module.estado} isDisabled={module.id === 1} />
                 }
               </TableCell>
             </TableRow>

@@ -57,6 +57,21 @@ export default function useModulo() {
     }
   }
 
+  async function updateStatus(id: number) {
+    try{
+      const response = await axiosAPI.patch(`modulos/status/${id}`);
+      const updatedRecord = response.data.data;
+      queryClient.invalidateQueries({
+        queryKey: ["modules"],
+        exact: false
+      });
+      return updatedRecord;
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
   return {
     modules,
     isLoading,
@@ -66,5 +81,6 @@ export default function useModulo() {
     updateModule,
     setPage,
     totalPages,
+    updateStatus
   };
 }
