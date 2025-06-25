@@ -8,6 +8,7 @@ import {
   Pagination,
   Select,
   SelectItem,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -22,6 +23,7 @@ type Permiso = {
   nombre: string;
   descripcion: string;
   tipo: string;
+  estado: boolean;
 };
 
 interface props {
@@ -53,6 +55,7 @@ export default function PermisosTable({
     modules,
     selectedModule,
     setSelectedModule,
+    updateStatus
   } = usePermiso();
 
   return (
@@ -118,13 +121,16 @@ export default function PermisosTable({
                         {permiso.nombre}
                       </TableCell>
                       <TableCell>{permiso.descripcion}</TableCell>
-                      <TableCell>
+                      <TableCell className="flex gap-2">
                         {hasPermission(7) && (
                           <Pencil
                             onClick={() => handleEdit(permiso)}
                             className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"
                           />
                         )}
+                        {hasPermission(8) &&
+                          <Switch onChange={() => updateStatus(permiso.id)} color="success" defaultSelected={permiso.estado} />
+                        }
                       </TableCell>
                     </TableRow>
                   ))

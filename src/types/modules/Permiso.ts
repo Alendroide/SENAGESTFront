@@ -5,6 +5,7 @@ export const PermisoSchema = z.object({
     descripcion : z.string().min(10,"Ingrese mínimo 10 caracteres"),
     tipo : z.string({required_error:"Ingrese un tipo"}).min(1,"Tipo requerido"),
     rutaId : z.number({required_error:"Ingrese un módulo",invalid_type_error:"Ingrese un valor"}),
+    estado: z.boolean().default(true)
 })
 
 export type Permiso = z.infer<typeof PermisoSchema>

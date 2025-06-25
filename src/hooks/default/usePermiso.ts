@@ -72,5 +72,20 @@ export default function usePermiso(){
     }
   }
 
-    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules, updatePermiso };
+  async function updateStatus(id: number) {
+    try{
+      const response = await axiosAPI.patch(`permisos/status/${id}`);
+      const updatedRecord = response.data.data;
+      queryClient.invalidateQueries({
+        queryKey: ["permisos"],
+        exact: false
+      });
+      return updatedRecord;
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules, updatePermiso, updateStatus };
 }
