@@ -5,6 +5,7 @@ import useRol from "@/hooks/default/useRol";
 import { Rol } from "@/types/modules/Rol";
 import {
   Pagination,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -27,7 +28,7 @@ export default function RolesTable({
 }: props) {
   const { hasPermission } = usePermissions();
 
-  const { roles, isLoading, isError, error, totalPages, setPage } = useRol();
+  const { roles, isLoading, isError, error, totalPages, setPage, updateStatus } = useRol();
 
   function handleEdit(rol: Rol) {
     setSelectedId(rol.id as number);
@@ -60,16 +61,19 @@ export default function RolesTable({
               <TableCell colSpan={3}>Error: {error?.message}</TableCell>
             </TableRow>
           )}
-          {roles?.map((rol: Rol) => (
+          {roles?.map((rol: Rol & { id: number} ) => (
             <TableRow key={rol.id}>
               <TableCell className="flex">
                 <span className="me-4">{iconsConfig[rol.icono]}</span>
                 {rol.nombre}
               </TableCell>
               <TableCell>{rol.descripcion}</TableCell>
-              <TableCell>
+              <TableCell className="flex gap-2">
                 {hasPermission(12) &&
                   <Pencil onClick={() => handleEdit(rol)} className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer" />
+                }
+                {hasPermission(13) &&
+                  <Switch onChange={() => updateStatus(rol.id)} color="success" defaultSelected={rol.estado} />
                 }
               </TableCell>
             </TableRow>
