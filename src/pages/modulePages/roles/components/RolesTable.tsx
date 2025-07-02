@@ -1,4 +1,5 @@
 import LoadingSpinner from "@/components/atoms/LoadingSpinner";
+import SearchInput from "@/components/molecules/SearchInput";
 import { iconsConfig } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useRol from "@/hooks/default/useRol";
@@ -28,7 +29,7 @@ export default function RolesTable({
 }: props) {
   const { hasPermission } = usePermissions();
 
-  const { roles, isLoading, isError, error, totalPages, setPage, updateStatus } = useRol();
+  const { roles, isLoading, isError, error, totalPages, setPage, updateStatus, setSearch } = useRol();
 
   function handleEdit(rol: Rol) {
     setSelectedId(rol.id as number);
@@ -38,6 +39,7 @@ export default function RolesTable({
 
   return (
     <>
+      <SearchInput setValue={setSearch} />
       <Table aria-label="TablaRoles">
         <TableHeader>
           <TableColumn>Nombre</TableColumn>

@@ -8,11 +8,12 @@ export default function useRol(){
     const queryClient = useQueryClient();
 
     const [page,setPage] = useState(1);
+    const [search,setSearch] = useState<string>("");
     const [totalPages,setTotalPages] = useState(1);
 
     async function getRoles(){
         try{
-            const {data} = await axiosAPI.get(`roles?page=${page}`);
+            const {data} = await axiosAPI.get(`roles?page=${page}&search=${search}`);
             setTotalPages(data.totalPages);
             return data.data;
         }
@@ -23,7 +24,7 @@ export default function useRol(){
     }
 
     const {data : roles, isLoading, isError, error} = useQuery({
-        queryKey : ["roles",page],
+        queryKey : ["roles",page,search],
         queryFn : getRoles
     })
 
@@ -89,5 +90,5 @@ export default function useRol(){
         }
     }
 
-    return {roles, isLoading, isError, error, createRol, setPage, totalPages, updateRol, allRoles, updateStatus}
+    return {roles, isLoading, isError, error, createRol, setPage, totalPages, updateRol, allRoles, updateStatus, setSearch}
 }
