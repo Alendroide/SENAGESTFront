@@ -1,4 +1,5 @@
 import LoadingSpinner from "@/components/atoms/LoadingSpinner";
+import SearchInput from "@/components/molecules/SearchInput";
 import { iconsConfig, typeIcons } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import usePermiso from "@/hooks/default/usePermiso";
@@ -55,7 +56,8 @@ export default function PermisosTable({
     modules,
     selectedModule,
     setSelectedModule,
-    updateStatus
+    updateStatus,
+    setSearch
   } = usePermiso();
 
   return (
@@ -101,10 +103,11 @@ export default function PermisosTable({
       {isLoading && <LoadingSpinner/>}
       {isError && !isNaN(selectedModule) && <p>Error: {error?.message}</p>}
 
-      {modulo && !isNaN(selectedModule) && (
+      {!isNaN(selectedModule) && (
         <>
-          <div key={modulo.id}>
-            <Table aria-label={`Tabla${modulo.nombre}`}>
+          <div>
+            <SearchInput setValue={setSearch}/>
+            <Table aria-label={`TablaPermisos`}>
               <TableHeader>
                 <TableColumn>Nombre</TableColumn>
                 <TableColumn>Descripción</TableColumn>
@@ -113,7 +116,8 @@ export default function PermisosTable({
                 </TableColumn>
               </TableHeader>
               <TableBody>
-                {modulo.permisos?.length ? (
+                {modulo &&
+                modulo.permisos?.length ? (
                   modulo.permisos.map((permiso: Permiso) => (
                     <TableRow key={permiso.id}>
                       <TableCell className="flex gap-2">

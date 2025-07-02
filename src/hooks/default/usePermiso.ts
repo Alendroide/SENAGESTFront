@@ -10,6 +10,7 @@ export default function usePermiso(){
     const [selectedModule,setSelectedModule] = useState(1);
     const [modules,setModules] = useState<Module[] | null>(null);
     const [page, setPage] = useState(1);
+    const [search, setSearch] = useState<string>("");
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(()=>{
@@ -28,7 +29,7 @@ export default function usePermiso(){
 
     async function getPermisos(){
         try{
-            const {data} = await axiosAPI.get(`permisos/module/${selectedModule}?page=${page}`);
+            const {data} = await axiosAPI.get(`permisos/module/${selectedModule}?page=${page}&search=${search}`);
             setTotalPages(data.totalPages);
             return data.data;
         }
@@ -38,7 +39,7 @@ export default function usePermiso(){
     }
 
     const {data : moduleWithPermisos, isLoading, isError, error} = useQuery({
-        queryKey: ['permisos',selectedModule,page],
+        queryKey: ['permisos',selectedModule,page,search],
         queryFn: getPermisos,
     });
 
@@ -87,5 +88,5 @@ export default function usePermiso(){
     }
   }
 
-    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules, updatePermiso, updateStatus };
+    return { moduleWithPermisos, isLoading, isError, error, createPermiso, selectedModule, setSelectedModule, setPage, totalPages, modules, updatePermiso, updateStatus, setSearch };
 }
