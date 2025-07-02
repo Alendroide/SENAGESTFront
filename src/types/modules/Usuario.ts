@@ -11,7 +11,7 @@ export const UsuarioSchema = z.object({
     fichaId: z.number({required_error:"Ingrese un ID ficha"}).optional().nullable(),
     rolId: z.number({required_error:"Ingrese un rol"}).optional().nullable(),
     img: z.any().optional(),
-    estado: z.boolean().default(true)
+    estado: z.boolean().default(true).optional()
 })
 
 export type Usuario = z.infer<typeof UsuarioSchema>
