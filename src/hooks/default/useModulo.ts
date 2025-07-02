@@ -6,12 +6,13 @@ import { useState } from "react";
 export default function useModulo() {
 
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const [totalPages, setTotalPages] = useState(1);
   const queryClient = useQueryClient();
 
   async function getModules() {
     try {
-      const { data } = await axiosAPI.get(`modulos?page=${page}`);
+      const { data } = await axiosAPI.get(`modulos?page=${page}&search=${search}`);
       setTotalPages(data.totalPages);
       return data.data;
     } catch (error) {
@@ -25,7 +26,7 @@ export default function useModulo() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["modules", page],
+    queryKey: ["modules", page, search],
     queryFn: getModules,
   });
 
@@ -81,6 +82,7 @@ export default function useModulo() {
     updateModule,
     setPage,
     totalPages,
-    updateStatus
+    updateStatus,
+    setSearch
   };
 }

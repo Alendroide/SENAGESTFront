@@ -1,4 +1,5 @@
 import LoadingSpinner from "@/components/atoms/LoadingSpinner";
+import SearchInput from "@/components/molecules/SearchInput";
 import { iconsConfig } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useModulo from "@/hooks/default/useModulo";
@@ -24,7 +25,7 @@ interface props {
 export default function ModulesTable({ onOpen, setSelectedId, setSelectedData }: props) {
 
   const { hasPermission } = usePermissions();
-  const { modules, isLoading, isError, error, totalPages, setPage, updateStatus } = useModulo();
+  const { modules, isLoading, isError, error, totalPages, setPage, updateStatus, setSearch } = useModulo();
 
   function handleEdit(module: Module & { id: number }) {
     setSelectedId(module.id);
@@ -34,6 +35,7 @@ export default function ModulesTable({ onOpen, setSelectedId, setSelectedData }:
 
   return (
     <>
+      <SearchInput setValue={setSearch} />
       <Table aria-label="ModulesTable">
         <TableHeader>
           <TableColumn>Ícono</TableColumn>
