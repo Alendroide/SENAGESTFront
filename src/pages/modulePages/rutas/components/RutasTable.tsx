@@ -1,4 +1,5 @@
 import LoadingSpinner from "@/components/atoms/LoadingSpinner";
+import SearchInput from "@/components/molecules/SearchInput";
 import { iconsConfig } from "@/config/icons";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useRuta from "@/hooks/default/useRuta";
@@ -41,7 +42,8 @@ export default function PermisosTable({
     modules,
     selectedModule,
     setSelectedModule,
-    updateStatus
+    updateStatus,
+    setSearch
   } = useRuta();
 
   function handleEdit(ruta: Ruta) {
@@ -91,10 +93,11 @@ export default function PermisosTable({
       </div>
       {isLoading && <LoadingSpinner/>}
       {isError && !isNaN(selectedModule) && <p>Error: {error?.message}</p>}
-      {modulo && !isNaN(selectedModule) && (
+      {!isNaN(selectedModule) && (
         <>
-          <div key={modulo.id}>
-            <Table aria-label={`Tabla${modulo.nombre}`}>
+          <div>
+            <SearchInput setValue={setSearch} />
+            <Table aria-label={`TablaRutas`}>
               <TableHeader>
                 <TableColumn>Nombre</TableColumn>
                 <TableColumn>Ruta</TableColumn>
@@ -103,7 +106,7 @@ export default function PermisosTable({
                 </TableColumn>
               </TableHeader>
               <TableBody>
-                {modulo.rutas?.length ? (
+                {modulo && modulo.rutas?.length ? (
                   modulo.rutas.map((ruta: Ruta & {id: number, estado: boolean}) => (
                     <TableRow key={ruta.id}>
                       <TableCell>

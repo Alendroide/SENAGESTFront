@@ -11,6 +11,7 @@ export default function useRuta() {
   const [selectedModule, setSelectedModule] = useState(1);
   const [modules, setModules] = useState<Module[] | null>(null);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState<string>("");
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export default function useRuta() {
 
       async function getRutas(){
         try{
-            const {data} = await axiosAPI.get(`rutas/module/${selectedModule}?page=${page}`);
+            const {data} = await axiosAPI.get(`rutas/module/${selectedModule}?page=${page}&search=${search}`);
             setTotalPages(data.totalPages);
             return data.data;
         }
@@ -47,7 +48,7 @@ export default function useRuta() {
     }
 
     const {data : moduleWithRutas, isLoading, isError, error} = useQuery({
-        queryKey: ['rutas',selectedModule,page],
+        queryKey: ['rutas',selectedModule,page,search],
         queryFn: getRutas,
     });
 
@@ -95,5 +96,5 @@ export default function useRuta() {
     }
   }
 
-  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta, getAllRutasByModule, updateRuta, updateStatus };
+  return { moduleWithRutas, isLoading, isError, error, selectedModule, setSelectedModule, setPage, totalPages, modules, createRuta, getAllRutasByModule, updateRuta, updateStatus, setSearch };
 }
