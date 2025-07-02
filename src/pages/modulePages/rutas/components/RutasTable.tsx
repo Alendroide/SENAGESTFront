@@ -8,6 +8,7 @@ import {
   Pagination,
   Select,
   SelectItem,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -40,6 +41,7 @@ export default function PermisosTable({
     modules,
     selectedModule,
     setSelectedModule,
+    updateStatus
   } = useRuta();
 
   function handleEdit(ruta: Ruta) {
@@ -102,7 +104,7 @@ export default function PermisosTable({
               </TableHeader>
               <TableBody>
                 {modulo.rutas?.length ? (
-                  modulo.rutas.map((ruta: Ruta) => (
+                  modulo.rutas.map((ruta: Ruta & {id: number, estado: boolean}) => (
                     <TableRow key={ruta.id}>
                       <TableCell>
                         <div className="flex items-center gap-4">
@@ -114,13 +116,16 @@ export default function PermisosTable({
                         baseURL/{(modulo.nombre as string).toLowerCase()}/
                         {ruta.ruta}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="flex gap-2">
                         {hasPermission(20) && (
                           <Pencil
                             onClick={() => handleEdit({...ruta, moduloId: modulo.id})}
                             className="p-1 w-8 h-8 border-2 border-solid border-warning-500 rounded-lg text-warning-500 cursor-pointer"
                           />
                         )}
+                        {hasPermission(21) &&
+                          <Switch onChange={() => updateStatus(ruta.id)} color="success" defaultSelected={ruta.estado} />
+                        }
                       </TableCell>
                     </TableRow>
                   ))
