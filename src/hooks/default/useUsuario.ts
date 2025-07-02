@@ -8,11 +8,12 @@ export default function useUsuario(){
     const queryClient = useQueryClient();
 
     const [page,setPage] = useState(1);
+    const [search,setSearch] = useState<string>("");
     const [totalPages,setTotalPages] = useState(1);
 
     async function getUsers() {
        try{
-            const {data} = await axiosAPI.get(`usuarios?page=${page}`);
+            const {data} = await axiosAPI.get(`usuarios?page=${page}&search=${search}`);
             setTotalPages(data.totalPages);
             return data.data;
         }
@@ -23,7 +24,7 @@ export default function useUsuario(){
     }
 
     const {data: users,isLoading,isError,error} = useQuery({
-        queryKey: ["users",page],
+        queryKey: ["users",page,search],
         queryFn: getUsers
     });
 
@@ -76,6 +77,6 @@ export default function useUsuario(){
         }
     }
 
-    return { users, isLoading, isError, error, setPage, totalPages, createUser, updateUser, updateStatus };
+    return { users, isLoading, isError, error, setPage, totalPages, createUser, updateUser, updateStatus, setSearch };
 
 }

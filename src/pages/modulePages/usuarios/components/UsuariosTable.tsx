@@ -1,4 +1,5 @@
 import LoadingSpinner from "@/components/atoms/LoadingSpinner";
+import SearchInput from "@/components/molecules/SearchInput";
 import usePermissions from "@/hooks/auth/usePermissions";
 import useUsuario from "@/hooks/default/useUsuario";
 import { Usuario as IncompleteUsuario, UsuarioUpdate } from "@/types/modules/Usuario";
@@ -30,7 +31,7 @@ export default function UsuariosTable({
 }: props) {
 
   const { hasPermission } = usePermissions();
-  const { users, isLoading, isError, error, setPage, totalPages, updateStatus } = useUsuario();
+  const { users, isLoading, isError, error, setPage, totalPages, updateStatus, setSearch } = useUsuario();
 
   function handleEdit(usuario: Usuario ) {
     setSelectedId(usuario.id as number);
@@ -40,6 +41,7 @@ export default function UsuariosTable({
 
   return (
     <>
+      <SearchInput setValue={setSearch}/>
       <Table aria-label="UsuariosTable">
         <TableHeader>
           <TableColumn>Foto</TableColumn>
