@@ -11,6 +11,7 @@ import LoadingLayout from "./layouts/LoadingLayout";
 import LayoutProvider from "./providers/LayoutProvider";
 import ForgotPasswordForm from "./pages/defaultPages/ForgotPassword";
 import ForgotPasswordOk from "./pages/defaultPages/ForgotPasswordOk";
+import ResetPasswordPage from "./pages/defaultPages/ResetPasswordPage";
 
 function App() {
   const { appLoading, isAuthenticated, modules } = AuthData();
@@ -24,6 +25,7 @@ function App() {
         <Route element={<LoginPage />} path="/login" />
         <Route element={<ForgotPasswordForm/>} path="/forgot-password" />
         <Route element={<ForgotPasswordOk/>} path="/forgot-password/ok" />
+        <Route element={<ResetPasswordPage/>} path="/reset-password" />
         <Route element={<NotFoundPage />} path="*" />
       </Routes>
     );
