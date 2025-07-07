@@ -94,7 +94,7 @@ export default function UsuariosUpdateForm({
             onChange={(e) => {
               const fichaId = parseInt(e.target.value);
               if (!isNaN(fichaId)) setValue("fichaId",fichaId)
-              else setValue("fichaId",undefined)
+              else setValue("fichaId",null)
             }}
             aria-label="ID Grupo"
             label="ID Grupo"
