@@ -33,11 +33,14 @@ axiosAPI.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // In case we got a 401 Status, return to /login only if you aren't there already
       if (window.location.pathname !== '/login') {
+        cookies.remove("token");
+        alert("La sesión ha expirado, se redireccionará al login");
         window.location.href = '/login';
       }
     }
     if (error.response && error.response.status === 403) {
-        window.location.href = '/login';
+        alert("No tienes permiso para realizar esta acción! Reobteniendo permisos...");
+        window.location.reload();
     }
     return Promise.reject(error);
   }
