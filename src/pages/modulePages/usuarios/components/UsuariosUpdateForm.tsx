@@ -9,6 +9,10 @@ import useRol from "@/hooks/default/useRol";
 import { Rol } from "@/types/modules/Rol";
 import { iconsConfig } from "@/config/icons";
 
+type Ficha = {
+  codigo: number
+}
+
 interface props {
   selectedId: number;
   selectedData: UsuarioUpdate;
@@ -23,7 +27,7 @@ export default function UsuariosUpdateForm({
   setSelectedId,
 }: props) {
 
-  const { updateUser } = useUsuarios();
+  const { updateUser, fichas } = useUsuarios();
   const { allRoles } = useRol();
 
   const {
@@ -83,8 +87,26 @@ export default function UsuariosUpdateForm({
         {errors.primerApellido && <ErrorMessage>{errors.primerApellido.message}</ErrorMessage>}
         {errors.segundoApellido && <ErrorMessage>{errors.segundoApellido.message}</ErrorMessage>}
 
-      <Input {...register("fichaId", { valueAsNumber: true })} label="ID Grupo" />
-      {errors.fichaId && <ErrorMessage>{errors.fichaId.message}</ErrorMessage>}
+      {fichas &&
+        <>
+          <Select
+            defaultSelectedKeys={selectedData.fichaId ? [`${selectedData.fichaId}`] : ["NULO"]}
+            onChange={(e) => {
+              const fichaId = parseInt(e.target.value);
+              if (!isNaN(fichaId)) setValue("fichaId",fichaId)
+              else setValue("fichaId",undefined)
+            }}
+            aria-label="ID Grupo"
+            label="ID Grupo"
+          >
+            <SelectItem key={"NULO"}>Sin ficha</SelectItem>
+            {fichas.map((ficha: Ficha) => (
+              <SelectItem key={ficha.codigo.toString()}>{ficha.codigo.toString()}</SelectItem>
+            ))}
+          </Select>
+          {errors.fichaId && <ErrorMessage>{errors.fichaId.message}</ErrorMessage>}
+        </>
+      }
 
       {allRoles &&
         <>

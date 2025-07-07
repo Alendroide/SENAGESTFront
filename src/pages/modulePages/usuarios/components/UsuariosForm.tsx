@@ -11,8 +11,12 @@ import useRol from "@/hooks/default/useRol";
 import { Rol } from "@/types/modules/Rol";
 import { iconsConfig } from "@/config/icons";
 
+type Ficha = {
+  codigo: number
+}
+
 export default function UsuariosForm() {
-  const { createUser } = useUsuarios();
+  const { createUser, fichas } = useUsuarios();
   const { allRoles } = useRol();
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -92,8 +96,26 @@ export default function UsuariosForm() {
       <Input {...register("fechaNacimiento")} labelPlacement="outside" label="Fecha de Nacimiento" type="date" />
       {errors.fechaNacimiento && <ErrorMessage>{errors.fechaNacimiento.message}</ErrorMessage>}
 
-      <Input {...register("fichaId", { valueAsNumber: true })} label="ID Grupo" />
-      {errors.fichaId && <ErrorMessage>{errors.fichaId.message}</ErrorMessage>}
+      {fichas &&
+        <>
+          <Select
+            defaultSelectedKeys={["NULO"]}
+            onChange={(e) => {
+              const fichaId = parseInt(e.target.value);
+              if (!isNaN(fichaId)) setValue("fichaId",fichaId)
+              else setValue("fichaId",undefined)
+            }}
+            aria-label="ID Grupo"
+            label="ID Grupo"
+          >
+            <SelectItem key={"NULO"}>Sin ficha</SelectItem>
+            {fichas.map((ficha: Ficha) => (
+              <SelectItem key={ficha.codigo}>{ficha.codigo}</SelectItem>
+            ))}
+          </Select>
+          {errors.fichaId && <ErrorMessage>{errors.fichaId.message}</ErrorMessage>}
+        </>
+      }
 
       {allRoles &&
         <>
