@@ -8,7 +8,7 @@ export const UsuarioSchema = z.object({
     segundoApellido: z.string().optional().nullable(),
     correo: z.string({required_error:"Ingrese un correo"}).email(),
     fechaNacimiento: z.string({required_error:"Ingrese una fecha"}),
-    fichaId: z.number({required_error:"Ingrese un ID ficha"}).optional().nullable(),
+    fichaId: z.number({required_error:"Ingrese una ficha"}).optional().nullable(),
     rolId: z.number({required_error:"Ingrese un rol"}).optional().nullable(),
     img: z.any().optional(),
     estado: z.boolean().default(true).optional()

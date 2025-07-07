@@ -77,6 +77,21 @@ export default function useUsuario(){
         }
     }
 
-    return { users, isLoading, isError, error, setPage, totalPages, createUser, updateUser, updateStatus, setSearch };
+    async function getFichas() {
+        try{
+            const response = await axiosAPI.get(`fichas/all`);
+            return response.data.data;
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+    const {data: fichas, isLoading: isFichasLoading, isError: isFichasError, error: fichasError} = useQuery({
+        queryKey: ["fichas"],
+        queryFn: getFichas
+    })
+
+    return { users, isLoading, isError, error, setPage, totalPages, createUser, updateUser, updateStatus, setSearch, fichas, isFichasLoading, isFichasError, fichasError };
 
 }
