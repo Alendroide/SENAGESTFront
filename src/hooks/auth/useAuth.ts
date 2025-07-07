@@ -69,5 +69,27 @@ export default function useAuth(){
         navigate('/');
     }
 
-    return { login, logout }
+    async function forgotPasswordPost(email: string){
+        try{
+            const response = await axiosAPI.post('auth/forgot-password',{email});
+            return response.data.status;
+        }
+        catch(error: any){
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async function resetPasswordPost(password: string, token: string){
+        try{
+            const response = await axiosAPI.post('auth/reset-password',{password, token});
+            return response.data.status;
+        }
+        catch(error: any){
+            console.error(error);
+            return error.response.data.status
+        }
+    }
+
+    return { login, logout, forgotPasswordPost, resetPasswordPost}
 }

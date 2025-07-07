@@ -1,8 +1,35 @@
 import { Mail } from "lucide-react";
 import { Input } from "@heroui/input";
 import CustomButton from "@/components/atoms/CustomButton";
+import { useState } from "react";
+import useAuth from "@/hooks/auth/useAuth";
+import { addToast } from "@heroui/toast";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgotPasswordForm() {
+  const navigate = useNavigate();
+  const {forgotPasswordPost} = useAuth();
+  const [email, setEmail] = useState<string>("");
+  async function handleSubmit(){
+    try{
+      await forgotPasswordPost(email);
+      addToast({
+        title: "E-mail enviado",
+        description: "Revisa tu correo",
+        color: "success"
+      });
+      navigate('ok');
+    }
+    catch(error: any){
+      console.error(error);
+      addToast({
+        title: error.response.data.message,
+        description: "Hubo un error enviando el E-mail",
+        color: "danger"
+      })
+    }
+  }
+
   return (
     <div className="relative min-h-screen bg-gray-100 flex items-center justify-center">
       <img
@@ -27,10 +54,11 @@ export default function ForgotPasswordForm() {
             type="email"
             placeholder="Correo electrónico"
             className="pl-10"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
-        <CustomButton className="w-full">
+        <CustomButton className="w-full" onPress={handleSubmit}>
           Enviar enlace de recuperación
         </CustomButton>
       </div>

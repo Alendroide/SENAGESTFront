@@ -9,6 +9,8 @@ import { routesConfig } from "./config/routes";
 import DefaultLayout from "./layouts/DefaultLayout";
 import LoadingLayout from "./layouts/LoadingLayout";
 import LayoutProvider from "./providers/LayoutProvider";
+import ForgotPasswordForm from "./pages/defaultPages/ForgotPassword";
+import ForgotPasswordOk from "./pages/defaultPages/ForgotPasswordOk";
 
 function App() {
   const { appLoading, isAuthenticated, modules } = AuthData();
@@ -20,6 +22,8 @@ function App() {
       <Routes>
         <Route element={<Navigate to="/login" />} path="/" />
         <Route element={<LoginPage />} path="/login" />
+        <Route element={<ForgotPasswordForm/>} path="/forgot-password" />
+        <Route element={<ForgotPasswordOk/>} path="/forgot-password/ok" />
         <Route element={<NotFoundPage />} path="*" />
       </Routes>
     );
