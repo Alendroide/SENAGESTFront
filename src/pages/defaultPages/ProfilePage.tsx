@@ -1,12 +1,31 @@
+import LoadingSpinner from "@/components/atoms/LoadingSpinner";
 import { iconsConfig, typeIcons } from "@/config/icons";
 import useProfile from "@/hooks/auth/useProfile";
 import { Divider } from "@heroui/react";
 import { format } from "date-fns";
 import { es } from 'date-fns/locale';
+import { Pencil } from "lucide-react";
 
 export default function ProfilePage() {
   const baseURL = import.meta.env.VITE_API_URL;
-  const { profile } = useProfile();
+  const { profile, isLoading, isError, error, updateProfilePictude } = useProfile();
+
+  async function handleProfileChange(e: any){
+    const file = e.target.files?.[0];
+    if(!file) return;
+    await updateProfilePictude(file);
+  }
+
+  if (isLoading) return (
+    <div className="mt-6">
+      <LoadingSpinner/>
+    </div>
+  )
+  if(isError) return (
+    <div className="mt-6">
+      Ha ocurrido un error al obtener perfil: {error?.message}
+    </div>
+  )
 
   return (
     <div className="flex box-border pt-20">
@@ -16,11 +35,18 @@ export default function ProfilePage() {
 
             {/* Profile */}
             <div className="bg-gray-900 relative rounded-lg lg:w-1/3 lg:rounded-none lg:rounded-tl-lg lg:rounded-bl-lg pb-4">
-              <img
-                src={`${baseURL}uploads/${profile?.img}`}
-                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 h-36 rounded-full mx-auto border-2 border-dashed border-gray-500 shadow-lg"
-                alt="pfp"
-              />
+
+              <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 h-36 rounded-full mx-auto border-2 border-dashed border-gray-500 shadow-lg overflow-hidden">
+                <div className="bg-black group">
+                  <img
+                    src={`${baseURL}uploads/${profile?.img}`}
+                    className="h-36 w-36 transition-all duration-200 group-hover:opacity-80"
+                    alt="pfp"
+                  />
+                  <Pencil className="absolute left-1/2 -translate-x-1/2 text-gray-50 top-1/2 -translate-y-1/2 opacity-0 transition-all duration-200 group-hover:opacity-100" size={64}/>
+                  <input onChange={handleProfileChange} type="file" accept="image/*" className="h-36 w-36 absolute left-0 top-0 rounded-full hover:cursor-pointer opacity-0"/>
+                </div>
+              </div>
 
               <div className="text-white font-light text-center pt-20 pb-6">
                 <p>

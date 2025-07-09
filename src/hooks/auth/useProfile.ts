@@ -1,5 +1,5 @@
 import { axiosAPI } from "@/api/axiosAPI"
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Profile = {
     id: number;
@@ -29,6 +29,8 @@ type Profile = {
 
 export default function useProfile(){
 
+    const queryClient = useQueryClient();
+
     async function getProfile(){
         try{
             const { data } = await axiosAPI.get('usuarios/perfil');
@@ -39,11 +41,23 @@ export default function useProfile(){
         }
     }
 
-    const { data : profile } = useQuery<Profile>({
+    const { data : profile, isLoading, isError, error } = useQuery<Profile>({
         queryKey : ['profile'],
         queryFn : getProfile
     })
 
+    async function updateProfilePictude(file: File){
+        const formData = new FormData();
+        formData.append('img',file);
+        await axiosAPI.post('usuarios/update/profile-picture',formData,{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        queryClient.invalidateQueries({
+            queryKey: ["profile"]
+        });
+    }
 
-    return { profile }
+    return { profile, isLoading, isError, error, updateProfilePictude }
 }
