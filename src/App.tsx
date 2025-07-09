@@ -12,6 +12,7 @@ import LayoutProvider from "./providers/LayoutProvider";
 import ForgotPasswordForm from "./pages/defaultPages/ForgotPassword";
 import ForgotPasswordOk from "./pages/defaultPages/ForgotPasswordOk";
 import ResetPasswordPage from "./pages/defaultPages/ResetPasswordPage";
+import SettingsPage from "./pages/defaultPages/SettingsPage/SettingsPage";
 
 function App() {
   const { appLoading, isAuthenticated, modules } = AuthData();
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route element={<IndexPage />} path="/" />
           <Route element={<ProfilePage />} path="/profile" />
+          <Route element={<SettingsPage/>} path="/settings" />
           {modules &&
             modules.map((module) =>
               module.rutas.map((ruta, index) => {
