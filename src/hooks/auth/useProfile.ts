@@ -22,6 +22,7 @@ type Profile = {
             descripcion: string;
             tipo: string;
         }[];
+        numberOfPermissions: number
     } | undefined;
     estado: boolean;
 }
