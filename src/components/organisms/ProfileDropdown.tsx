@@ -20,13 +20,13 @@ export default function ProfileDropdown() {
                 <Divider />
                 
                 <div onClick={logout}>
-                    <DropdownItem icon={<PowerOff/>} name="Log Off" />
+                    <DropdownItem icon={<PowerOff/>} name="Cerrar sesión" />
                 </div>
 
                 <Divider />
 
                 <Link to="/settings">
-                    <DropdownItem icon={<Settings/>} name="Settings" />
+                    <DropdownItem icon={<Settings/>} name="Configuración" />
                 </Link>
 
             </div>
