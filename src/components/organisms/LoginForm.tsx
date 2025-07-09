@@ -9,10 +9,12 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import { Login, LoginSchema } from '@/types/default/Login';
 import useAuth from '@/hooks/auth/useAuth';
 import { Link } from 'react-router-dom';
+import { Spinner } from '@heroui/react';
+import ErrorMessage from '../atoms/text/ErrorMessage';
 
 export default function LoginForm(){
 
-    const { login } = useAuth();
+    const { login, isLoading, error } = useAuth();
     const { handleSubmit, formState : { errors }, register } = useForm<Login>({resolver : zodResolver(LoginSchema)});
 
     return(
@@ -24,18 +26,19 @@ export default function LoginForm(){
                     {...register('correo')}
                     label="Correo electrónico"
                 />
-                {errors?.correo && <p className='text-red-600'>{errors.correo.message}</p>}
+                {errors?.correo && <ErrorMessage>{errors.correo.message}</ErrorMessage>}
                 <Input
                     {...register('contrasena')}
                     label="Contraseña"
                     type='password'
                 />
-                {errors?.contrasena && <p className='text-red-600'>{errors.contrasena.message}</p>}
+                {errors?.contrasena && <ErrorMessage>{errors.contrasena.message}</ErrorMessage>}
+                {error && <ErrorMessage>{error}</ErrorMessage>}
                 <div className='flex justify-end'>
                     <Link to={'/forgot-password'} className='text-blue-600 my-2 font-light'>Olvidaste tu contraseña?</Link>
                 </div>
                 <div>
-                    <Button type='submit' className='bg-blue-900 text-white text-md font-light w-full'>Iniciar sesión</Button>
+                    <Button type='submit' className='bg-blue-900 text-white text-md font-light w-full'>{isLoading ? <Spinner color='white' className='text-white' /> : `Iniciar sesión`}</Button>
                 </div>
             </form>
         </div>

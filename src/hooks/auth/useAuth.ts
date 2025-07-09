@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from "@/types/default/User";
 import Cookies from 'universal-cookie';
+import { useState } from "react";
 
 const cookies = new Cookies();
 
@@ -15,7 +16,12 @@ export default function useAuth(){
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser, setModules, setPermissions } = AuthData();
 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+
     async function login( loginData : Login){
+        setIsLoading(true);
+        setError("");
         try{
             const { data } = await axiosAPI.post<Partial<LoginResponse>>('auth/login',{
                 correo : loginData.correo,
@@ -39,6 +45,12 @@ export default function useAuth(){
             setModules(modules);
             setPermissions(permissions);
 
+            addToast({
+                title: "Inicio de sesión correcto",
+                description: "Redirigiendo al login",
+                color: "success"
+            })
+
             //Retorno al inicio
             navigate('/');
         }
@@ -51,10 +63,14 @@ export default function useAuth(){
                     description : `${message}`,
                     color : "danger"
                 });
+                setError(message);
             }
             else {
                 console.log(error);
             }
+        }
+        finally{
+            setIsLoading(false);
         }
     }
 
@@ -91,5 +107,5 @@ export default function useAuth(){
         }
     }
 
-    return { login, logout, forgotPasswordPost, resetPasswordPost}
+    return { isLoading, login, logout, forgotPasswordPost, resetPasswordPost, error}
 }
