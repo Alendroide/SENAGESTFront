@@ -1,16 +1,18 @@
 import { Mail } from "lucide-react";
 import { Input } from "@heroui/input";
 import CustomButton from "@/components/atoms/CustomButton";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import useAuth from "@/hooks/auth/useAuth";
 import { addToast } from "@heroui/toast";
 import { useNavigate } from "react-router-dom";
+import { Form } from "@heroui/react";
 
 export default function ForgotPasswordForm() {
   const navigate = useNavigate();
   const {forgotPasswordPost} = useAuth();
   const [email, setEmail] = useState<string>("");
-  async function handleSubmit(){
+  async function handleSubmit(e: FormEvent){
+    e.preventDefault();
     try{
       await forgotPasswordPost(email);
       addToast({
@@ -31,7 +33,7 @@ export default function ForgotPasswordForm() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-100 flex items-center justify-center">
+    <Form onSubmit={handleSubmit} className="relative min-h-screen bg-gray-100 flex items-center justify-center">
       <img
         src="/logodark.png"
         alt="logoSenagest"
@@ -58,10 +60,10 @@ export default function ForgotPasswordForm() {
           />
         </div>
 
-        <CustomButton className="w-full" onPress={handleSubmit}>
+        <CustomButton type="submit" className="w-full">
           Enviar enlace de recuperación
         </CustomButton>
       </div>
-    </div>
+    </Form>
   );
 }
