@@ -31,16 +31,14 @@ axiosAPI.interceptors.response.use(
   (error) => {
 
     if (error.response && error.response.status === 401) {
-      // In case we got a 401 Status, return to /login only if you aren't there already
       if (window.location.pathname !== '/login') {
         cookies.remove("token");
         alert("La sesión ha expirado, se redireccionará al login");
         window.location.href = '/login';
       }
     }
-    if (error.response && error.response.status === 403) {
-        alert("No tienes permiso para realizar esta acción! Reobteniendo permisos...");
-        window.location.reload();
+    if(error.response && error.response.status === 403) {
+      console.log("Se ha ejecutado una función de la cual no se tiene permiso, posiblemente debido a un error del hook hasPermission()");
     }
     return Promise.reject(error);
   }
