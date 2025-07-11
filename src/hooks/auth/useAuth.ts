@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from "@/types/default/User";
 import Cookies from 'universal-cookie';
 import { useState } from "react";
+import { UpdatePassword } from "@/types/default/ResetPassword";
 
 const cookies = new Cookies();
 
@@ -107,5 +108,26 @@ export default function useAuth(){
         }
     }
 
-    return { isLoading, login, logout, forgotPasswordPost, resetPasswordPost, error}
+    async function updatePassword(data: UpdatePassword){
+        try{
+            const response = await axiosAPI.post('auth/update-password',data);
+            addToast({
+                title: "Contraseña actualizada correctamente",
+                description: "Inicie sesión nuevamente para ver los cambios",
+                color: "success"
+            })
+            return response.data;
+        }
+        catch(error: any){
+            console.error(error);
+            addToast({
+                title: "Error actualizando la contraseña",
+                description: error.response.data.message,
+                color: "danger"
+            })
+            return error.response.data.status;
+        }
+    }
+
+    return { isLoading, login, logout, forgotPasswordPost, resetPasswordPost, error, updatePassword}
 }
