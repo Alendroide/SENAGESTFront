@@ -18,17 +18,17 @@ export default function ProfileDropdown() {
                 </Link>
                 
                 <Divider />
-                
-                <div onClick={logout}>
-                    <DropdownItem icon={<PowerOff/>} name="Cerrar sesión" />
-                </div>
-
-                <Divider />
 
                 <Link to="/settings">
                     <DropdownItem icon={<Settings/>} name="Configuración" />
                 </Link>
 
+                <Divider />
+                
+                <div onClick={logout}>
+                    <DropdownItem icon={<PowerOff/>} name="Cerrar sesión" />
+                </div>
+                
             </div>
 
         </div>
